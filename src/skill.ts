@@ -1,195 +1,122 @@
 /**
  * Claude Code Skill Integration
  *
- * This module provides the integration layer for Claude Code skills.
- * It allows invoking the coaching system directly within Claude Code sessions.
+ * This is the main entry point for /coach skill.
+ * It loads context from Obsidian and activates proactive coaching mode.
  */
 
 import { ConfigManager } from './config.js';
 import { ObsidianManager } from './obsidian.js';
-import { Goal } from './models.js';
+import { ContextAnalyzer } from './context.js';
+import { CoachHelpers, formatGoalsList } from './helpers.js';
 
 export interface SkillContext {
-  // Context provided by Claude Code when skill is invoked
   args?: string;
   sessionContext?: string;
 }
 
 /**
  * Main entry point for /coach skill
+ * Loads all context and activates proactive coaching mode
  */
 export async function runCoachSkill(context: SkillContext): Promise<string> {
-  const args = context.args?.trim().toLowerCase() || 'standup';
-
   const config = new ConfigManager();
   const obsidian = new ObsidianManager(config.getGoalsPath(), config.getDailyNotesPath());
-
-  switch (args) {
-    case 'standup':
-      return await handleStandup(obsidian);
-
-    case 'list':
-      return handleList(obsidian);
-
-    case 'goals':
-      return handleGoalSetting();
-
-    default:
-      if (args.startsWith('review ')) {
-        const goalId = args.replace('review ', '').trim();
-        return await handleReview(goalId, obsidian);
-      }
-      return getHelpText();
-  }
-}
-
-async function handleStandup(obsidian: ObsidianManager): Promise<string> {
-  const goals = obsidian.loadGoals();
-  const activeGoals = goals.filter(g =>
-    g.metadata.status === 'in-progress' || g.metadata.status === 'blocked'
+  const analyzer = new ContextAnalyzer(
+    config.getDailyNotesPath(),
+    config.getGoalsPath(),
+    config.getProjectsPath()
   );
 
-  if (activeGoals.length === 0) {
-    return `No active goals found. Use \`/coach goals\` to set some goals first.`;
-  }
+  // Load all goals and recent activity
+  const goals = obsidian.loadGoals();
+  const recentActivity = analyzer.buildContext(goals);
+  const suggestions = analyzer.analyzeActivity(goals, recentActivity.dailyNotes);
 
-  // Return context for Claude to conduct standup
-  const goalsSummary = activeGoals.map(g => {
-    const blockers = g.blockers.length ? `\n  **Blockers:** ${g.blockers.join(', ')}` : '';
-    return `### ${g.title}
-- **Status:** ${g.metadata.status}
-- **Progress:** ${g.metadata.progress}%
-- **Target:** ${g.metadata.target || 'Not set'}${blockers}
-- **Next Actions:** ${g.nextActions.slice(0, 3).join(', ') || 'None'}`;
-  }).join('\n\n');
+  // Build rich context message
+  return buildCoachingContext(goals, recentActivity, suggestions);
+}
 
-  return `# Daily Standup - ${new Date().toISOString().split('T')[0]}
+/**
+ * Build the coaching context message that activates coach mode
+ */
+function buildCoachingContext(
+  goals: any[],
+  activity: any,
+  suggestions: any[]
+): string {
+  const today = new Date().toISOString().split('T')[0];
 
-## Active Goals
+  // Format recent thoughts/ideas
+  const recentThoughtsSection = activity.recentIdeas.length > 0
+    ? `\n## Recent Thoughts & Ideas\n${activity.recentIdeas.map((t: string) => `- ${t}`).join('\n')}`
+    : '';
 
-${goalsSummary}
+  const openQuestionsSection = activity.openQuestions.length > 0
+    ? `\n## Open Questions\n${activity.openQuestions.map((q: string) => `- ${q}`).join('\n')}`
+    : '';
+
+  const themesSection = activity.recentThemes.length > 0
+    ? `\n## Recent Themes/Topics\n${activity.recentThemes.slice(0, 5).join(', ')}`
+    : '';
+
+  // Format contextual suggestions
+  const suggestionsSection = suggestions.length > 0
+    ? `\n## Contextual Suggestions (ordered by relevance)\n${suggestions.slice(0, 5).map((s, i) =>
+      `${i + 1}. **${s.action}**\n   _${s.reason}${s.context ? ' - ' + s.context : ''}_`
+    ).join('\n\n')}`
+    : '';
+
+  // Format active goals summary
+  const activeGoalsSection = activity.activeGoals.length > 0
+    ? `\n## Active Goals\n\n${formatGoalsList(activity.activeGoals)}`
+    : '\n## No Active Goals\nYou currently have no active goals.';
+
+  const staleGoalsSection = activity.staleGoals.length > 0
+    ? `\n## Stale Goals (7+ days without update)\n${activity.staleGoals.map((g: { title: string; metadata: { lastUpdated: string } }) => `- ${g.title} (last updated: ${g.metadata.lastUpdated})`).join('\n')}`
+    : '';
+
+  return `# 🎯 Claude Coach Activated - ${today}
+
+You are now in **proactive coaching mode**. Your role is to help me stay focused, unblock obstacles, reflect on ideas, and make progress on my goals.
+
+${suggestionsSection}
+${activeGoalsSection}
+${staleGoalsSection}
+${recentThoughtsSection}
+${openQuestionsSection}
+${themesSection}
 
 ---
 
-**Instructions for Claude:**
-You are now conducting a daily standup with the user. For each goal above:
+## Your Role as Coach
 
-1. Ask the user what progress they've made (if any)
-2. Check if any blockers have been resolved or new ones emerged
-3. Update the progress percentage if needed
-4. Confirm or update next actions
-5. Finally, ask about their energy level (1-10)
+**BE PROACTIVE**: Don't just list options - analyze the context above and suggest what would be most valuable right now based on:
+- Goals that need attention (stale, blocked, or recently mentioned)
+- Recent thoughts/questions that could use exploration
+- Patterns in my recent activity
+- What would create the most momentum
 
-Be conversational and encouraging. After the conversation, you should:
-- Update the goal files with new progress/status
-- Create a standup entry in today's daily note under "## Coach" section
-- Include goal tags like #goal/goal-name for easy filtering
+**BE CONVERSATIONAL**: Engage naturally. Ask clarifying questions. Help me think through blockers. Celebrate progress.
 
-Begin the standup now with a brief greeting and dive into the first goal.`;
-}
+**TAKE ACTION**: During our conversation, you can update goals using the Write/Edit tools:
+- Update progress, status, blockers, next actions
+- Complete milestones
+- Create new goals
+- Log standups/reflections to daily notes (in "## Coach" section with #standup tag)
 
-function handleList(obsidian: ObsidianManager): string {
-  const goals = obsidian.loadGoals();
+**AVAILABLE HELPERS**: You have access to these utility functions (implemented in src/helpers.ts):
+- Update goal progress/status
+- Add/resolve blockers
+- Add/complete next actions
+- Complete milestones
+- Create new goals
+- Log standup summaries to daily notes
 
-  if (goals.length === 0) {
-    return 'No goals found. Use `/coach goals` to create some goals.';
-  }
+**START THE CONVERSATION**:
+Greet me briefly, then offer 2-3 specific, contextual suggestions based on what you see above. Make them actionable and relevant to my recent activity. Ask which would be most helpful, or if there's something else on my mind.
 
-  const goalsList = goals.map(g => {
-    const emoji = getStatusEmoji(g.metadata.status);
-    const blockerText = g.blockers.length ? ` 🚧 **Blockers:** ${g.blockers.join(', ')}` : '';
-    return `${emoji} **${g.title}** (${g.metadata.progress}%)
-   - Status: ${g.metadata.status}
-   - Target: ${g.metadata.target || 'Not set'}${blockerText}
-   - Next: ${g.nextActions[0] || 'No actions defined'}`;
-  }).join('\n\n');
-
-  return `# Your Goals\n\n${goalsList}`;
-}
-
-async function handleReview(goalId: string, obsidian: ObsidianManager): Promise<string> {
-  const goals = obsidian.loadGoals();
-  const goal = goals.find(g => g.id === goalId);
-
-  if (!goal) {
-    const availableIds = goals.map(g => `- ${g.id}`).join('\n');
-    return `Goal "${goalId}" not found.\n\nAvailable goals:\n${availableIds}`;
-  }
-
-  return `# Goal Review: ${goal.title}
-
-## Overview
-- **Status:** ${goal.metadata.status}
-- **Progress:** ${goal.metadata.progress}%
-- **Created:** ${goal.metadata.created}
-- **Target:** ${goal.metadata.target || 'Not set'}
-- **Tags:** ${goal.metadata.tags.join(', ') || 'None'}
-
-## Milestones
-${goal.milestones.map(m => `- [${m.completed ? 'x' : ' '}] ${m.description}${m.targetDate ? ` (${m.targetDate})` : ''}`).join('\n') || '- No milestones defined'}
-
-## Current Status
-${goal.currentStatus || 'No status notes'}
-
-${goal.blockers.length ? `## Blockers\n${goal.blockers.map(b => `- ${b}`).join('\n')}` : ''}
-
-## Next Actions
-${goal.nextActions.map(a => `- [ ] ${a}`).join('\n') || '- No actions defined'}
-
----
-
-**Instructions for Claude:**
-You are now reviewing this goal with the user. Engage in a focused conversation to:
-1. Celebrate what's been accomplished
-2. Discuss and help resolve any blockers
-3. Adjust milestones if the goal has evolved
-4. Clarify and prioritize next actions
-
-After the conversation, update the goal file with any changes.`;
-}
-
-function handleGoalSetting(): string {
-  return `# Goal Setting Session
-
-**Instructions for Claude:**
-You are helping the user define new goals. Guide them through a conversational process:
-
-1. Ask what areas they want to focus on (work, health, learning, relationships, etc.)
-2. Help them articulate 1-3 specific, measurable goals
-3. For each goal, establish:
-   - A clear title and description
-   - Target completion date
-   - 2-4 milestones along the way
-   - Initial next actions (1-3 concrete steps)
-   - Relevant tags for organization
-
-Be encouraging but help them stay realistic and focused. Once goals are defined, create goal files in the Goals directory with proper structure and metadata.
-
-Begin the conversation by asking what areas of their life or work they'd like to focus on.`;
-}
-
-function getStatusEmoji(status: string): string {
-  const emojiMap: Record<string, string> = {
-    'not-started': '⚪',
-    'in-progress': '🔵',
-    'blocked': '🔴',
-    'completed': '✅',
-    'paused': '⏸️',
-  };
-  return emojiMap[status] || '⚪';
-}
-
-function getHelpText(): string {
-  return `# Claude Coach - Help
-
-Available commands:
-
-- \`/coach standup\` - Run daily standup session
-- \`/coach list\` - List all goals with status
-- \`/coach goals\` - Set new goals (guided conversation)
-- \`/coach review <goal-id>\` - Review a specific goal
-
-The coaching system integrates with your Obsidian vault to track goals, milestones, and progress.`;
+Don't give me generic options - use the context to suggest what would genuinely move things forward right now.`;
 }
 
 // Export main handler for skill integration
