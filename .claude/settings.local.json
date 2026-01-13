@@ -1,6 +1,13 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "WebSearch",
+      "Skill(skill-creator)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "agentvibes"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

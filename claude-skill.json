@@ -1,0 +1,64 @@
+{
+  "name": "claude-coach",
+  "version": "0.1.0",
+  "displayName": "Claude Coach",
+  "description": "Proactive AI coaching assistant that analyzes your Obsidian notes and goals to provide contextual suggestions",
+  "author": "Your Name",
+  "repository": "https://github.com/yourusername/claude-coach",
+  "skills": [
+    {
+      "name": "coach",
+      "command": "skills/coach.js",
+      "description": "Start a proactive coaching session with contextual suggestions based on your goals and recent activity",
+      "usage": "/coach",
+      "examples": [
+        "/coach - Start coaching session"
+      ]
+    },
+    {
+      "name": "coach:list",
+      "command": "skills/coach:list.js",
+      "description": "List all your goals with current status",
+      "usage": "/coach:list",
+      "examples": [
+        "/coach:list - Show all goals"
+      ]
+    },
+    {
+      "name": "coach:config",
+      "command": "skills/coach:config.js",
+      "description": "Manage Claude Coach configuration",
+      "usage": "/coach:config [show|init|set-vault <path>]",
+      "examples": [
+        "/coach:config - Show current configuration",
+        "/coach:config init - Initialize directories",
+        "/coach:config set-vault /path/to/vault - Set vault path"
+      ]
+    }
+  ],
+  "requirements": {
+    "obsidian": {
+      "required": true,
+      "description": "Requires an Obsidian vault with Coach/Goals and Daily Notes directories"
+    }
+  },
+  "configuration": {
+    "vaultPath": {
+      "type": "string",
+      "default": "/mnt/d/data/obsidian-vault",
+      "description": "Path to your Obsidian vault"
+    },
+    "coachDirName": {
+      "type": "string",
+      "default": "Coach",
+      "description": "Name of the coach directory in your vault"
+    },
+    "dailyNotesPath": {
+      "type": "string",
+      "default": "Daily Notes",
+      "description": "Path to daily notes directory"
+    }
+  },
+  "keywords": ["coaching", "obsidian", "goals", "productivity", "journaling"],
+  "license": "MIT"
+}

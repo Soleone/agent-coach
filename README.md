@@ -1,163 +1,175 @@
+---
+
 # Claude Coach
 
-Proactive AI coaching assistant that integrates with Obsidian and Claude Code to help you track goals, conduct daily standups, and maintain focus.
+**Proactive AI coaching that analyzes your Obsidian notes and suggests contextual actions.**
+
+Claude Coach transforms Claude into a proactive personal coach by analyzing your goals and journal entries to suggest specific, contextual actions based on what you're actually working on - not generic task lists.
 
 ## How It Works
 
-Instead of a separate chatbot, Claude Coach **turns Claude Code into your proactive coach**. When you invoke `/coach`:
+When you run `/coach`:
 
-1. **Context Loading**: Loads your goals, recent daily notes, thoughts, and patterns from Obsidian
-2. **Intelligent Analysis**: Analyzes what you've been working on, identifies stale goals, recent themes, and open questions
-3. **Contextual Suggestions**: Generates specific, actionable suggestions based on your recent activity (not generic options)
-4. **Conversational Coaching**: Claude (in your current session) becomes your coach - proactive, helpful, and action-oriented
-5. **Direct File Updates**: During conversation, Claude updates your Obsidian goal files and daily notes
+1. Analyzes your goals from `Coach/Goals/` directory
+2. Reviews your recent daily notes (last 7 days)
+3. Identifies patterns: stale goals, recent mentions, open questions, themes
+4. Suggests **specific actions** like:
+   - "Your 'Learn Rust' goal is stale (8 days). You were on lifetimes - what's blocking you?"
+   - "You mentioned 'auth refactor' twice this week but have no goal for it. Create one?"
+   - "Your distributed systems question from Jan 9th - want to explore that?"
 
-## Features
+## Skills
 
-- **Proactive & Contextual**: Suggests actions based on recent activity, not static commands
-- **Recent Activity Analysis**: Parses daily notes to find thoughts, questions, and patterns
-- **Smart Suggestions**: Identifies stale goals, blockers, recent mentions, and themes
-- **Goal Tracking**: Structured goal management with milestones, progress, and blockers
-- **Seamless Integration**: Works directly in Claude Code sessions or from CLI
-- **Configurable**: Customize vault paths, directory names, and preferences
+- **`/coach`** - Start proactive coaching with contextual suggestions
+- **`/coach-list`** - List all goals with status and progress
+- **`/coach-config`** - Manage configuration and initialize directories
 
 ## Installation
 
 ```bash
-npm install
-npm run build
+npm install -g claude-coach
 ```
 
-## Configuration
-
-### Initial Setup
-
+Or add to your Claude Code project:
 ```bash
-# Initialize configuration and directories
-npm start -- config init
-
-# Set your Obsidian vault path (default: /mnt/d/data/obsidian-vault)
-npm start -- config set-vault /path/to/your/vault
-
-# View configuration
-npm start -- config show
+npm install claude-coach
 ```
 
-### Directory Structure
+## Setup
 
-The system creates this structure in your Obsidian vault:
+1. **Initialize directories**:
+   ```
+   /coach-config
+   ```
+   Type: "Initialize directories"
 
-```
-/mnt/d/data/obsidian-vault/
-├── Daily Notes/
-│   └── 2026-01-11.md          # Daily standups appended here
-└── Coach/                      # Configurable parent directory
-    ├── Goals/
-    │   └── run-5k.md          # Individual goal files
-    └── Projects/
-        └── project-name.md     # Project-specific goals
-```
+2. **Set vault path** (if not using default):
+   ```
+   /coach-config
+   ```
+   Type: "Set vault path to /your/vault/path"
 
-## Usage
-
-### Primary Usage: Claude Code Skill
-
-In a Claude Code session, simply run:
-
-```
-/coach
-```
-
-This will:
-1. Load all your goals and recent daily notes
-2. Analyze your recent activity and identify patterns
-3. Generate contextual suggestions based on what you've been working on
-4. Activate Claude as your proactive coach in the current session
-
-Claude will then greet you and suggest specific actions based on:
-- Goals that haven't been updated recently (stale)
-- Goals you've mentioned in recent notes
-- Recent thoughts or questions you've logged
-- Blocked goals that need attention
-- Common themes in your recent work
-
-### Alternative: CLI
-
-```bash
-# Start coaching session (prints context to copy into Claude Code)
-npm start -- start
-
-# List all goals
-npm start -- list
-
-# View configuration
-npm start -- config show
-```
-
-## Goal File Format
-
-Goals are stored as markdown files with frontmatter:
+3. **Create your first goal** in `{vault}/Coach/Goals/example.md`:
 
 ```markdown
 ---
 status: in-progress
-created: 2026-01-05
+created: 2026-01-12
 target: 2026-02-01
-progress: 35
-tags: [goal/active, area/health]
-lastUpdated: 2026-01-11
+progress: 10
+tags: [goal/active]
+lastUpdated: 2026-01-12
 ---
 
-# Goal: Run 5K in under 25 minutes
+# Goal: Example Goal
 
 ## Milestones
-- [x] Run 3K comfortably (2026-01-10)
-- [ ] Run 4K in 22min (2026-01-20)
-- [ ] Run 5K in 25min (2026-02-01)
+- [ ] First milestone
+- [ ] Second milestone
 
 ## Current Status
-**Last updated:** 2026-01-11
-Making steady progress, up to 3.5K
-
-**Blockers:**
-- Knee pain after long runs
+**Last updated:** 2026-01-12
+Just getting started!
 
 ## Next Actions
-- [ ] Get running shoes assessed
-- [ ] Add stretching routine
+- [ ] Define milestones
+- [ ] Break down into tasks
 ```
 
-## Daily Note Format
+4. **Start coaching**:
+   ```
+   /coach
+   ```
 
-Standups are appended to daily notes:
+## Directory Structure
+
+```
+your-vault/
+├── Daily Notes/
+│   └── 2026-01-12.md          # Journal entries
+└── Coach/
+    ├── Goals/
+    │   └── example-goal.md     # Individual goals
+    └── Projects/
+        └── project-name.md     # Project tracking
+```
+
+## Intelligent Analysis
+
+The coach identifies:
+
+- **Stale goals** - Not updated in 7+ days
+- **Recent mentions** - Goals/topics in daily notes
+- **Thoughts & questions** - Reflective entries worth exploring
+- **Blockers** - Goals marked as blocked
+- **Themes** - Common tags across recent work
+- **Missing structure** - Goals without next actions
+
+## Example Interaction
+
+```
+You: /coach
+
+Claude: Hi! I've analyzed your recent activity:
+
+1. **"Learn Rust" needs attention** - 8 days since update.
+   You were working on lifetimes. What's blocking you?
+
+2. **"Auth refactor" mentioned twice** but no goal tracking it.
+   Want to create one?
+
+3. **Recursive types question from yesterday** - explore together?
+
+What would move things forward?
+
+You: Let's tackle the Rust lifetime confusion
+
+Claude: Got it! Let me update that goal...
+[Updates goal file with blocker]
+
+What specifically about lifetimes is tricky?
+
+[Conversation continues, Claude updates files]
+```
+
+## Daily Notes Integration
+
+The coach analyzes your daily notes for:
 
 ```markdown
-## Coach - 2026-01-11 09:30 #standup
+# 2026-01-12
 
-**Goals reviewed:** #goal/run-5k #goal/learn-rust
-- Run 5K: 35% → 40%, resolved knee pain blocker ✅
-- Learn Rust: Started chapter 10, next: lifetimes
+## Work
+- Fixed auth bug
+- Planning API refactor #project/api-refactor
 
-**Blockers:** None
-**Energy:** 7/10
+## Learning
+- Rust generics #goal/learn-rust
+- Question: How do I handle recursive types properly?
+
+## Ideas
+- Extract auth into separate service?
 ```
 
-## Development
+Claude will:
+- See you're actively working on Rust
+- Offer to help with the recursive types question
+- Suggest creating a goal for auth service extraction
 
-```bash
-# Build
-npm run build
+## Tips for Best Results
 
-# Watch mode
-npm run dev
-```
+1. **Journal regularly** - More notes = better suggestions
+2. **Use tags** - `#goal/name`, `#project/name`, `#topic/name`
+3. **Ask questions** - "How do I...?" triggers exploration
+4. **Update goals** - Even small updates prevent staleness
+5. **Run /coach often** - Daily or weekly for momentum
 
-## Configuration File
+## Configuration
 
-Config is stored at `~/.config/claude-coach/config.yaml`:
+Located at `~/.config/claude-coach/config.yaml`:
 
 ```yaml
-vaultPath: /mnt/d/data/obsidian-vault
+vaultPath: /path/to/vault
 coachDirName: Coach
 dailyNotesPath: Daily Notes
 preferences:
@@ -165,53 +177,29 @@ preferences:
   autoAppendDaily: true
 ```
 
-## Example Interaction
+## Development
 
-```
-You: /coach
-
-Claude: Hi! I've analyzed your recent activity and see a few things worth discussing:
-
-1. **Your "Learn Rust" goal is getting stale** - it's been 8 days since your last update.
-   You were on chapter 10 (lifetimes). What's blocking you?
-
-2. **You mentioned "authentication refactor" twice this week** in your daily notes but
-   don't have a goal tracking it. Should we create one?
-
-3. **Your distributed systems thoughts from Jan 9th** looked interesting - you asked
-   "How do we handle partial failures in microservices?" Want to explore that further?
-
-What would be most helpful to focus on right now?
-
-You: Let's tackle the Rust goal - I got stuck on lifetime syntax
-
-Claude: Got it! Let me update that goal's status to "blocked" and add that blocker...
-[Updates goal file]
-
-What specifically about lifetime syntax is tricky? Is it the concept or the syntax itself?
-
-[Conversation continues naturally, Claude updates files as needed]
+```bash
+git clone https://github.com/yourusername/claude-coach
+cd claude-coach
+npm install
+npm run build
 ```
 
-## Intelligent Context Analysis
+Link skills for local testing:
+```bash
+ln -s $(pwd)/skills/coach ~/.claude/skills/coach
+ln -s $(pwd)/skills/coach-list ~/.claude/skills/coach-list
+ln -s $(pwd)/skills/coach-config ~/.claude/skills/coach-config
+```
 
-The coach analyzes:
-- **Stale goals**: Goals in-progress but not updated in 7+ days
-- **Recent mentions**: Goals or topics you've referenced in daily notes
-- **Thoughts & questions**: Reflective entries that could use deeper exploration
-- **Blockers**: Goals explicitly marked as blocked
-- **Themes**: Common tags/topics across recent notes
-- **Missing structure**: Goals without next actions defined
+## License
 
-## Roadmap
+MIT
 
-- [x] Conversational coaching in Claude Code sessions
-- [x] Context-aware suggestions based on activity
-- [x] Parse daily notes for thoughts and patterns
-- [x] Goal tracking with Obsidian integration
-- [ ] Git/code activity integration (analyze commits/PRs)
-- [ ] Weekly/monthly review sessions
-- [ ] Goal templates and categories
-- [ ] Project file parsing and integration
-- [ ] Progress visualization
-- [ ] Better thought/idea extraction from daily notes
+---
+
+**Sources:**
+- [Agent Skills - Claude Code Docs](https://code.claude.com/docs/en/skills)
+- [Skills Repository](https://github.com/anthropics/skills)
+- [How to Build Claude Skills](https://www.codecademy.com/article/how-to-build-claude-skills)
