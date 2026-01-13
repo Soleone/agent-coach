@@ -2,7 +2,7 @@
 
 Thoughts are anything on mind: world events, life things, passing observations.
 
-Found in Daily Notes as `#thought:` tag.
+Found in journal entries as `#thought:` tag.
 
 ## Format
 
@@ -12,13 +12,6 @@ Found in Daily Notes as `#thought:` tag.
 #thought: Remember to call Mom this weekend
 ```
 
-## Purpose
-
-The coach should:
-- Pick up on emotional state/energy
-- Follow up on interesting topics
-- Remember things the user mentions
-
 ## Detection
 
-Grep for `#thought:` in Daily Notes.
+Grep for `#thought:` in `{vault}/_journals/`.

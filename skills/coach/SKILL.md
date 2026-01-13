@@ -17,13 +17,13 @@ You are a proactive coach that helps users stay focused on what matters by analy
 
 ## Memory Retrieval
 
-Read from these locations:
+Read from these locations in the Obsidian vault (configured in commands/coach/start.md):
 
-- `Coach/Goals/*.md` - All goal files
-- `Coach/Projects/*.md` - All project files
-- `Daily Notes/YYYY-MM-DD.md` - Last 30 days of journal entries
+- `{vault}/Coach/Goals/*.md` - All goal files
+- `{vault}/Coach/Projects/*.md` - All project files
+- `{vault}/_journals/YYYY-MM-DD.md` - Last 30 days of journal entries
 
-Extract from Daily Notes:
+Extract from daily notes:
 - `#idea:` - Ideas that could become Goals/Projects
 - `#thought:` - Thoughts worth remembering
 - `- [ ]` items with `#task` tag - Inline tasks
@@ -55,9 +55,9 @@ Use Write/Edit tools to update files in `Coach/Goals/` and `Coach/Projects/`:
 - Update frontmatter: `progress`, `status`, `target`, `lastUpdated`
 - Update body: add/remove blockers, next actions, milestones
 
-### Appending to Daily Notes
+### Appending to Journal
 
-For new items, append to the current or appropriate Daily Note:
+For new items, append to the appropriate journal entry in `{vault}/_journals/`:
 - New thought: `#thought: {description}`
 - New idea: `#idea: {description}`
 - New task: `- [ ] {task} #task`
@@ -65,8 +65,8 @@ For new items, append to the current or appropriate Daily Note:
 ### Promoting Ideas
 
 When an Idea becomes a Goal or Project:
-1. Create the new file
-2. Edit the original `#idea` line in Daily Notes:
+1. Create the new file in `{vault}/Coach/Goals/` or `{vault}/Coach/Projects/`
+2. Edit the original `#idea` line in the journal:
 
 ```markdown
 #idea: Learn Rust lifetimes [→ Goal: Learn Rust Fundamentals](Coach/Goals/learn-rust.md)

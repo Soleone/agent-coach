@@ -2,26 +2,14 @@
 
 Ideas are actionable insights that could become Goals or Projects.
 
-Found in Daily Notes as `#idea:` tag.
-
-## Format
+Found in journal entries as `#idea:` tag.
 
 ```markdown
 #idea: Learn Rust lifetimes and understand ownership
-#idea: Build a personal website withObsidian publish
+#idea: Build a personal website with Obsidian publish
 #idea: Create a meditation habit - 10min daily
-```
-
-## Promoting Ideas
-
-When an Idea becomes a Goal or Project:
-1. Create the new file
-2. Edit the original `#idea` line to add a link:
-
-```markdown
-#idea: Learn Rust lifetimes [→ Goal: Learn Rust Fundamentals](Coach/Goals/learn-rust.md)
 ```
 
 ## Detection
 
-Grep for `#idea:` in Daily Notes.
+Grep for `#idea:` in `{vault}/_journals/`.

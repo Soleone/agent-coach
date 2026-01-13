@@ -6,7 +6,7 @@ Proactive AI coaching that analyzes your goals, projects, ideas, and thoughts fr
 
 1. Add goals to `your-vault/Coach/Goals/`
 2. Add projects to `your-vault/Coach/Projects/`
-3. Journal in `your-vault/Daily Notes/` as `YYYY-MM-DD.md`
+3. Journal in `your-vault/_journals/` as `YYYY-MM-DD.md`
 4. Tag ideas with `#idea:` and thoughts with `#thought:`
 5. Run `/coach:start` in OpenCode or Claude Code
 
@@ -33,13 +33,13 @@ Fleeting/aspirational: "learn X", "become Y"
 Concrete things to build: "build X app", "ship Y feature"
 
 ### Ideas
-`#idea:` in Daily Notes - can become Goals/Projects
+`#idea:` in journals - can become Goals/Projects
 
 ### Thoughts
-`#thought:` in Daily Notes - non-actionable observations
+`#thought:` in journals - non-actionable observations
 
 ### Tasks
-`- [ ] task #task` in Daily Notes
+`- [ ] task #task` in journals
 
 ## Vault Structure
 
@@ -48,6 +48,6 @@ Concrete things to build: "build X app", "ship Y feature"
 ├── Coach/
 │   ├── Goals/*.md
 │   └── Projects/*.md
-└── Daily Notes/
+└── _journals/
     └── YYYY-MM-DD.md
 ```
