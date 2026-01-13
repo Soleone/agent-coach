@@ -1,10 +1,10 @@
 {
-  "name": "claude-coach",
+  "name": "coach",
   "version": "0.1.0",
-  "displayName": "Claude Coach",
-  "description": "Proactive AI coaching assistant that analyzes your Obsidian notes and goals to provide contextual suggestions",
+  "displayName": "Coach",
+  "description": "Proactive AI coaching assistant that analyzes your goals and daily notes to provide contextual suggestions",
   "author": "Your Name",
-  "repository": "https://github.com/yourusername/claude-coach",
+  "repository": "https://github.com/yourusername/coach",
   "skills": [
     {
       "name": "coach",
@@ -27,7 +27,7 @@
     {
       "name": "coach:config",
       "command": "skills/coach:config.js",
-      "description": "Manage Claude Coach configuration",
+      "description": "Manage Coach configuration",
       "usage": "/coach:config [show|init|set-vault <path>]",
       "examples": [
         "/coach:config - Show current configuration",
@@ -39,14 +39,14 @@
   "requirements": {
     "obsidian": {
       "required": true,
-      "description": "Requires an Obsidian vault with Coach/Goals and Daily Notes directories"
+      "description": "Requires a note vault with Coach/Goals and Daily Notes directories"
     }
   },
   "configuration": {
     "vaultPath": {
       "type": "string",
       "default": "/mnt/d/data/obsidian-vault",
-      "description": "Path to your Obsidian vault"
+      "description": "Path to your note vault"
     },
     "coachDirName": {
       "type": "string",
@@ -59,6 +59,6 @@
       "description": "Path to daily notes directory"
     }
   },
-  "keywords": ["coaching", "obsidian", "goals", "productivity", "journaling"],
+  "keywords": ["coaching", "goals", "productivity", "journaling"],
   "license": "MIT"
 }

@@ -1,11 +1,11 @@
 # Installation Guide
 
-## For Claude Code Marketplace Users
+## For AI Assistant Marketplace Users
 
 ### 1. Install from Marketplace
 
 ```
-/skills install claude-coach
+/skills install coach
 ```
 
 ### 2. Initialize Directories
@@ -14,7 +14,7 @@
 /coach:config init
 ```
 
-This creates the required directories in your Obsidian vault:
+This creates the required directories in your note vault:
 - `Coach/Goals/`
 - `Coach/Projects/`
 - `Daily Notes/`
@@ -74,8 +74,8 @@ If installing from source or npm:
 
 ```bash
 # Clone or download
-git clone https://github.com/yourusername/claude-coach.git
-cd claude-coach
+git clone https://github.com/yourusername/coach.git
+cd coach
 
 # Install dependencies
 npm install
@@ -83,7 +83,7 @@ npm install
 # Build
 npm run build
 
-# Link skills to Claude Code
+# Link skills to your AI assistant
 ln -s $(pwd)/skills/coach.js ~/.claude/skills/coach
 ln -s $(pwd)/skills/coach:config.js ~/.claude/skills/coach:config
 ln -s $(pwd)/skills/coach:list.js ~/.claude/skills/coach:list
@@ -92,17 +92,17 @@ ln -s $(pwd)/skills/coach:list.js ~/.claude/skills/coach:list
 Or via npm:
 
 ```bash
-npm install -g claude-coach
+npm install -g coach
 ```
 
 ## Troubleshooting
 
 ### Skills not found
 - Verify skills are executable: `chmod +x skills/*.js`
-- Check Claude Code skills directory configuration
+- Check your AI assistant's skills directory configuration
 
 ### Config not saved
-- Ensure `~/.config/claude-coach/` directory exists
+- Ensure `~/.config/coach/` directory exists
 - Run `/coach:config init` to create directories
 
 ### No goals found

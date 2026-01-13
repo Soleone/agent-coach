@@ -1,10 +1,10 @@
 ---
 
-# Claude Coach
+# Coach
 
-**Proactive AI coaching that analyzes your Obsidian notes and suggests contextual actions.**
+**Proactive AI coaching that analyzes your notes and suggests contextual actions.**
 
-Claude Coach transforms Claude into a proactive personal coach by analyzing your goals and journal entries to suggest specific, contextual actions based on what you're actually working on - not generic task lists.
+Coach transforms your AI assistant into a proactive personal coach by analyzing your goals and journal entries to suggest specific, contextual actions based on what you're actually working on - not generic task lists.
 
 ## How It Works
 
@@ -27,12 +27,12 @@ When you run `/coach`:
 ## Installation
 
 ```bash
-npm install -g claude-coach
+npm install -g coach
 ```
 
-Or add to your Claude Code project:
+Or add to your project:
 ```bash
-npm install claude-coach
+npm install coach
 ```
 
 ## Setup
@@ -166,7 +166,7 @@ Claude will:
 
 ## Configuration
 
-Located at `~/.config/claude-coach/config.yaml`:
+Located at `~/.config/coach/config.yaml`:
 
 ```yaml
 vaultPath: /path/to/vault
@@ -180,13 +180,13 @@ preferences:
 ## Development
 
 ```bash
-git clone https://github.com/yourusername/claude-coach
-cd claude-coach
+git clone https://github.com/yourusername/coach
+cd coach
 npm install
 npm run build
 ```
 
-Link skills for local testing:
+Link skills for testing:
 ```bash
 ln -s $(pwd)/skills/coach ~/.claude/skills/coach
 ln -s $(pwd)/skills/coach-list ~/.claude/skills/coach-list

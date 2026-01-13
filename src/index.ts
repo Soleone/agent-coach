@@ -1,5 +1,5 @@
 /**
- * Claude Coach - Proactive AI Coaching Assistant
+ * Coach - Proactive AI Coaching Assistant
  *
  * Main entry point for library usage
  */

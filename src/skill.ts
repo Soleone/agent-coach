@@ -1,8 +1,8 @@
 /**
- * Claude Code Skill Integration
+ * Coach - AI Coaching Assistant
  *
  * This is the main entry point for /coach skill.
- * It loads context from Obsidian and activates proactive coaching mode.
+ * It loads context from your notes and activates proactive coaching mode.
  */
 
 import { ConfigManager } from './config.js';
@@ -76,7 +76,7 @@ function buildCoachingContext(
     ? `\n## Stale Goals (7+ days without update)\n${activity.staleGoals.map((g: { title: string; metadata: { lastUpdated: string } }) => `- ${g.title} (last updated: ${g.metadata.lastUpdated})`).join('\n')}`
     : '';
 
-  return `# 🎯 Claude Coach Activated - ${today}
+  return `# 🎯 Coach Activated - ${today}
 
 You are now in **proactive coaching mode**. Your role is to help me stay focused, unblock obstacles, reflect on ideas, and make progress on my goals.
 
@@ -99,7 +99,7 @@ ${themesSection}
 
 **BE CONVERSATIONAL**: Engage naturally. Ask clarifying questions. Help me think through blockers. Celebrate progress.
 
-**TAKE ACTION**: During our conversation, you can update goals using the Write/Edit tools:
+**TAKE ACTION**: During our conversation, you can update goal files using Write/Edit tools:
 - Update progress, status, blockers, next actions
 - Complete milestones
 - Create new goals

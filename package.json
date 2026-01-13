@@ -1,9 +1,12 @@
 {
-  "name": "claude-coach",
+  "name": "coach",
   "version": "0.1.0",
-  "description": "Proactive AI coaching assistant for Claude Code that analyzes your Obsidian goals and daily notes to suggest contextual actions",
+  "description": "Proactive AI coaching assistant that analyzes your goals and daily notes to provide contextual suggestions",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "coach": "./dist/cli.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -16,11 +19,7 @@
     "README.md"
   ],
   "keywords": [
-    "claude",
-    "claude-code",
-    "claude-skill",
-    "obsidian",
-    "coaching",
+    "coach",
     "goals",
     "productivity",
     "personal-development",
@@ -30,7 +29,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/claude-coach.git"
+    "url": "https://github.com/yourusername/coach.git"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

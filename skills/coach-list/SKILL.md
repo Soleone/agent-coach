@@ -1,11 +1,11 @@
 ---
 name: coach-list
-description: List all your goals from Obsidian with current status, progress, and blockers. Use when you want to see an overview of all your goals at a glance.
+description: List all your goals from your notes with current status, progress, and blockers. Use when you want to see an overview of all your goals at a glance.
 ---
 
 # Coach: List Goals
 
-Display all goals from Obsidian vault with current status.
+Display all goals from your note vault with current status.
 
 ## Instructions
 

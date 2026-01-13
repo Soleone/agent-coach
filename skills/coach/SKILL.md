@@ -1,9 +1,9 @@
 ---
 name: coach
-description: Proactive AI coaching that analyzes your Obsidian goals and daily notes to suggest contextual actions. Use when you want coaching on your goals, need to review progress, want help prioritizing, feel stuck, or want to explore recent thoughts and questions you've logged.
+description: Proactive AI coaching that analyzes your goals and daily notes to suggest contextual actions. Use when you want coaching on your goals, need to review progress, want help prioritizing, feel stuck, or want to explore recent thoughts and questions you've logged.
 ---
 
-# Claude Coach
+# Coach
 
 Activate proactive coaching mode to help me stay focused, unblock obstacles, and make progress on goals.
 
@@ -34,7 +34,7 @@ Based on loaded context, suggest 2-3 **specific actions** like:
 
 ### 3. Take Action
 
-Update Obsidian files directly using Write/Edit tools:
+Update goal files directly using Write/Edit tools:
 
 - **Goals** in `{vault}/Coach/Goals/*.md` - See [goal-format.md](references/goal-format.md)
 - **Daily Notes** in `{vault}/Daily Notes/*.md` - See [daily-notes-format.md](references/daily-notes-format.md)

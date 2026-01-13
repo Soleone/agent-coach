@@ -30,7 +30,7 @@ export class ConfigManager {
   private config: CoachConfig;
 
   constructor(configPath?: string) {
-    this.configPath = configPath || join(homedir(), '.config', 'claude-coach', 'config.yaml');
+    this.configPath = configPath || join(homedir(), '.config', 'coach', 'config.yaml');
     this.config = this.load();
   }
 

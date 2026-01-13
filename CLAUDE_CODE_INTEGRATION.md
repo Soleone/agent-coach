@@ -1,6 +1,6 @@
-# Claude Code Integration
+# AI Integration Guide
 
-This guide explains how to integrate Claude Coach as a skill in Claude Code.
+This guide explains how to integrate Coach as a skill in AI assistants like Claude Code or OpenCode.
 
 ## Method 1: NPM Script Skill (Recommended for Development)
 
@@ -10,10 +10,10 @@ Create a skill configuration file that invokes the CLI:
 
 ```bash
 #!/bin/bash
-# Claude Coach - Proactive coaching assistant
+# Coach - Proactive coaching assistant
 # Usage: /coach
 
-cd /home/soleone/workspace/tries/2026-01-11-aisyst
+cd /path/to/coach
 node dist/cli.js start 2>&1
 ```
 
@@ -22,7 +22,7 @@ Make it executable:
 chmod +x ~/.claude/skills/coach.skill
 ```
 
-Now `/coach` will be available in Claude Code sessions.
+Now `/coach` will be available in AI assistant sessions.
 
 ## Method 2: Direct Node Module (For Production)
 
@@ -36,17 +36,17 @@ Create **~/.claude/skills/coach.skill**:
 
 ```bash
 #!/bin/bash
-claude-coach start 2>&1
+coach start 2>&1
 ```
 
 ## Method 3: Import as TypeScript Module
 
-If Claude Code supports importing TS/JS modules directly (check documentation):
+If the AI assistant supports importing TS/JS modules directly:
 
 **~/.claude/skills/coach.ts**
 
 ```typescript
-import { runCoachSkill } from '/home/soleone/workspace/tries/2026-01-11-aisyst/dist/index.js';
+import { runCoachSkill } from '/path/to/coach/dist/index.js';
 
 export async function coach(args?: string) {
   const context = await runCoachSkill({ args });
@@ -59,7 +59,7 @@ export async function coach(args?: string) {
 Test the skill:
 
 ```bash
-# In Claude Code
+# In your AI assistant
 /coach
 
 # Should output coaching context with your goals and suggestions
@@ -69,7 +69,7 @@ Test the skill:
 
 ### Skill not found
 - Verify `~/.claude/skills/coach.skill` exists and is executable
-- Check Claude Code's skill directory configuration
+- Check the AI assistant's skill directory configuration
 
 ### No output
 - Ensure the project is built: `npm run build`
@@ -101,6 +101,6 @@ The coach can be enhanced to load context from:
 - GitHub issues/PRs
 - Time tracking data
 - Calendar events
-- Any other source you want Claude to be aware of
+- Any other source you want the AI to be aware of
 
 Just modify `src/context.ts` to parse additional sources!

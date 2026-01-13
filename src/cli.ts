@@ -9,20 +9,20 @@ import { runCoachSkill } from './skill.js';
 const program = new Command();
 
 program
-  .name('claude-coach')
-  .description('Proactive AI coaching assistant integrated with Obsidian')
+  .name('coach')
+  .description('Proactive AI coaching assistant integrated with your notes')
   .version('0.1.0');
 
 program
   .command('start')
-  .description('Start a coaching session (loads context for Claude Code)')
+  .description('Start a coaching session')
   .action(async () => {
     try {
       const context = await runCoachSkill({});
       console.log(context);
-      console.log('\n\nℹ️  Copy the context above and start a Claude Code session, or use `/coach` skill directly in Claude Code.');
+      console.log('\n\nCopy the context above to start a coaching session.');
     } catch (error) {
-      console.error('❌ Failed to load coaching context:', error);
+      console.error('Failed to load coaching context:', error);
       process.exit(1);
     }
   });

@@ -1,15 +1,15 @@
 ---
 name: coach-config
-description: Manage Claude Coach configuration including Obsidian vault path, coach directory name, and initialization. Use when setting up for the first time or changing vault location.
+description: Manage Coach configuration including vault path, coach directory name, and initialization. Use when setting up for the first time or changing vault location.
 ---
 
 # Coach: Configuration
 
-Manage configuration and initialize directory structure in Obsidian vault.
+Manage configuration and initialize directory structure in your note vault.
 
 ## Config File
 
-Location: `~/.config/claude-coach/config.yaml`
+Location: `~/.config/coach/config.yaml`
 
 Contains: `vaultPath`, `coachDirName`, `dailyNotesPath`, `preferences`
 
@@ -17,7 +17,7 @@ Contains: `vaultPath`, `coachDirName`, `dailyNotesPath`, `preferences`
 
 ### Show Configuration
 
-Read and display settings from `~/.config/claude-coach/config.yaml`. If file doesn't exist, show defaults.
+Read and display settings from `~/.config/coach/config.yaml`. If file doesn't exist, show defaults.
 
 ### Initialize Directories
 
