@@ -14,4 +14,4 @@ Found in journal entries as `#thought:` tag.
 
 ## Detection
 
-Grep for `#thought:` in `{vault}/_journals/`.
+Grep for `#thought:` in `{vault}/{journals}/`.

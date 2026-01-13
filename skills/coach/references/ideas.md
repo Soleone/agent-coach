@@ -12,4 +12,4 @@ Found in journal entries as `#idea:` tag.
 
 ## Detection
 
-Grep for `#idea:` in `{vault}/_journals/`.
+Grep for `#idea:` in `{vault}/{journals}/`.

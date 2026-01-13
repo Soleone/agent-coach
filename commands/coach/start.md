@@ -5,8 +5,8 @@ allowed-tools: "Read,Glob,Grep,Write,Edit,Bash"
 
 ## Configuration
 
-- **Obsidian vault:** /mnt/d/data/obsidian-vault
-- **Daily notes directory name:** _journals
+- **Obsidian vault ({vault} variable):** /mnt/d/data/obsidian-vault
+- **Daily notes directory name: ({journals} variable)** _journals
 
 ## System Prompt
 

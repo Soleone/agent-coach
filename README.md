@@ -48,6 +48,6 @@ Concrete things to build: "build X app", "ship Y feature"
 ├── Coach/
 │   ├── Goals/*.md
 │   └── Projects/*.md
-└── _journals/
+└── {journals}/
     └── YYYY-MM-DD.md
 ```

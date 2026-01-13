@@ -21,9 +21,9 @@ Read from these locations in the Obsidian vault (configured in commands/coach/st
 
 - `{vault}/Coach/Goals/*.md` - All goal files
 - `{vault}/Coach/Projects/*.md` - All project files
-- `{vault}/_journals/YYYY-MM-DD.md` - Last 30 days of journal entries
+- `{vault}/{journals}/YYYY-MM-DD.md` - Last 30 days of journal entries
 
-Extract from daily notes:
+Extract from journal entries:
 - `#idea:` - Ideas that could become Goals/Projects
 - `#thought:` - Thoughts worth remembering
 - `- [ ]` items with `#task` tag - Inline tasks
@@ -57,7 +57,7 @@ Use Write/Edit tools to update files in `Coach/Goals/` and `Coach/Projects/`:
 
 ### Appending to Journal
 
-For new items, append to the appropriate journal entry in `{vault}/_journals/`:
+For new items, append to the appropriate journal entry in `{vault}/{journals}/`:
 - New thought: `#thought: {description}`
 - New idea: `#idea: {description}`
 - New task: `- [ ] {task} #task`
