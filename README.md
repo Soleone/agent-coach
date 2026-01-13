@@ -2,38 +2,65 @@
 
 Proactive AI coaching that analyzes your goals and notes to suggest contextual actions.
 
-## Skills
+## Use
 
-- `/coach` - Proactive coaching session
-- `/coach-list` - List all goals
-- `/coach-config` - Manage configuration
+1. Add goals to `your-vault/Coach/Goals/`
+2. Journal in `your-vault/Daily Notes/` as `YYYY-MM-DD.md`
+3. Run `/coach` in claude, opencode or your preferred agent harness
 
-## Setup
+## Installation
 
-1. Create directories:
-   ```
-   your-vault/
-   ├── Coach/
-   │   └── Goals/
-   └── Daily Notes/
-   ```
+### Marketplace
 
-2. Create goals in `Coach/Goals/` using the [goal format](skills/coach/references/goal-format.md)
+TODO
 
-3. Journal in `Daily Notes/` with dates like `2026-01-12.md`
+## Manual
 
-4. Use tags: `#goal/name`, `#project/name`, `#topic/name`
+Copy `skills/` and `commands/` to your AI assistant:
 
-5. Run `/coach` for a coaching session
+| Assistant | Path |
+|-----------|------|
+| Claude Code | `~/.claude/` |
+| OpenCode | `~/.opencode/` |
 
-## For AI Assistants
+## Goal Format
 
-Copy the skills folder to your AI assistant's skills directory:
-- Claude Code: `~/.claude/skills/`
-- OpenCode: `~/.opencode/skills/`
+```markdown
+---
+status: in-progress
+created: 2026-01-12
+target: 2026-02-01
+progress: 10
+tags: [goal/active]
+lastUpdated: 2026-01-12
+---
 
-## File Format
+# Goal: Example Goal
 
-See reference docs:
-- [Goal format](skills/coach/references/goal-format.md)
-- [Daily notes format](skills/coach/references/daily-notes-format.md)
+## Milestones
+- [ ] First milestone
+- [ ] Second milestone
+
+## Current Status
+**Last updated:** 2026-01-12
+Just getting started!
+
+## Next Actions
+- [ ] Define clear milestones
+- [ ] Break down into smaller tasks
+```
+
+## Daily Notes
+
+```markdown
+# 2026-01-12
+
+## Work
+- Fixed auth bug
+
+## Learning
+- Rust generics #goal/learn-rust
+
+## Ideas
+- Extract auth into separate service?
+```
