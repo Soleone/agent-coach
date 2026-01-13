@@ -1,32 +1,16 @@
 {
   "name": "coach",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "displayName": "Coach",
   "description": "Proactive AI coaching that analyzes your goals and notes to suggest contextual actions",
   "author": "Your Name",
   "repository": "https://github.com/yourusername/coach",
   "skills": [
     {
-      "name": "coach",
-      "description": "Proactive coaching session - analyzes goals and recent notes, suggests specific actions",
-      "usage": "/coach",
-      "examples": ["/coach - Start coaching session"]
-    },
-    {
-      "name": "coach:list",
-      "description": "List all goals with status, progress, and blockers",
-      "usage": "/coach:list",
-      "examples": ["/coach:list - Show all goals"]
-    },
-    {
-      "name": "coach:config",
-      "description": "Manage Coach configuration and initialize directories",
-      "usage": "/coach:config [init|set-vault <path>]",
-      "examples": [
-        "/coach:config - Show configuration",
-        "/coach:config init - Create directories",
-        "/coach:config set-vault /path/to/vault - Set vault path"
-      ]
+      "name": "coach:start",
+      "description": "Start a proactive coaching session - analyzes goals and recent notes, suggests specific actions",
+      "usage": "/coach:start",
+      "examples": ["/coach:start - Start coaching session"]
     }
   ],
   "keywords": ["coaching", "goals", "productivity", "journaling"],
