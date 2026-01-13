@@ -1,27 +1,45 @@
 ---
 name: coach-list
-description: List all your goals from your notes with current status, progress, and blockers. Use when you want to see an overview of all your goals at a glance.
+description: List all goals with status, progress, and blockers. Use when you want a quick overview of all goals.
 ---
 
 # Coach: List Goals
 
-Display all goals from your note vault with current status.
+Display all goals from `Coach/Goals/` in a concise format.
 
-## Instructions
+## Your Process
 
-1. **Load goals** using Glob: `{vault}/Coach/Goals/*.md`
-2. **Read and parse** each goal file
-3. **Extract key info**:
-   - Status (from frontmatter) → Use emoji: ⚪ not-started, 🔵 in-progress, 🔴 blocked, ✅ completed, ⏸️ paused
-   - Title, progress %, last updated, target date
+1. **Read all files** from `Coach/Goals/*.md`
+2. **Parse each goal** for:
+   - Title (from `#` heading)
+   - Status (from frontmatter: not-started, in-progress, blocked, completed, paused)
+   - Progress % (from frontmatter)
+   - Last updated date
    - Blockers (from `**Blockers:**` section)
    - First next action
-4. **Sort** by priority: blocked first, then in-progress, then others
-5. **Display** formatted with status emoji, key metrics, and blockers
-6. **Summarize**: Total count and breakdown by status
-
-**If no goals exist**, suggest creating goals with `/coach`
+3. **Group by status** (blocked first, then in-progress, then others)
+4. **Display with emoji**:
+   - ⚪ not-started
+   - 🔵 in-progress
+   - 🔴 blocked
+   - ✅ completed
+   - ⏸️ paused
 
 ## Format
 
-Reference [goal-format.md](../coach/references/goal-format.md) for goal file structure.
+```
+🔵 Learn Rust - 25% - last updated: 2026-01-08
+   Next: Complete lifetimes chapter
+   Blockers: None
+
+🔴 API Redesign - 60% - last updated: 2026-01-05
+   Next: Finalize auth middleware
+   Blockers: Waiting on design review
+```
+
+## Summary
+
+End with a brief summary:
+- Total goals
+- Count by status
+- Oldest stale goal

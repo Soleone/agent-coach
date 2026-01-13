@@ -1,12 +1,8 @@
 /**
  * Coach - Proactive AI Coaching Assistant
  *
- * Main entry point for library usage
+ * Main exports for library usage
  */
 
-export { ConfigManager, CoachConfig } from './config.js';
-export { ObsidianManager } from './obsidian.js';
-export { ContextAnalyzer, ContextualSuggestion, RecentActivity } from './context.js';
-export { CoachHelpers, formatGoalSummary, formatGoalsList } from './helpers.js';
-export { runCoachSkill } from './skill.js';
-export * from './models.js';
+export { ConfigManager } from './config.js';
+export { getCoachPrompt } from './skill.js';

@@ -1,41 +1,19 @@
-# Installation Guide
+# Installation
 
-## For AI Assistant Marketplace Users
+## Quick Setup
 
-### 1. Install from Marketplace
+1. Create required directories in your vault:
+   ```
+   your-vault/
+   ├── Coach/
+   │   ├── Goals/
+   │   └── Projects/
+   └── Daily Notes/
+   ```
 
-```
-/skills install coach
-```
+2. Create your first goal in `Coach/Goals/example.md`
 
-### 2. Initialize Directories
-
-```
-/coach:config init
-```
-
-This creates the required directories in your note vault:
-- `Coach/Goals/`
-- `Coach/Projects/`
-- `Daily Notes/`
-
-### 3. Configure Vault Path (if needed)
-
-If your vault is not at the default location (`/mnt/d/data/obsidian-vault`):
-
-```
-/coach:config set-vault /your/vault/path
-```
-
-### 4. Verify Configuration
-
-```
-/coach:config show
-```
-
-### 5. Create Your First Goal
-
-Create a file in your vault: `Coach/Goals/example-goal.md`
+## Goal Format
 
 ```markdown
 ---
@@ -62,62 +40,26 @@ Just getting started!
 - [ ] Break down into smaller tasks
 ```
 
-### 6. Start Coaching
+## Daily Notes
 
-```
-/coach
-```
+Use `YYYY-MM-DD.md` format:
+```markdown
+# 2026-01-12
 
-## For Manual Installation
+## Work
+- Fixed auth bug
 
-If installing from source or npm:
+## Learning
+- Rust generics #goal/learn-rust
 
-```bash
-# Clone or download
-git clone https://github.com/yourusername/coach.git
-cd coach
-
-# Install dependencies
-npm install
-
-# Build
-npm run build
-
-# Link skills to your AI assistant
-ln -s $(pwd)/skills/coach.js ~/.claude/skills/coach
-ln -s $(pwd)/skills/coach:config.js ~/.claude/skills/coach:config
-ln -s $(pwd)/skills/coach:list.js ~/.claude/skills/coach:list
+## Ideas
+- Extract auth into separate service?
 ```
 
-Or via npm:
+## Using with AI Assistants
 
-```bash
-npm install -g coach
-```
+Copy the `skills/` folder to your assistant's skills directory:
+- Claude Code: `~/.claude/skills/`
+- OpenCode: `~/.opencode/skills/`
 
-## Troubleshooting
-
-### Skills not found
-- Verify skills are executable: `chmod +x skills/*.js`
-- Check your AI assistant's skills directory configuration
-
-### Config not saved
-- Ensure `~/.config/coach/` directory exists
-- Run `/coach:config init` to create directories
-
-### No goals found
-- Create at least one goal file in `Coach/Goals/`
-- Verify vault path is correct: `/coach:config show`
-- Check file format matches the example above
-
-### Context not loading
-- Ensure TypeScript is built: `npm run build`
-- Check for errors in goal file frontmatter (must be valid YAML)
-- Verify daily notes are in the correct directory
-
-## Next Steps
-
-1. Create 1-3 goals in `Coach/Goals/`
-2. Start journaling in `Daily Notes/`
-3. Use tags to track themes (`#goal/name`, `#project/name`)
-4. Run `/coach` for your first session!
+Then use `/coach`, `/coach-list`, `/coach-config` commands.
