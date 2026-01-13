@@ -26,6 +26,3 @@ npm-debug.log*
 # AI
 .claude/*
 .opencode/*
-
-# Test data
-test-vault/
