@@ -1,0 +1,99 @@
+# Diary Entry Format
+
+## Purpose: Enabling Better Coaching
+
+Diary entries serve **two equally important purposes:**
+
+1. **For the user:** Help them remember past actions, decisions, and learnings
+   - Memory loss test: Would they be happy to find this if they lost their memory?
+   - Future gratitude: Will they be glad this was logged when they review it later?
+
+2. **For you (the coach):** Build context for better coaching
+   - Know what to chat about in future sessions
+   - Remind them of past items they could pick up or continue pursuing
+   - Notice correlations between current moment and past moments
+   - Identify patterns in their thinking, behavior, and progress
+
+**Test before writing:**
+- "Would this help the user reconstruct their life if they had amnesia?"
+- "Does this give me context to coach better next time?"
+
+Write entries as if the user WILL lose their memory AND you will need this context to coach them effectively in the future.
+
+## Location
+
+Daily journal page: `{vault}/{journals}/YYYY-MM-DD.md`
+
+Dedicated section: `# Coach` (h1 header at the bottom of the page)
+
+## When to Capture
+
+**Always capture diary entries for:**
+- Significant decisions made
+- Progress milestones reached
+- Insights or breakthroughs
+- Changes in direction or priorities
+- Blockers identified or resolved
+- Goals/Projects created, completed, or abandoned
+- Key learnings or realizations
+- Philosophical thoughts or perspectives
+- Meaningful experiences
+
+**Don't capture:**
+- Generic summaries ("had a coaching session")
+- Routine check-ins without notable outcomes
+- Repetitive information already logged
+
+## Format
+
+**Structure:** Bullet points with timestamps under the `# Coach` header
+
+**Format:** `- HH:MM: entry text`
+
+**Style:** Concise, specific, context-rich
+
+**Mandatory questions to answer:**
+- What happened?
+- Why does it matter?
+- What changed?
+- What's the context?
+
+**Validation:** Does this entry pass the memory loss test?
+
+## Examples
+
+### Good Examples
+
+```markdown
+# Coach
+
+- 09:30: Decided to pivot "Build Personal Website" project to use Astro instead of Next.js after discovering better Obsidian integration. This unblocks the publishing workflow.
+- 09:45: Breakthrough on "Learn Rust" - finally understood lifetime annotations by working through Chapter 10 examples. Key insight: lifetimes are about references, not values.
+- 14:15: Created new goal: "Master TypeScript Generics" after struggling with type inference in current project. Target: 2 weeks.
+- 16:20: Realized that chasing perfection on side projects has been blocking me from shipping. New approach: "good enough" iterations with 2-week cycles. This shifts my entire project philosophy.
+- 21:00: Had conversation about work-life balance. Recognized pattern: I overcommit when anxious about progress. Going to try time-boxing commitments for next month.
+```
+
+### Poor Examples
+
+```markdown
+# Coach
+
+- Had a good coaching session today
+- Discussed various topics
+- Made some progress on projects
+- Feeling productive
+- Talked about goals
+```
+
+## Creating the Header
+
+If the `# Coach` header doesn't exist in today's journal page, append it at the bottom:
+
+```markdown
+# Coach
+
+- 09:30: [First diary entry]
+```
+
+If it already exists, append new entries below existing ones using timestamp format: `- HH:MM: entry text`
