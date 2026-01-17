@@ -67,11 +67,12 @@ Dedicated section: `# Coach` (h1 header at the bottom of the page)
 ```markdown
 # Coach
 
-- 09:30: Decided to pivot "Build Personal Website" project to use Astro instead of Next.js after discovering better Obsidian integration. This unblocks the publishing workflow.
-- 09:45: Breakthrough on "Learn Rust" - finally understood lifetime annotations by working through Chapter 10 examples. Key insight: lifetimes are about references, not values.
-- 14:15: Created new goal: "Master TypeScript Generics" after struggling with type inference in current project. Target: 2 weeks.
+- 09:30: Decided to pivot Build Personal Website project to use Astro instead of Next.js after discovering better Obsidian integration. This unblocks the publishing workflow.
+- 09:45: Breakthrough on [[Coach/Goals/Learn Rust]] - finally understood lifetime annotations by working through Chapter 10 examples. Key insight: lifetimes are about references, not values.
+- 14:15: Created new goal [[Coach/Goals/Master TypeScript Generics]] after struggling with type inference in current project. Target: 2 weeks.
 - 16:20: Realized that chasing perfection on side projects has been blocking me from shipping. New approach: "good enough" iterations with 2-week cycles. This shifts my entire project philosophy.
 - 21:00: Had conversation about work-life balance. Recognized pattern: I overcommit when anxious about progress. Going to try time-boxing commitments for next month.
+- 22:34: Created [[Coach/Goals/Jump Roping]] goal to try to get more fit
 ```
 
 ### Poor Examples
@@ -84,6 +85,7 @@ Dedicated section: `# Coach` (h1 header at the bottom of the page)
 - Made some progress on projects
 - Feeling productive
 - Talked about goals
+- 22:34: Created new goal to start jump roping (missing link to goal file)
 ```
 
 ## Creating the Header

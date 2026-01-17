@@ -16,7 +16,7 @@ tags: [goal/active]
 lastUpdated: 2026-01-11
 ---
 
-# Goal: Learn Rust Fundamentals
+# Learn Rust Fundamentals
 
 ## Milestones
 - [x] Complete basics tutorial (2026-01-08)

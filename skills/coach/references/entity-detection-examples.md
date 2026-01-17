@@ -18,7 +18,7 @@ This file demonstrates how to detect and create entities from user conversations
 2. Project: "Build CLI tool with Rust"
 
 **Coach actions:**
-1. Create `Coach/Goals/learn-rust.md`:
+1. Create `Coach/Goals/Learn Rust.md`:
 ```markdown
 ---
 status: not-started
@@ -29,7 +29,7 @@ tags: [goal/active]
 lastUpdated: 2026-01-17
 ---
 
-# Goal: Learn Rust
+# Learn Rust
 
 ## Milestones
 - [ ] Complete Rust book basics
@@ -44,7 +44,7 @@ Just started. Excited to learn systems programming.
 - [ ] Set up development environment
 ```
 
-2. Create `Coach/Projects/rust-cli-tool.md`:
+2. Create `Coach/Projects/Rust CLI Tool.md`:
 ```markdown
 ---
 status: not-started
@@ -55,7 +55,7 @@ tags: [project/active]
 lastUpdated: 2026-01-17
 ---
 
-# Project: Rust CLI Tool
+# Rust CLI Tool
 
 ## Goal
 Build a practical CLI tool to learn Rust fundamentals.
@@ -78,8 +78,8 @@ Planning phase. Need to learn Rust basics first.
 ```markdown
 # Coach
 
-- HH:MM: Created [[Coach/Goals/learn-rust|Goal: Learn Rust]] - wants to learn systems programming
-- HH:MM: Created [[Coach/Projects/rust-cli-tool|Project: Rust CLI Tool]] - will build practical project while learning
+- HH:MM: Created [[Coach/Goals/Learn Rust]] goal - wants to learn systems programming
+- HH:MM: Created [[Coach/Projects/Rust CLI Tool]] project - will build practical project while learning
 ```
 
 **Note:** `HH:MM` is generated using `date +"%H:%M"` at interaction time (24-hour format)
@@ -96,7 +96,7 @@ Planning phase. Need to learn Rust basics first.
 
 **Coach actions:**
 
-1. Create `Coach/Goals/daily-meditation.md`:
+1. Create `Coach/Goals/Daily Meditation Practice.md`:
 ```markdown
 ---
 status: not-started
@@ -107,7 +107,7 @@ tags: [goal/active, wellness]
 lastUpdated: 2026-01-17
 ---
 
-# Goal: Daily Meditation Practice
+# Daily Meditation Practice
 
 ## Milestones
 - [ ] 7 days in a row (2026-01-24)
@@ -130,7 +130,7 @@ Planning to start. Thinking 10 minutes daily.
 
 # Coach
 
-- HH:MM: Created [[Coach/Goals/daily-meditation|Goal: Daily Meditation Practice]] - starting with 10min daily
+- HH:MM: Created [[Coach/Goals/Daily Meditation Practice]] goal - starting with 10min daily
 - HH:MM: Captured idea about building habit tracker app - could become a project
 - HH:MM: Noted productivity pattern - mornings are most productive time
 ```
@@ -167,7 +167,7 @@ Append to `{journals}/YYYY-MM-DD.md`:
 
 **Coach actions:**
 
-1. Edit `Coach/Goals/learn-rust.md`:
+1. Edit `Coach/Goals/Learn Rust.md`:
 ```markdown
 ---
 status: in-progress
@@ -178,7 +178,7 @@ tags: [goal/active]
 lastUpdated: 2026-01-18
 ---
 
-# Goal: Learn Rust
+# Learn Rust
 
 ## Milestones
 - [x] Complete basics tutorial - Chapter 4 (2026-01-18)
@@ -198,7 +198,7 @@ Completed Chapter 4. Had breakthrough understanding ownership concepts.
 ```markdown
 # Coach
 
-- HH:MM: Updated [[Coach/Goals/learn-rust|Goal: Learn Rust]] to 25% - breakthrough on ownership in Chapter 4, core concept finally clicked
+- HH:MM: Updated [[Coach/Goals/Learn Rust]] goal to 25% - breakthrough on ownership in Chapter 4, core concept finally clicked
 ```
 
 ## Example 5: Mixed Conversation
@@ -213,7 +213,7 @@ Completed Chapter 4. Had breakthrough understanding ownership concepts.
 
 **Coach actions:**
 
-1. Edit `Coach/Projects/rust-cli-tool.md`:
+1. Edit `Coach/Projects/Rust CLI Tool.md`:
 ```markdown
 ---
 status: blocked
@@ -224,7 +224,7 @@ tags: [project/active]
 lastUpdated: 2026-01-19
 ---
 
-# Project: Rust CLI Tool
+# Rust CLI Tool
 
 ...
 
@@ -238,7 +238,7 @@ lastUpdated: 2026-01-19
 - [ ] Return to CLI tool with more experience
 ```
 
-2. Create `Coach/Goals/contribute-to-oss.md`:
+2. Create `Coach/Goals/Contribute to Open Source.md`:
 ```markdown
 ---
 status: not-started
@@ -249,7 +249,7 @@ tags: [goal/active]
 lastUpdated: 2026-01-19
 ---
 
-# Goal: Contribute to Open Source
+# Contribute to Open Source
 
 ## Milestones
 - [ ] Find beginner-friendly Rust projects (2026-02-01)
@@ -271,9 +271,9 @@ Motivated to start contributing but need to build skills first.
 
 # Coach
 
-- HH:MM: Updated [[Coach/Projects/rust-cli-tool|Project: Rust CLI Tool]] - marked as blocked, too complex for current level
+- HH:MM: Updated [[Coach/Projects/Rust CLI Tool]] project - marked as blocked, too complex for current level
 - HH:MM: Captured idea to try simpler example first - good instinct to reduce scope
-- HH:MM: Created [[Coach/Goals/contribute-to-oss|Goal: Contribute to Open Source]] - aligns well with learning Rust
+- HH:MM: Created [[Coach/Goals/Contribute to Open Source]] goal - aligns well with learning Rust
 ```
 
 ## Detection Patterns Summary

@@ -16,7 +16,7 @@ tags: [project/active]
 lastUpdated: 2026-01-11
 ---
 
-# Project: Agent Coach
+# Agent Coach
 
 ## Milestones
 - [x] Define skill structure (2026-01-08)

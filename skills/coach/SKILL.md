@@ -101,7 +101,7 @@ Score each entity (Goals, Projects, Ideas, Tasks) and present in priority order:
 **Workflow for Goals and Projects:**
 1. **Detect** the entity type from user's statement
 2. **Create file** in `Coach/Goals/` or `Coach/Projects/` with proper frontmatter and structure (see [goals.md](goals.md) and [projects.md](projects.md))
-3. **Link in diary** under `# Coach` header with format: `- HH:MM: Created [[Coach/Goals/filename|Goal: Title]]`
+3. **Link in diary** under `# Coach` header with format: `- HH:MM: Created [[Coach/Goals/Goal Title]]`
 
 **Workflow for Ideas, Thoughts, and Tasks:**
 1. **Detect** the entity type from user's statement
@@ -114,12 +114,12 @@ Score each entity (Goals, Projects, Ideas, Tasks) and present in priority order:
 User: "I want to learn Rust and build a CLI tool with it"
 Coach:
 1. Detects Goal: "learn Rust"
-2. Creates: Coach/Goals/learn-rust.md with frontmatter
+2. Creates: Coach/Goals/Learn Rust.md with frontmatter
 3. Detects Project: "build CLI tool"
-4. Creates: Coach/Projects/rust-cli-tool.md with frontmatter
+4. Creates: Coach/Projects/Rust CLI Tool.md with frontmatter
 5. Appends to diary:
-   - HH:MM: Created [[Coach/Goals/learn-rust|Goal: Learn Rust]]
-   - HH:MM: Created [[Coach/Projects/rust-cli-tool|Project: Rust CLI Tool]]
+   - HH:MM: Created [[Coach/Goals/Learn Rust]] goal
+   - HH:MM: Created [[Coach/Projects/Rust CLI Tool]] project
 ```
 
 ### Updating Existing Files
@@ -164,7 +164,7 @@ Append diary entries to today's journal page under the `# Coach` header:
 
 **Good diary entries:**
 - `09:30: Decided to pivot Project X to focus on Y after realizing Z blocker can't be resolved`
-- `14:15: Made breakthrough on Goal: Learn Rust - finally understood ownership after working through Chapter 4`
+- `14:15: Made breakthrough on [[Coach/Goals/Learn Rust]] - finally understood ownership after working through Chapter 4`
 - `22:47: Deprioritized Project Y until Q2 - blocked on external dependency`
 
 **Poor diary entries:**
@@ -181,7 +181,7 @@ When an Idea becomes a Goal or Project:
 2. Edit the original `#idea` line in the journal:
 
 ```markdown
-#idea: Learn Rust lifetimes [→ Goal: Learn Rust Fundamentals](Coach/Goals/learn-rust.md)
+#idea: Learn Rust lifetimes and understand ownership [→ [[Coach/Goals/Learn Rust]] goal created]
 ```
 
 ## Reference Files
