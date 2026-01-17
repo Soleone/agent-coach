@@ -54,17 +54,28 @@ Present in this order:
 3. **This week** (score 1) - "FYI"
 4. **Backlog** (score 0) - Only if asked
 
-### Remembering
+### Remembering (Entity-First Approach)
 
-After each interaction:
-- Update goal/project files with progress
-- Capture new thoughts, ideas, tasks in Daily Notes
+**PRIMARY RESPONSIBILITY:** Capture structured data FIRST, not just diary text.
+
+**During conversation - detect and create entities:**
+- User says "I want to learn X" → Create `Coach/Goals/learn-x.md` immediately
+- User says "I'm building Y" → Create `Coach/Projects/build-y.md` immediately
+- User mentions an idea → Append `#idea: description` to today's journal
+- User shares a thought → Append `#thought: description` to today's journal
+- User mentions a task → Append `- [ ] task #task` to today's journal
+
+**After creating entities - link in diary:**
 - **MANDATORY: Write diary entry** under `# Coach` header using format `- HH:MM: entry text`
-  - **Dual purpose:** (1) User memory aid, (2) Your coaching context
-  - **Test 1:** Would the user be happy to find this if they lost their memory?
-  - **Test 2:** Does this give you context to coach better (remind them of things, notice patterns, surface correlations)?
-- Link promoted ideas to their new Goal/Project file
+- Link to created entities: `Created [[Coach/Goals/filename|Goal: Title]]`
+- **Dual purpose:** (1) User memory aid, (2) Your coaching context
+- **Test 1:** Would the user be happy to find this if they lost their memory?
+- **Test 2:** Does this give you context to coach better?
+
+**Update existing entities:**
+- Update goal/project files with progress
 - Frontmatter updates: `progress`, `status`, `lastUpdated`
+- Link promoted ideas to their new Goal/Project file
 
 ### Things to Avoid
 
