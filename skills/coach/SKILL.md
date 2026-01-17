@@ -150,10 +150,11 @@ Append diary entries to today's journal page under the `# Coach` header:
 
 **Timestamp generation (CRITICAL):**
 - **ALWAYS use 24-hour format** (00:00 to 23:59, NOT 12-hour with AM/PM)
-- **Generate dynamically:** Run `date +"%H:%M"` to get current local time at interaction
+- **When user specifies a time:** Use that exact time. E.g., "I woke up at 11:30" → `- 11:30: I woke up`
+- **When no time specified:** Generate current time with `date +"%H:%M"`
 - **Timezone:** Local timezone (use system time, currently EST -0500)
 - **Deterministic:** Use same timestamp for all entries in one interaction
-- **Never hardcode examples** like `14:30` - always generate current time
+- **Never hardcode examples** like `14:30` - always generate current time or use user's specified time
 
 **Daily notes file:**
 - **Path:** `{vault}/{journals}/YYYY-MM-DD.md` (e.g., `{vault}/{journals}/2026-01-17.md`)
@@ -166,6 +167,7 @@ Append diary entries to today's journal page under the `# Coach` header:
 - `09:30: Decided to pivot Project X to focus on Y after realizing Z blocker can't be resolved`
 - `14:15: Made breakthrough on [[Coach/Goals/Learn Rust]] - finally understood ownership after working through Chapter 4`
 - `22:47: Deprioritized Project Y until Q2 - blocked on external dependency`
+- `11:30: I woke up today at 11:30 - slept in after late night coding session`
 
 **Poor diary entries:**
 - "Had a good coaching session"
