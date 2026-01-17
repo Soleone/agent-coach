@@ -2,6 +2,12 @@
 
 This file demonstrates how to detect and create entities from user conversations.
 
+**IMPORTANT - Timestamps and Dates:**
+- Always generate timestamps using `date +"%H:%M"` (24-hour format, local timezone)
+- Always generate dates using `date +"%Y-%m-%d"` (local timezone, not UTC)
+- Never hardcode timestamps or dates - examples below use placeholders like `HH:MM` and `YYYY-MM-DD`
+- All diary entries must use the actual current time when created
+
 ## Example 1: Goal + Project in One Statement
 
 **User says:**
@@ -68,13 +74,15 @@ Planning phase. Need to learn Rust basics first.
 - [ ] Research Rust CLI frameworks (clap, structopt)
 ```
 
-3. Append to `{journals}/2026-01-17.md` under `# Coach`:
+3. Append to `{journals}/YYYY-MM-DD.md` under `# Coach` (generate date with `date +"%Y-%m-%d"`):
 ```markdown
 # Coach
 
-- 14:30: Created [[Coach/Goals/learn-rust|Goal: Learn Rust]] - wants to learn systems programming
-- 14:30: Created [[Coach/Projects/rust-cli-tool|Project: Rust CLI Tool]] - will build practical project while learning
+- HH:MM: Created [[Coach/Goals/learn-rust|Goal: Learn Rust]] - wants to learn systems programming
+- HH:MM: Created [[Coach/Projects/rust-cli-tool|Project: Rust CLI Tool]] - will build practical project while learning
 ```
+
+**Note:** `HH:MM` is generated using `date +"%H:%M"` at interaction time (24-hour format)
 
 ## Example 2: Multiple Ideas and Thoughts
 
@@ -115,16 +123,16 @@ Planning to start. Thinking 10 minutes daily.
 - [ ] Decide on morning or evening slot
 ```
 
-2. Append to `{journals}/2026-01-17.md`:
+2. Append to `{journals}/YYYY-MM-DD.md`:
 ```markdown
 #idea: Build habit tracker app - could help with meditation tracking and other habits
 #thought: I'm more productive in the mornings - should schedule important work then
 
 # Coach
 
-- 15:15: Created [[Coach/Goals/daily-meditation|Goal: Daily Meditation Practice]] - starting with 10min daily
-- 15:15: Captured idea about building habit tracker app - could become a project
-- 15:15: Noted productivity pattern - mornings are most productive time
+- HH:MM: Created [[Coach/Goals/daily-meditation|Goal: Daily Meditation Practice]] - starting with 10min daily
+- HH:MM: Captured idea about building habit tracker app - could become a project
+- HH:MM: Noted productivity pattern - mornings are most productive time
 ```
 
 ## Example 3: Task Detection
@@ -138,14 +146,14 @@ Planning to start. Thinking 10 minutes daily.
 
 **Coach actions:**
 
-Append to `{journals}/2026-01-17.md`:
+Append to `{journals}/YYYY-MM-DD.md`:
 ```markdown
 - [ ] Email John about project update #task
 - [ ] Review code changes #task
 
 # Coach
 
-- 16:00: Added 2 tasks: email John and review code changes
+- HH:MM: Added 2 tasks: email John and review code changes
 ```
 
 ## Example 4: Updating Existing Goal
@@ -186,11 +194,11 @@ Completed Chapter 4. Had breakthrough understanding ownership concepts.
 - [ ] Start planning CLI tool project
 ```
 
-2. Append to `{journals}/2026-01-18.md` under `# Coach`:
+2. Append to `{journals}/YYYY-MM-DD.md` under `# Coach`:
 ```markdown
 # Coach
 
-- 11:00: Updated [[Coach/Goals/learn-rust|Goal: Learn Rust]] to 25% - breakthrough on ownership in Chapter 4, core concept finally clicked
+- HH:MM: Updated [[Coach/Goals/learn-rust|Goal: Learn Rust]] to 25% - breakthrough on ownership in Chapter 4, core concept finally clicked
 ```
 
 ## Example 5: Mixed Conversation
@@ -257,15 +265,15 @@ Motivated to start contributing but need to build skills first.
 - [ ] Practice code review on existing PRs
 ```
 
-3. Append to `{journals}/2026-01-19.md`:
+3. Append to `{journals}/YYYY-MM-DD.md`:
 ```markdown
 #idea: Try simpler Rust example before tackling CLI tool
 
 # Coach
 
-- 14:45: Updated [[Coach/Projects/rust-cli-tool|Project: Rust CLI Tool]] - marked as blocked, too complex for current level
-- 14:45: Captured idea to try simpler example first - good instinct to reduce scope
-- 14:45: Created [[Coach/Goals/contribute-to-oss|Goal: Contribute to Open Source]] - aligns well with learning Rust
+- HH:MM: Updated [[Coach/Projects/rust-cli-tool|Project: Rust CLI Tool]] - marked as blocked, too complex for current level
+- HH:MM: Captured idea to try simpler example first - good instinct to reduce scope
+- HH:MM: Created [[Coach/Goals/contribute-to-oss|Goal: Contribute to Open Source]] - aligns well with learning Rust
 ```
 
 ## Detection Patterns Summary

@@ -66,7 +66,9 @@ Present in this order:
 - User mentions a task → Append `- [ ] task #task` to today's journal
 
 **After creating entities - link in diary:**
-- **MANDATORY: Write diary entry** under `# Coach` header using format `- HH:MM: entry text`
+- **MANDATORY: Write diary entry** under `# Coach` header using format `- HH:MM: entry text` (24-hour time)
+- **Timestamp:** Generate using `date +"%H:%M"` (always 24-hour format, local timezone)
+- **Daily notes file:** `{vault}/{journals}/YYYY-MM-DD.md` (generate date with `date +"%Y-%m-%d"`)
 - Link to created entities: `Created [[Coach/Goals/filename|Goal: Title]]`
 - **Dual purpose:** (1) User memory aid, (2) Your coaching context
 - **Test 1:** Would the user be happy to find this if they lost their memory?

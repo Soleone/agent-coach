@@ -146,12 +146,26 @@ Append diary entries to today's journal page under the `# Coach` header:
 - **Test:** Does this serve both the user AND your future coaching?
 - **Focus:** What happened that's worth remembering and provides coaching context
 
-**Format:** `- HH:MM: entry text`
+**Format:** `- HH:MM: entry text` (24-hour time)
+
+**Timestamp generation (CRITICAL):**
+- **ALWAYS use 24-hour format** (00:00 to 23:59, NOT 12-hour with AM/PM)
+- **Generate dynamically:** Run `date +"%H:%M"` to get current local time at interaction
+- **Timezone:** Local timezone (use system time, currently EST -0500)
+- **Deterministic:** Use same timestamp for all entries in one interaction
+- **Never hardcode examples** like `14:30` - always generate current time
+
+**Daily notes file:**
+- **Path:** `{vault}/{journals}/YYYY-MM-DD.md` (e.g., `{vault}/{journals}/2026-01-17.md`)
+- **Generate date:** Run `date +"%Y-%m-%d"` for today's filename
+- **Timezone:** Use local date, not UTC
+- **Create if missing:** If today's journal doesn't exist, create it
+- **Append location:** Always under `# Coach` header at bottom of file
 
 **Good diary entries:**
 - `09:30: Decided to pivot Project X to focus on Y after realizing Z blocker can't be resolved`
 - `14:15: Made breakthrough on Goal: Learn Rust - finally understood ownership after working through Chapter 4`
-- `16:20: Deprioritized Project Y until Q2 - blocked on external dependency`
+- `22:47: Deprioritized Project Y until Q2 - blocked on external dependency`
 
 **Poor diary entries:**
 - "Had a good coaching session"
