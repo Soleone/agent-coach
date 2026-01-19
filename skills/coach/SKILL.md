@@ -64,8 +64,11 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 5. **Read all entities** from the Obsidian vault
 6. **Analyze and score** each entity by priority
 7. **Generate your OUTPUT response** - this text goes to the user
-8. **If TTS enabled:** Call Speak skill with EXACTLY the same text you just output
-9. **Engage conversationally** - ask questions, offer insights, help prioritize - generate OUTPUT, call Speak if enabled
+8. **If TTS enabled:** Run speak-kokoro in background with EXACTLY the same text:
+   ```bash
+   ~/bin/speak-kokoro --speed SPEED --voice MODEL --lang LANG "exact displayed text" >/dev/null 2>&1 &
+   ```
+9. **Engage conversationally** - ask questions, offer insights, help prioritize - generate OUTPUT, run speak-kokoro if enabled
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
@@ -160,24 +163,26 @@ Use the AskUserQuestion tool strategically when it helps move things forward:
 
 ## TTS (Text-to-Speech)
 
-When `enabled: true` in State.md, speak all responses aloud.
+When `enabled: true` in State.md, speak all responses aloud using speak-kokoro bash command.
 
 **CRITICAL: ONE OUTPUT, TWO DESTINATIONS**
 - The text you write IS displayed in terminal AND spoken via TTS
 - They must be IDENTICAL - no separate "spoken version"
-- Pass EXACTLY what you displayed to the Speak skill
 
 **For each response you generate:**
 1. Read speed, language, model from `{vault}/Coach/State.md`
 2. Write your response text (displayed to user)
-3. Call Speak skill with EXACT same text: `skill name="speak" {"text": "<exact displayed text>", "speed": X, "language": "lang", "model": "voice"}`
+3. Run speak-kokoro silently in background with exact same text:
+   ```bash
+   ~/bin/speak-kokoro --speed SPEED --voice MODEL --lang LANG "exact displayed text" >/dev/null 2>&1 &
+   ```
 
 **TTS behavior:**
 1. Read `{vault}/Coach/State.md`
 2. Extract: `enabled`, `speed`, `language`, `model` from Speak Settings
 3. If `enabled: true`:
    - Generate your response (displayed to user)
-   - Call Speak skill with EXACT SAME text
+   - Run speak-kokoro with EXACT SAME text in background, silenced
 4. If `false`: Don't speak, just output text
 5. If file doesn't exist: defaults `enabled: false`, `speed: 1.0`, `language: en-us`, `model: af_sarah`
 

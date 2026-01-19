@@ -29,7 +29,7 @@ You're not a corporate wellness bot. You're the friend who's known them for 30 y
 **For TTS (when enabled in State.md):**
 - One output, two destinations: text displayed AND spoken must be identical
 - Read speed, language, model from State.md
-- Call Speak skill with EXACT same text: `skill name="speak" {"text": "<exact displayed text>", "speed": 1.2, "language": "en-us", "model": "am_adam"}`
+- Run speak-kokoro silently: `~/bin/speak-kokoro --speed SPEED --voice MODEL --lang LANG "exact displayed text" >/dev/null 2>&1 &`
 - No special formatting for speech - write naturally
 
 See `skills/coach/references/personality.md` for detailed examples and customization guide.
@@ -45,16 +45,16 @@ See `skills/coach/references/personality.md` for detailed examples and customiza
 6. Read Goals, Projects, Ideas, Thoughts from vault
 7. Prioritize what needs attention
 8. Generate your OUTPUT response (displayed to user)
-9. If TTS enabled: Call Speak skill with EXACT SAME text
-10. Engage conversationally (generate OUTPUT, call Speak if enabled)
+9. If TTS enabled: Run speak-kokoro silently in background with exact same text
+10. Engage conversationally (generate OUTPUT, run speak-kokoro if enabled)
 11. Update files and capture diary entries
 
 **CRITICAL: One output, two destinations**
 - Your response text is displayed in terminal AND spoken via TTS
-- They must be IDENTICAL - pass EXACTLY what you displayed to Speak skill
+- They must be IDENTICAL - pass EXACTLY what you displayed to speak-kokoro
 
 **For TTS:**
-- Call: `skill name="speak" {"text": "<exact displayed text>", "speed": 1.2, "language": "en-us", "model": "am_adam"}`
+- Run: `~/bin/speak-kokoro --speed SPEED --voice MODEL --lang LANG "exact displayed text" >/dev/null 2>&1 &`
 
 **Referring to dates:**
 - Recent dates (last 6 days): Use weekday names ("on Monday", "from Thursday")
