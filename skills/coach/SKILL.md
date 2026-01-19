@@ -51,18 +51,18 @@ All diary entries must be appended under the `# Coach` header. If the header doe
    - Time: Run `date +"%H:%M"` (e.g., "14:30")
    - Timezone: Run `date +"%Z"` (e.g., "EST")
    - For deterministic behavior: Always use these exact commands, don't cache or estimate
-2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md)) - apply user preferences:
-   - If `enabled: true`, invoke the speak skill to enable persistent speak mode
-   - Pass speak settings to skill: speed, language, model (voice)
-   - If state file doesn't exist, use defaults (enabled: false)
-3. **Read journal entries:**
+2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md))
+3. **Check TTS enabled:** Look for `enabled: true` in Speak Settings section
+   - If `true`: You MUST speak all responses aloud using `speak-kokoro` command
+   - If `false`: Just output text normally
+4. **Read journal entries:**
    - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
    - Then: Previous 2-3 journal entries (most recent first)
    - Also check: Next 3 days for any entries (appointments/planning)
-4. **Read all entities** from the Obsidian vault
-5. **Analyze and score** each entity by priority
-6. **Present suggestions** in priority order
-7. **Engage conversationally** - ask questions, offer insights, help prioritize
+5. **Read all entities** from the Obsidian vault
+6. **Analyze and score** each entity by priority
+7. **Present suggestions** in priority order
+8. **Engage conversationally** - ask questions, offer insights, help prioritize
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
@@ -150,20 +150,36 @@ Use the AskUserQuestion tool strategically when it helps move things forward:
 - Make options actionable and distinct
 - Use descriptions to provide context on tradeoffs
 
-## State Management
+## TTS Output (Speaking Responses)
+
+When `enabled: true` in State.md, you MUST speak all responses aloud using the speak-kokoro command.
+
+**How to speak a response:**
+1. Read speed, language, and model from `{vault}/Coach/State.md`
+2. Run: `speak-kokoro --speed X --voice VOICE --lang LANG "your response text"`
+
+**Example:**
+```bash
+speak-kokoro --speed 1.2 --voice am_adam --lang en-us "Hey, let's look at what you got going on today."
+```
+
+**IMPORTANT:**
+- Speak the full response after you've written it
+- Pass the exact text you want spoken as the final argument
+- Use double quotes around the text if it contains special characters
+- Settings come from State.md, not hardcoded
 
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
 
 **When to read state:**
-- At session start (step 1 of "Your Process") - apply preferences before engaging
+- At session start (step 3 of "Your Process") - check if TTS is enabled and get settings
 
-**Applying speak settings at session start:**
+**Reading TTS settings:**
 1. Read `{vault}/Coach/State.md`
-2. Check `enabled` value:
-   - If `true`: Invoke the speak skill using the Skill tool to enable persistent speak mode
-   - Pass settings: speed (e.g., 1.2), language (e.g., en-us), model/voice (e.g., am_adam)
-   - If `false`: Don't invoke speak skill
-3. Settings are passed to the speak skill which uses Kokoro TTS
+2. Check `enabled` in Speak Settings:
+   - If `true`: Use settings (speed, language, model) for speak-kokoro command
+   - If `false`: Don't speak, just output text
+3. If file doesn't exist, use defaults: `enabled: false`, `speed: 1.0`, `language: en-us`, `model: af_sarah`
 
 **When to update state:**
 - User explicitly changes a setting ("enable speaking", "use Jenny's voice", "speak faster")
@@ -174,9 +190,6 @@ Coach state is persisted in `{vault}/Coach/State.md` to remember user preference
 2. Update the specific setting value in the appropriate section
 3. Update `Last updated:` timestamp
 4. Write the file back
-5. If updating `enabled`:
-   - Changed to `true`: Invoke speak skill to enable
-   - Changed to `false`: Invoke speak skill to disable
 
 See [state.md](references/state.md) for full format, available settings, and examples.
 
