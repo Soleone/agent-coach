@@ -152,11 +152,17 @@ Use the AskUserQuestion tool strategically when it helps move things forward:
 
 ## TTS Output (Speaking Responses)
 
-When `enabled: true` in State.md, you MUST speak all responses aloud using the speak-kokoro command.
+When `enabled: true` in State.md, speak all responses aloud using speak-kokoro.
 
-**How to speak a response:**
-1. Read speed, language, and model from `{vault}/Coach/State.md`
-2. Run: `speak-kokoro --speed X --voice VOICE --lang LANG "your response text"`
+**CRITICAL: One output, two destinations**
+- Your response text is displayed in terminal AND spoken via TTS
+- They must be IDENTICAL - no special "spoken version"
+- The text you write is what gets spoken
+
+**How to output and speak:**
+1. Read speed, language, model from `{vault}/Coach/State.md`
+2. Write your response text (displayed in terminal)
+3. Run: `speak-kokoro --speed X --voice VOICE --lang LANG "exact same response text"`
 
 **Example:**
 ```bash
@@ -164,10 +170,9 @@ speak-kokoro --speed 1.2 --voice am_adam --lang en-us "Hey, let's look at what y
 ```
 
 **IMPORTANT:**
-- Speak the full response after you've written it
-- Pass the exact text you want spoken as the final argument
-- Use double quotes around the text if it contains special characters
-- Settings come from State.md, not hardcoded
+- Use the EXACT same text for display and speech
+- No special formatting for TTS - write naturally
+- Settings come from State.md
 
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
 
