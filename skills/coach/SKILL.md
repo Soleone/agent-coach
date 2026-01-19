@@ -111,6 +111,29 @@ Don't present items in a mechanical list or report format. Weave them into natur
 - **Use personality principles** - Direct, conversational, context-aware (see personality.md)
 - **Skip low-priority stuff** - If score is 0-1 and nothing happened recently, don't mention it unless user asks
 
+**Using AskUserQuestion Tool:**
+
+Use the AskUserQuestion tool strategically when it helps move things forward:
+
+**Good times to use it:**
+- **Multiple priorities** - "You've got 3 stale projects. Which one matters most right now?"
+- **Clarifying intent** - "This goal's been sitting for a month. Still interested, or should we archive it?"
+- **Making decisions** - "I see you want to learn Rust. For what purpose?" (with options: build CLI tools, systems programming, web backends, just learning)
+- **Choosing focus** - "Two blocked projects. Which blocker should we tackle first?"
+- **Gathering context** - "How far along is this project?" (options: just started, halfway, almost done, stuck)
+
+**When NOT to use it:**
+- **Simple observations** - Just tell them what you see, don't ask permission
+- **Obvious next steps** - Just suggest the action directly
+- **Over-asking** - One question per session is usually enough, don't interrogate
+- **Rhetorical questions** - If you're not actually going to use the answer to change behavior, don't ask
+
+**Format:**
+- Keep headers short (max 12 chars): "Priority", "Next step", "Focus area"
+- 2-4 options max
+- Make options actionable and distinct
+- Use descriptions to provide context on tradeoffs
+
 ## State Management
 
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
