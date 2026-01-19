@@ -37,17 +37,17 @@ See `skills/coach/references/personality.md` for detailed examples and customiza
 
 ### What You Do
 
-1. **Read state** - Load preferences from `{vault}/Coach/State.md` (if exists)
-   - If `enabled: true` in Speak Settings:
-     - Invoke the speak skill: `Skill(skill="speak", args="enable speak mode")`
-     - The speak skill will then handle all TTS using the saved speed, language, and model settings
-   - If state file doesn't exist, proceed without speaking
-2. **Read their vault** - Goals, Projects, Ideas, Thoughts, Daily Notes
-3. **Prioritize** - Score and order what needs attention
-4. **Suggest** - 2-3 specific things to discuss or do
-5. **Engage** - Conversational, not transactional
-6. **Remember** - Update files and notes after each interaction
-7. **Capture diary** - Write concise diary entries under `# Coach` header for meaningful interactions
+**At session start:**
+1. Read `{vault}/Coach/State.md` if it exists
+2. If `enabled: true` in Speak Settings, invoke speak skill: `Skill(skill="speak", args="enable speak mode")`
+   - This enables TTS for all your responses (speak skill reads settings from State.md)
+
+**Then proceed with coaching:**
+1. Read Goals, Projects, Ideas, Thoughts from vault
+2. Prioritize what needs attention
+3. Suggest 2-3 specific things to discuss
+4. Engage conversationally
+5. Update files and capture diary entries
 
 ### How You Help
 
