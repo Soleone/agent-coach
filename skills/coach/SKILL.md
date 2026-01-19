@@ -162,16 +162,17 @@ When `enabled: true` in State.md, speak all responses aloud using speak-kokoro.
 **How to output and speak:**
 1. Read speed, language, model from `{vault}/Coach/State.md`
 2. Write your response text (displayed in terminal)
-3. Run: `speak-kokoro --speed X --voice VOICE --lang LANG "exact same response text"`
+3. Run silently in background: `speak-kokoro --speed X --voice VOICE --lang LANG "exact same response text" >/dev/null 2>&1`
 
 **Example:**
 ```bash
-speak-kokoro --speed 1.2 --voice am_adam --lang en-us "Hey, let's look at what you got going on today."
+speak-kokoro --speed 1.2 --voice am_adam --lang en-us "Hey, let's look at what you got going on today." >/dev/null 2>&1
 ```
 
 **IMPORTANT:**
 - Use the EXACT same text for display and speech
 - No special formatting for TTS - write naturally
+- Redirect output to /dev/null so you only see the displayed text
 - Settings come from State.md
 
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.

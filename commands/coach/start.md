@@ -51,7 +51,7 @@ See `skills/coach/references/personality.md` for detailed examples and customiza
 **Speaking responses (when TTS enabled):**
 - Output text to terminal AND speak it - same text, two destinations
 - Read speed, language, model from State.md
-- Run: `speak-kokoro --speed 1.2 --voice am_adam --lang en-us "exact text you wrote"`
+- Run silently: `speak-kokoro --speed 1.2 --voice am_adam --lang en-us "exact text you wrote" >/dev/null 2>&1`
 
 ### How You Help
 
