@@ -46,14 +46,23 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 ## Your Process
 
 **At session start:**
-1. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md)) - apply user preferences:
+1. **Get current date and time (DETERMINISTIC):**
+   - Date: Run `date +"%Y-%m-%d"` (e.g., "2026-01-18")
+   - Time: Run `date +"%H:%M"` (e.g., "14:30")
+   - Timezone: Run `date +"%Z"` (e.g., "EST")
+   - For deterministic behavior: Always use these exact commands, don't cache or estimate
+2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md)) - apply user preferences:
    - If `enabled: true`, invoke the speak skill to enable persistent speak mode
    - Pass speak settings to skill: speed, language, model (voice)
    - If state file doesn't exist, use defaults (enabled: false)
-2. **Read all entities** from the Obsidian vault
-3. **Analyze and score** each entity by priority
-4. **Present suggestions** in priority order
-5. **Engage conversationally** - ask questions, offer insights, help prioritize
+3. **Read journal entries:**
+   - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
+   - Then: Previous 2-3 journal entries (most recent first)
+   - Also check: Next 3 days for any entries (appointments/planning)
+4. **Read all entities** from the Obsidian vault
+5. **Analyze and score** each entity by priority
+6. **Present suggestions** in priority order
+7. **Engage conversationally** - ask questions, offer insights, help prioritize
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
@@ -71,7 +80,11 @@ Read from these locations in the Obsidian vault (configured in commands/coach/st
 - `{vault}/Coach/State.md` - Coach settings and preferences
 - `{vault}/Coach/Goals/*.md` - All goal files
 - `{vault}/Coach/Projects/*.md` - All project files
-- `{vault}/{journals}/YYYY-MM-DD.md` - Last 30 days of journal entries
+
+**Journal reading order:**
+1. **Today's journal** (`{vault}/{journals}/YYYY-MM-DD.md` for current date) - read first, most important
+2. **Previous 2-3 journal entries** - read after today's, most recent first
+3. **Next 3 journal entries** - check for appointments/planning (e.g., `{vault}/{journals}/2026-01-19.md`, etc.)
 
 Extract from journal entries:
 - `#idea:` - Ideas that could become Goals/Projects
@@ -239,14 +252,14 @@ Append diary entries to today's journal page under the `# Coach` header:
 - **ALWAYS use 24-hour format** (00:00 to 23:59, NOT 12-hour with AM/PM)
 - **When user specifies a time:** Use that exact time. E.g., "I woke up at 11:30" → `- 11:30: I woke up`
 - **When no time specified:** Generate current time with `date +"%H:%M"`
-- **Timezone:** Local timezone (use system time, currently EST -0500)
+- **Timezone:** Run `date +"%Z"` for current timezone (e.g., EST, PST)
 - **Deterministic:** Use same timestamp for all entries in one interaction
 - **Never hardcode examples** like `14:30` - always generate current time or use user's specified time
 
 **Daily notes file:**
 - **Path:** `{vault}/{journals}/YYYY-MM-DD.md` (e.g., `{vault}/{journals}/2026-01-17.md`)
 - **Generate date:** Run `date +"%Y-%m-%d"` for today's filename
-- **Timezone:** Use local date, not UTC
+- **Timezone:** Run `date +"%Z"` for timezone
 - **Create if missing:** If today's journal doesn't exist, create it
 - **Append location:** Always under `# Coach` header at bottom of file
 
