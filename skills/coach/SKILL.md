@@ -52,14 +52,17 @@ All diary entries must be appended under the `# Coach` header. If the header doe
    - Timezone: Run `date +"%Z"` (e.g., "EST")
    - For deterministic behavior: Always use these exact commands, don't cache or estimate
 2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md))
-3. **Read journal entries:**
+3. **Enable TTS if enabled:**
+   - If `enabled: true` in Speak Settings: Invoke speak skill with `Skill(skill="speak", args="enable speak mode")`
+   - The speak skill reads speed, language, model from State.md and handles all TTS automatically
+4. **Read journal entries:**
    - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
    - Then: Previous 2-3 journal entries (most recent first)
    - Also check: Next 3 days for any entries (appointments/planning)
-4. **Read all entities** from the Obsidian vault
-5. **Analyze and score** each entity by priority
-6. **Present suggestions** in priority order (speak this output if TTS enabled)
-7. **Engage conversationally** - ask questions, offer insights, help prioritize (speak responses if TTS enabled)
+5. **Read all entities** from the Obsidian vault
+6. **Analyze and score** each entity by priority
+7. **Present suggestions** in priority order
+8. **Engage conversationally** - ask questions, offer insights, help prioritize
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
@@ -147,41 +150,29 @@ Use the AskUserQuestion tool strategically when it helps move things forward:
 - Make options actionable and distinct
 - Use descriptions to provide context on tradeoffs
 
-## TTS Output (Speaking Responses)
+## TTS (Text-to-Speech)
 
-When `enabled: true` in State.md, speak all responses aloud using speak-kokoro.
+When `enabled: true` in State.md, the speak skill handles all TTS automatically.
 
-**CRITICAL: One output, two destinations**
-- Your response text is displayed in terminal AND spoken via TTS
-- They must be IDENTICAL - no special "spoken version"
-- The text you write is what gets spoken
+**How it works:**
+1. At session start, if `enabled: true`, invoke: `Skill(skill="speak", args="enable speak mode")`
+2. The speak skill reads speed, language, model from State.md
+3. All your responses are automatically spoken - no manual commands needed
+4. Text output and speech are identical (same text)
 
-**How to output and speak:**
-1. Read speed, language, model from `{vault}/Coach/State.md`
-2. Write your response text (displayed in terminal)
-3. Run silently in background: `speak-kokoro --speed X --voice VOICE --lang LANG "exact same response text" >/dev/null 2>&1`
-
-**Example:**
-```bash
-speak-kokoro --speed 1.2 --voice am_adam --lang en-us "Hey, let's look at what you got going on today." >/dev/null 2>&1
-```
-
-**IMPORTANT:**
-- Use the EXACT same text for display and speech
-- No special formatting for TTS - write naturally
-- Redirect output to /dev/null so you only see the displayed text
-- Settings come from State.md
+**No special formatting needed** - write naturally, the speech engine handles pronunciation.
 
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
 
 **When to read state:**
-- At session start (step 2 of "Your Process") - check if TTS is enabled and get settings
+- At session start (step 2 of "Your Process") - check if TTS is enabled
 
-**Reading TTS settings:**
+**Enabling TTS at session start:**
 1. Read `{vault}/Coach/State.md`
 2. Check `enabled` in Speak Settings:
-   - If `true`: Use settings (speed, language, model) for speak-kokoro command
-   - If `false`: Don't speak, just output text
+   - If `true`: Invoke speak skill with `Skill(skill="speak", args="enable speak mode")`
+   - The speak skill reads settings (speed, language, model) and handles TTS automatically
+   - If `false`: Don't invoke speak skill
 3. If file doesn't exist, use defaults: `enabled: false`, `speed: 1.0`, `language: en-us`, `model: af_sarah`
 
 **When to update state:**
@@ -193,6 +184,9 @@ Coach state is persisted in `{vault}/Coach/State.md` to remember user preference
 2. Update the specific setting value in the appropriate section
 3. Update `Last updated:` timestamp
 4. Write the file back
+5. If updating `enabled`:
+   - Changed to `true`: Invoke speak skill to enable
+   - Changed to `false`: Invoke speak skill to disable
 
 See [state.md](references/state.md) for full format, available settings, and examples.
 
