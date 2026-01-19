@@ -52,19 +52,14 @@ All diary entries must be appended under the `# Coach` header. If the header doe
    - Timezone: Run `date +"%Z"` (e.g., "EST")
    - For deterministic behavior: Always use these exact commands, don't cache or estimate
 2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md))
-3. **Check TTS and speak initial greeting:**
-   - Read `enabled` from Speak Settings
-   - Write your greeting/intro text (what you want to display)
-   - If `enabled: true`: Run `speak-kokoro --speed X --voice VOICE --lang LANG "exact same greeting text" >/dev/null 2>&1`
-   - If `false`: Just display the text normally
-4. **Read journal entries:**
+3. **Read journal entries:**
    - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
    - Then: Previous 2-3 journal entries (most recent first)
    - Also check: Next 3 days for any entries (appointments/planning)
-5. **Read all entities** from the Obsidian vault
-6. **Analyze and score** each entity by priority
-7. **Present suggestions** in priority order
-8. **Engage conversationally** - ask questions, offer insights, help prioritize
+4. **Read all entities** from the Obsidian vault
+5. **Analyze and score** each entity by priority
+6. **Present suggestions** in priority order (speak this output if TTS enabled)
+7. **Engage conversationally** - ask questions, offer insights, help prioritize (speak responses if TTS enabled)
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
@@ -180,7 +175,7 @@ speak-kokoro --speed 1.2 --voice am_adam --lang en-us "Hey, let's look at what y
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
 
 **When to read state:**
-- At session start (step 3 of "Your Process") - check if TTS is enabled and get settings
+- At session start (step 2 of "Your Process") - check if TTS is enabled and get settings
 
 **Reading TTS settings:**
 1. Read `{vault}/Coach/State.md`
