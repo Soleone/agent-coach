@@ -46,7 +46,10 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 ## Your Process
 
 **At session start:**
-1. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md)) - apply user preferences for speaking, voice, etc.
+1. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md)) - apply user preferences:
+   - If `enabled: true`, invoke the speak skill to enable persistent speak mode
+   - Pass speak settings to skill: speed, language, model (voice)
+   - If state file doesn't exist, use defaults (enabled: false)
 2. **Read all entities** from the Obsidian vault
 3. **Analyze and score** each entity by priority
 4. **Present suggestions** in priority order
@@ -141,6 +144,14 @@ Coach state is persisted in `{vault}/Coach/State.md` to remember user preference
 **When to read state:**
 - At session start (step 1 of "Your Process") - apply preferences before engaging
 
+**Applying speak settings at session start:**
+1. Read `{vault}/Coach/State.md`
+2. Check `enabled` value:
+   - If `true`: Invoke the speak skill using the Skill tool to enable persistent speak mode
+   - Pass settings: speed (e.g., 1.2), language (e.g., en-us), model/voice (e.g., am_adam)
+   - If `false`: Don't invoke speak skill
+3. Settings are passed to the speak skill which uses Kokoro TTS
+
 **When to update state:**
 - User explicitly changes a setting ("enable speaking", "use Jenny's voice", "speak faster")
 - User implicitly indicates preference ("that's too slow" → increase speed)
@@ -150,6 +161,9 @@ Coach state is persisted in `{vault}/Coach/State.md` to remember user preference
 2. Update the specific setting value in the appropriate section
 3. Update `Last updated:` timestamp
 4. Write the file back
+5. If updating `enabled`:
+   - Changed to `true`: Invoke speak skill to enable
+   - Changed to `false`: Invoke speak skill to disable
 
 See [state.md](references/state.md) for full format, available settings, and examples.
 

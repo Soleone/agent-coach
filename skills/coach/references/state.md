@@ -11,14 +11,10 @@ Last updated: 2026-01-18
 
 ## Speak Settings
 
-- speakEnabled: true
-- voice: Kristin
-- personality: default
-- language: english
-- speed: 1x
-- verbosity: medium
-- backgroundMusic: off
-- reverb: off
+- enabled: true
+- speed: 1.2
+- language: en-us
+- model: am_adam
 
 ## Preferences
 
@@ -27,21 +23,38 @@ Last updated: 2026-01-18
 
 ## Speak Settings
 
+Settings for Kokoro TTS integration (via speak skill):
+
 | Setting | Values | Description |
 |---------|--------|-------------|
-| `speakEnabled` | true, false | Whether coach speaks responses aloud |
-| `voice` | Voice name | TTS voice (e.g., "Kristin", "Jenny", "Tracy") |
-| `personality` | default, flirty, sarcastic, pirate, robot, zen | TTS personality style |
-| `language` | english, spanish, french, german, etc. | Language for spoken responses |
-| `speed` | 0.5x, 1x, 2x, 3x, slow, normal, fast, faster | Speech speed |
-| `verbosity` | low, medium, high | How much coach speaks while working |
-| `backgroundMusic` | off, track name | Background music track (e.g., "flamenco", "celtic") |
-| `reverb` | off, light, medium, heavy, cathedral | Reverb level for voice |
+| `enabled` | true, false | Whether coach speaks responses aloud |
+| `speed` | 0.5 to 2.0 | Speech speed (1.0 = normal, 1.2 = faster, 0.8 = slower) |
+| `language` | en-us, en-gb, fr-fr, it, ja, cmn | Language code for TTS |
+| `model` | Voice name | Kokoro voice model (see available voices below) |
+
+### Available Voice Models
+
+**American English Male:**
+- `am_adam` - American male (recommended default)
+- `am_michael`, `am_eric`, `am_liam`, `am_onyx`, `am_echo`, `am_fenrir`, `am_puck`, `am_santa`
+
+**American English Female:**
+- `af_sarah` - American female (Kokoro default)
+- `af_bella`, `af_nova`, `af_sky`, `af_river`, `af_jessica`, `af_nicole`, `af_heart`, `af_alloy`, `af_aoede`, `af_kore`
+
+**British English:**
+- Male: `bm_george`, `bm_daniel`, `bm_lewis`, `bm_fable`
+- Female: `bf_alice`, `bf_emma`, `bf_isabella`, `bf_lily`
+
+**Other Languages:**
+- Japanese: `jf_alpha`, `jm_kumo`, etc.
+- Chinese Mandarin: `zf_xiaobei`, `zf_xiaoni`, etc.
+- French, Italian (see `speak-kokoro --list-voices`)
 
 ## Updates
 
 **When to update:**
-- User explicitly changes a setting ("set voice to Jenny", "disable speaking", "use fast speed")
+- User explicitly changes a setting ("enable speaking", "use male voice", "speak faster")
 - User implicitly indicates a preference ("that's too slow" → increase speed)
 
 **How to update:**
@@ -58,33 +71,28 @@ Last updated: 2026-01-18
 
 ## Speak Settings
 
-- speakEnabled: false
-- voice: default
-- personality: default
-- language: english
-- speed: 1x
-- verbosity: medium
-- backgroundMusic: off
-- reverb: off
+- enabled: false
+- speed: 1.0
+- language: en-us
+- model: af_sarah
 ```
 
 ## Reading State
 
 At session start, read `{vault}/Coach/State.md` to apply user preferences:
-- If `speakEnabled: true`, use TTS for responses
-- Apply voice, personality, language, speed settings via AgentVibes tools
-- Respect verbosity level when deciding what to speak
+- If `enabled: true`, invoke the speak skill to enable persistent speak mode
+- Pass speed, language, and model settings to the speak skill
 
 ## Examples
 
 **User says:** "Enable speak mode"
-**Action:** Set `speakEnabled: true`, update timestamp
+**Action:** Set `enabled: true`, update timestamp, invoke speak skill
 
-**User says:** "Use Jenny's voice"
-**Action:** Set `voice: Jenny`, update timestamp, call `mcp__agentvibes__set_voice` tool
+**User says:** "Use a British male voice"
+**Action:** Set `model: bm_george`, update timestamp
 
 **User says:** "Speak faster"
-**Action:** Increase speed (1x → 2x), update timestamp, call `mcp__agentvibes__set_speed` tool
+**Action:** Increase speed (1.2 → 1.5), update timestamp
 
-**User says:** "That's too much talking"
-**Action:** Set `verbosity: low`, update timestamp, call `mcp__agentvibes__set_verbosity` tool
+**User says:** "Disable speaking"
+**Action:** Set `enabled: false`, update timestamp, disable speak skill
