@@ -155,11 +155,9 @@ Use the AskUserQuestion tool strategically when it helps move things forward:
 When `enabled: true` in State.md, speak all responses aloud.
 
 **For each response you generate:**
-1. Write your response text (displayed in terminal)
-2. Call the Speak skill with the complete text: `skill name="speak" {"text": "<response>"}`
-3. The response is spoken exactly as written
-
-**State settings come from `{vault}/Coach/State.md`** - speed, language, and model are handled by the speak skill.
+1. Read speed, language, model from `{vault}/Coach/State.md`
+2. Write your response text (displayed in terminal)
+3. Call the Speak skill with the text and settings: `skill name="speak" {"text": "<response>", "speed": X, "language": "lang", "model": "voice"}`
 
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
 
@@ -168,10 +166,11 @@ Coach state is persisted in `{vault}/Coach/State.md` to remember user preference
 
 **TTS behavior:**
 1. Read `{vault}/Coach/State.md`
-2. Check `enabled` in Speak Settings:
-   - If `true`: Call Speak skill for each response: `skill name="speak" {"text": "<response>"}`
-   - If `false`: Don't speak, just output text
-3. If file doesn't exist, use defaults: `enabled: false`, `speed: 1.0`, `language: en-us`, `model: af_sarah`
+2. Extract: `enabled`, `speed`, `language`, `model` from Speak Settings
+3. If `enabled: true`: Call Speak skill with settings for each response
+   - `skill name="speak" {"text": "<response>", "speed": X, "language": "lang", "model": "voice"}`
+4. If `false`: Don't speak, just output text
+5. If file doesn't exist, use defaults: `enabled: false`, `speed: 1.0`, `language: en-us`, `model: af_sarah`
 
 **When to update state:**
 - User explicitly changes a setting ("enable speaking", "use Jenny's voice", "speak faster")
