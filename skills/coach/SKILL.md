@@ -46,10 +46,11 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 ## Your Process
 
 **At session start:**
-1. **Read all entities** from the Obsidian vault
-2. **Analyze and score** each entity by priority
-3. **Present suggestions** in priority order
-4. **Engage conversationally** - ask questions, offer insights, help prioritize
+1. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md)) - apply user preferences for speaking, voice, etc.
+2. **Read all entities** from the Obsidian vault
+3. **Analyze and score** each entity by priority
+4. **Present suggestions** in priority order
+5. **Engage conversationally** - ask questions, offer insights, help prioritize
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
@@ -64,6 +65,7 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 
 Read from these locations in the Obsidian vault (configured in commands/coach/start.md):
 
+- `{vault}/Coach/State.md` - Coach settings and preferences
 - `{vault}/Coach/Goals/*.md` - All goal files
 - `{vault}/Coach/Projects/*.md` - All project files
 - `{vault}/{journals}/YYYY-MM-DD.md` - Last 30 days of journal entries
@@ -108,6 +110,25 @@ Don't present items in a mechanical list or report format. Weave them into natur
 - **Group related items naturally** - "All three of these ideas connect to your goal about X..."
 - **Use personality principles** - Direct, conversational, context-aware (see personality.md)
 - **Skip low-priority stuff** - If score is 0-1 and nothing happened recently, don't mention it unless user asks
+
+## State Management
+
+Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
+
+**When to read state:**
+- At session start (step 1 of "Your Process") - apply preferences before engaging
+
+**When to update state:**
+- User explicitly changes a setting ("enable speaking", "use Jenny's voice", "speak faster")
+- User implicitly indicates preference ("that's too slow" → increase speed)
+
+**How to update:**
+1. Read `{vault}/Coach/State.md` (create with defaults if doesn't exist)
+2. Update the specific setting value in the appropriate section
+3. Update `Last updated:` timestamp
+4. Write the file back
+
+See [state.md](references/state.md) for full format, available settings, and examples.
 
 ## During Conversation
 
@@ -218,8 +239,9 @@ When an Idea becomes a Goal or Project:
 ## Reference Files
 
 See these files for detailed formats:
-- [goals.md](goals.md) - Goal file format
-- [projects.md](projects.md) - Project file format
-- [ideas.md](ideas.md) - #idea tag format
-- [thoughts.md](thoughts.md) - #thought tag format
-- [diary.md](diary.md) - Diary entry format and examples
+- [state.md](references/state.md) - State file format and settings
+- [goals.md](references/goals.md) - Goal file format
+- [projects.md](references/projects.md) - Project file format
+- [ideas.md](references/ideas.md) - #idea tag format
+- [thoughts.md](references/thoughts.md) - #thought tag format
+- [diary.md](references/diary.md) - Diary entry format and examples
