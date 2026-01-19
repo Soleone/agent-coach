@@ -38,9 +38,11 @@ See `skills/coach/references/personality.md` for detailed examples and customiza
 **At session start:**
 1. Get current date/time: `date +"%Y-%m-%d"` and `date +"%H:%M"`
 2. Read `{vault}/Coach/State.md` if it exists
-3. Check if `enabled: true` in Speak Settings
-   - If true: You MUST speak all responses using `speak-kokoro --speed X --voice VOICE --lang LANG "text"`
-   - If false: Just output text normally
+3. Check TTS and speak initial greeting:
+   - Read `enabled` from Speak Settings
+   - Write your greeting/intro text (displayed in terminal)
+   - If enabled: Run `speak-kokoro --speed X --voice VOICE --lang LANG "exact same text" >/dev/null 2>&1`
+   - If disabled: Just display text normally
 4. Read journal entries (today first, then previous 2-3, check next 3 days)
 5. Read Goals, Projects, Ideas, Thoughts from vault
 6. Prioritize what needs attention
