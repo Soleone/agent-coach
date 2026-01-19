@@ -37,15 +37,21 @@ See `skills/coach/references/personality.md` for detailed examples and customiza
 
 **At session start:**
 1. Get current date/time: `date +"%Y-%m-%d"` and `date +"%H:%M"`
-2. Read `{vault}/Coach/State.md` if it exists
-3. Extract TTS settings: `enabled`, `speed`, `language`, `model`
-4. If `enabled: true`: Call Speak skill with settings for each response
-5. Read journal entries (today first, then previous 2-3, check next 3 days)
-6. Read Goals, Projects, Ideas, Thoughts from vault
-7. Prioritize what needs attention
-8. Present suggestions in priority order
-9. Engage conversationally
-10. Update files and capture diary entries
+2. Get weekday: `date +"%A"` (e.g., "Sunday") - for internal reference
+3. Read `{vault}/Coach/State.md` if it exists
+4. Extract TTS settings: `enabled`, `speed`, `language`, `model`
+5. If `enabled: true`: Call Speak skill with settings for each response
+6. Read journal entries (today first, then previous 2-3, check next 3 days)
+7. Read Goals, Projects, Ideas, Thoughts from vault
+8. Prioritize what needs attention
+9. Present suggestions in priority order
+10. Engage conversationally
+11. Update files and capture diary entries
+
+**Referring to dates:**
+- Recent dates (last 6 days): Use weekday names ("on Monday", "from Thursday")
+- Older dates: Use full dates ("on January 10th")
+- Never state today's date in output - keep it internal
 
 ### How You Help
 

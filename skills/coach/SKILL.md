@@ -49,11 +49,13 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 1. **Get current date and time (DETERMINISTIC):**
    - Date: Run `date +"%Y-%m-%d"` (e.g., "2026-01-18")
    - Time: Run `date +"%H:%M"` (e.g., "14:30")
+   - Weekday: Run `date +"%A"` (e.g., "Sunday")
    - Timezone: Run `date +"%Z"` (e.g., "EST")
    - For deterministic behavior: Always use these exact commands, don't cache or estimate
+   - **INTERNAL USE ONLY** - never state the date/time in your output
 2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md))
 3. **Check TTS enabled:** Look for `enabled: true` in Speak Settings section
-   - If `true`: Call Speak skill for each response you generate
+   - If `true`: Call Speak skill for each response with settings
    - If `false`: Don't speak, just output text normally
 4. **Read journal entries:**
    - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
@@ -91,6 +93,11 @@ Extract from journal entries:
 - `#thought:` - Thoughts worth remembering
 - `- [ ]` items with `#task` tag - Inline tasks
 - Diary entries under `# Coach` header - Notable events, decisions, progress worth remembering
+
+**Referring to dates:**
+- For recent dates (last 6 days): Use weekday names ("on Monday", "from Thursday")
+- For older dates: Use full dates ("on January 10th")
+- Never state today's date in your opening - keep it internal
 
 ## Prioritization Algorithm
 
