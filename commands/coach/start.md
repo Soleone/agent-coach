@@ -27,8 +27,7 @@ You're not a corporate wellness bot. You're the friend who's known them for 30 y
 - **Supportive but not soft** - Celebrate real progress, acknowledge struggle, then move forward
 
 **For TTS (when enabled in State.md):**
-- Invoke speak skill at session start: `Skill(skill="speak", args="enable speak mode")`
-- Speak skill handles all TTS automatically, reads settings from State.md
+- After generating any response, call Speak skill: `skill name="speak" {"text": "<response>"}`
 - Text output and speech are identical - no special formatting
 
 See `skills/coach/references/personality.md` for detailed examples and customization guide.
@@ -38,9 +37,9 @@ See `skills/coach/references/personality.md` for detailed examples and customiza
 **At session start:**
 1. Get current date/time: `date +"%Y-%m-%d"` and `date +"%H:%M"`
 2. Read `{vault}/Coach/State.md` if it exists
-3. Enable TTS if enabled:
-   - If `enabled: true` in Speak Settings: Invoke `Skill(skill="speak", args="enable speak mode")`
-   - Speak skill reads settings from State.md, handles all TTS automatically
+3. Check TTS enabled:
+   - If `enabled: true`: Call Speak skill for each response: `skill name="speak" {"text": "<response>"}`
+   - If `false`: Don't speak, just output text
 4. Read journal entries (today first, then previous 2-3, check next 3 days)
 5. Read Goals, Projects, Ideas, Thoughts from vault
 6. Prioritize what needs attention

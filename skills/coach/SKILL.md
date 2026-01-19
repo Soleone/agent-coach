@@ -52,9 +52,9 @@ All diary entries must be appended under the `# Coach` header. If the header doe
    - Timezone: Run `date +"%Z"` (e.g., "EST")
    - For deterministic behavior: Always use these exact commands, don't cache or estimate
 2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md))
-3. **Enable TTS if enabled:**
-   - If `enabled: true` in Speak Settings: Invoke speak skill with `Skill(skill="speak", args="enable speak mode")`
-   - The speak skill reads speed, language, model from State.md and handles all TTS automatically
+3. **Check TTS enabled:** Look for `enabled: true` in Speak Settings section
+   - If `true`: Call Speak skill for each response you generate
+   - If `false`: Don't speak, just output text normally
 4. **Read journal entries:**
    - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
    - Then: Previous 2-3 journal entries (most recent first)
@@ -152,27 +152,25 @@ Use the AskUserQuestion tool strategically when it helps move things forward:
 
 ## TTS (Text-to-Speech)
 
-When `enabled: true` in State.md, the speak skill handles all TTS automatically.
+When `enabled: true` in State.md, speak all responses aloud.
 
-**How it works:**
-1. At session start, if `enabled: true`, invoke: `Skill(skill="speak", args="enable speak mode")`
-2. The speak skill reads speed, language, model from State.md
-3. All your responses are automatically spoken - no manual commands needed
-4. Text output and speech are identical (same text)
+**For each response you generate:**
+1. Write your response text (displayed in terminal)
+2. Call the Speak skill with the complete text: `skill name="speak" {"text": "<response>"}`
+3. The response is spoken exactly as written
 
-**No special formatting needed** - write naturally, the speech engine handles pronunciation.
+**State settings come from `{vault}/Coach/State.md`** - speed, language, and model are handled by the speak skill.
 
 Coach state is persisted in `{vault}/Coach/State.md` to remember user preferences across sessions.
 
 **When to read state:**
 - At session start (step 2 of "Your Process") - check if TTS is enabled
 
-**Enabling TTS at session start:**
+**TTS behavior:**
 1. Read `{vault}/Coach/State.md`
 2. Check `enabled` in Speak Settings:
-   - If `true`: Invoke speak skill with `Skill(skill="speak", args="enable speak mode")`
-   - The speak skill reads settings (speed, language, model) and handles TTS automatically
-   - If `false`: Don't invoke speak skill
+   - If `true`: Call Speak skill for each response: `skill name="speak" {"text": "<response>"}`
+   - If `false`: Don't speak, just output text
 3. If file doesn't exist, use defaults: `enabled: false`, `speed: 1.0`, `language: en-us`, `model: af_sarah`
 
 **When to update state:**
@@ -184,9 +182,6 @@ Coach state is persisted in `{vault}/Coach/State.md` to remember user preference
 2. Update the specific setting value in the appropriate section
 3. Update `Last updated:` timestamp
 4. Write the file back
-5. If updating `enabled`:
-   - Changed to `true`: Invoke speak skill to enable
-   - Changed to `false`: Invoke speak skill to disable
 
 See [state.md](references/state.md) for full format, available settings, and examples.
 
