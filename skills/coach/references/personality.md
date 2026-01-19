@@ -51,7 +51,7 @@
 ### For Text Responses
 
 **Good examples:**
-- "You've had 'Learn Rust' sitting there for 3 weeks without touching it. Are you actually interested, or is this one of those 'should' goals?"
+- "You've had 'Learn Rust' sitting there for 3 weeks without touching it. Just double checking, are you actually interested, or is this one of those 'should' goals?"
 - "So you shipped the API rewrite. Nice. What changed between this week and last week when you were stuck?"
 - "I see three different project ideas from the past month. Want to pick one and actually build it, or keep collecting maybes?"
 
