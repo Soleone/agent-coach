@@ -7,14 +7,14 @@ Coach state is stored in `{vault}/Coach/State.md` to persist settings and prefer
 ```markdown
 # Coach State
 
-Last updated: 2026-01-18
+Last updated: 2026-01-24
 
 ## Speak Settings
 
 - enabled: true
-- speed: 1.2
-- language: en-us
-- model: am_adam
+- speed: 1.1
+- persona: ryan
+- persona-description: ""
 
 ## Preferences
 
@@ -23,38 +23,21 @@ Last updated: 2026-01-18
 
 ## Speak Settings
 
-Settings for Kokoro TTS integration (via speak skill):
+Settings for TTS integration. Values are passed to the speak skill's TTS command.
 
 | Setting | Values | Description |
 |---------|--------|-------------|
 | `enabled` | true, false | Whether coach speaks responses aloud |
-| `speed` | 0.5 to 2.0 | Speech speed (1.0 = normal, 1.2 = faster, 0.8 = slower) |
-| `language` | en-us, en-gb, fr-fr, it, ja, cmn | Language code for TTS |
-| `model` | Voice name | Kokoro voice model (see available voices below) |
+| `speed` | number | Speech speed (passed to speak skill) |
+| `persona` | string | Voice name (passed to speak skill) |
+| `persona-description` | string | Custom voice description (passed to speak skill) |
 
-### Available Voice Models
-
-**American English Male:**
-- `am_adam` - American male (recommended default)
-- `am_michael`, `am_eric`, `am_liam`, `am_onyx`, `am_echo`, `am_fenrir`, `am_puck`, `am_santa`
-
-**American English Female:**
-- `af_sarah` - American female (Kokoro default)
-- `af_bella`, `af_nova`, `af_sky`, `af_river`, `af_jessica`, `af_nicole`, `af_heart`, `af_alloy`, `af_aoede`, `af_kore`
-
-**British English:**
-- Male: `bm_george`, `bm_daniel`, `bm_lewis`, `bm_fable`
-- Female: `bf_alice`, `bf_emma`, `bf_isabella`, `bf_lily`
-
-**Other Languages:**
-- Japanese: `jf_alpha`, `jm_kumo`, etc.
-- Chinese Mandarin: `zf_xiaobei`, `zf_xiaoni`, etc.
-- French, Italian (see `speak-kokoro --list-voices`)
+**Note:** TTS implementation is delegated to the speak skill. Settings are read from State.md and passed to the speak skill's command. See `~/.claude/skills/speak/SKILL.md` for available options.
 
 ## Updates
 
 **When to update:**
-- User explicitly changes a setting ("enable speaking", "use male voice", "speak faster")
+- User explicitly changes a setting ("enable speaking", "speak faster", "use vivian voice")
 - User implicitly indicates a preference ("that's too slow" → increase speed)
 
 **How to update:**
@@ -67,32 +50,34 @@ Settings for Kokoro TTS integration (via speak skill):
 ```markdown
 # Coach State
 
-Last updated: 2026-01-18
+Last updated: 2026-01-24
 
 ## Speak Settings
 
 - enabled: false
-- speed: 1.0
-- language: en-us
-- model: af_sarah
+- speed: 1.1
+- persona: ryan
+- persona-description: ""
 ```
 
 ## Reading State
 
-At session start, read `{vault}/Coach/State.md` to apply user preferences:
-- If `enabled: true`, invoke the speak skill to enable persistent speak mode
-- Pass speed, language, and model settings to the speak skill
+At session start, read `{vault}/Coach/State.md`:
+- Extract TTS settings: `enabled`, `speed`, `persona`, `persona-description`
+- If `enabled: true`, read the speak skill to discover the TTS command
+- Pass the settings to the speak skill's TTS command
+- If `false` or missing, don't speak
 
 ## Examples
 
 **User says:** "Enable speak mode"
-**Action:** Set `enabled: true`, update timestamp, invoke speak skill
-
-**User says:** "Use a British male voice"
-**Action:** Set `model: bm_george`, update timestamp
-
-**User says:** "Speak faster"
-**Action:** Increase speed (1.2 → 1.5), update timestamp
+**Action:** Set `enabled: true`, update timestamp
 
 **User says:** "Disable speaking"
-**Action:** Set `enabled: false`, update timestamp, disable speak skill
+**Action:** Set `enabled: false`, update timestamp
+
+**User says:** "Speak faster"
+**Action:** Increase speed (e.g., 1.1 → 1.3), update timestamp
+
+**User says:** "Use a different voice"
+**Action:** Set `persona: vivian`, update timestamp

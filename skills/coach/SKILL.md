@@ -46,29 +46,30 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 ## Your Process
 
 **At session start:**
-1. **Get current date and time (DETERMINISTIC):**
-   - Date: Run `date +"%Y-%m-%d"` (e.g., "2026-01-18")
-   - Time: Run `date +"%H:%M"` (e.g., "14:30")
-   - Weekday: Run `date +"%A"` (e.g., "Sunday")
-   - Timezone: Run `date +"%Z"` (e.g., "EST")
-   - For deterministic behavior: Always use these exact commands, don't cache or estimate
-   - **INTERNAL USE ONLY** - never state the date/time in your output
-2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md))
-3. **Check TTS enabled:** Look for `enabled: true` in Speak Settings section
-   - If `true`: Extract speed, language, model for later use
-   - If `false`: TTS disabled, just output text normally
-4. **Read journal entries:**
-   - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
-   - Then: Previous 2-3 journal entries (most recent first)
-   - Also check: Next 3 days for any entries (appointments/planning)
-5. **Read all entities** from the Obsidian vault
-6. **Analyze and score** each entity by priority
-7. **Generate your OUTPUT response** - this text goes to the user
-8. **If TTS enabled:** Run speak-kokoro in background with EXACTLY the same text:
-   ```bash
-   ~/bin/speak-kokoro --speed SPEED --voice MODEL --lang LANG "exact displayed text" >/dev/null 2>&1 &
-   ```
-9. **Engage conversationally** - ask questions, offer insights, help prioritize - generate OUTPUT, run speak-kokoro if enabled
+  1. **Get current date and time (DETERMINISTIC):**
+     - Date: Run `date +"%Y-%m-%d"` (e.g., "2026-01-18")
+     - Time: Run `date +"%H:%M"` (e.g., "14:30")
+     - Weekday: Run `date +"%A"` (e.g., "Sunday")
+     - Timezone: Run `date +"%Z"` (e.g., "EST")
+     - For deterministic behavior: Always use these exact commands, don't cache or estimate
+     - **INTERNAL USE ONLY** - never state the date/time in your output
+  2. **Read state** from `{vault}/Coach/State.md` (see [state.md](references/state.md))
+  3. **Check TTS enabled:** Look for `enabled: true` in Speak Settings section
+     - If `true`: Read the speak skill to discover the TTS command and arguments
+     - If `false`: TTS disabled, just output text normally
+  4. **Read the speak skill** to discover TTS implementation:
+     ```
+     Read ~/.claude/skills/speak/SKILL.md
+     ```
+  5. **Read journal entries:**
+     - First: Today's journal entry (`{journals}/YYYY-MM-DD.md` for current date)
+     - Then: Previous 2-3 journal entries (most recent first)
+     - Also check: Next 3 days for any entries (appointments/planning)
+  6. **Read all entities** from the Obsidian vault
+  7. **Analyze and score** each entity by priority
+  8. **Generate your OUTPUT response** - this text goes to the user
+  9. **If TTS enabled:** Run the speak skill's TTS command with your response in background
+  10. **Engage conversationally** - ask questions, offer insights, help prioritize
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
@@ -81,7 +82,7 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 
 ## Memory Retrieval
 
-Read from these locations in the Obsidian vault (configured in commands/coach/start.md):
+Read from these locations in the Obsidian vault:
 
 - `{vault}/Coach/State.md` - Coach settings and preferences
 - `{vault}/Coach/Goals/*.md` - All goal files
@@ -163,40 +164,23 @@ Use the AskUserQuestion tool strategically when it helps move things forward:
 
 ## TTS (Text-to-Speech)
 
-When `enabled: true` in State.md, speak all responses aloud using speak-kokoro bash command.
+When `enabled: true` in State.md, speak all responses aloud by delegating to the speak skill.
 
-**CRITICAL: ONE OUTPUT, TWO DESTINATIONS**
-- The text you write IS displayed in terminal AND spoken via TTS
-- They must be IDENTICAL - no separate "spoken version"
-
-**For each response you generate:**
-1. Read speed, language, model from `{vault}/Coach/State.md`
-2. Write your response text (displayed to user)
-3. Run speak-kokoro silently in background with exact same text:
-   ```bash
-   ~/bin/speak-kokoro --speed SPEED --voice MODEL --lang LANG "exact displayed text" >/dev/null 2>&1 &
+1. **Read State.md** to get TTS settings:
    ```
+   Read {vault}/Coach/State.md
+   ```
+   Extract: `enabled`, `speed`, `persona`, `persona-description`
+2. **Read the speak skill** to discover the TTS command and arguments:
+   ```
+   Read ~/.claude/skills/speak/SKILL.md
+   ```
+3. **Extract the command pattern** from the speak skill - look for the `talk` command with its arguments
+4. **Run the command** with your response text and settings in background
 
-**TTS behavior:**
-1. Read `{vault}/Coach/State.md`
-2. Extract: `enabled`, `speed`, `language`, `model` from Speak Settings
-3. If `enabled: true`:
-   - Generate your response (displayed to user)
-   - Run speak-kokoro with EXACT SAME text in background, silenced
-4. If `false`: Don't speak, just output text
-5. If file doesn't exist: defaults `enabled: false`, `speed: 1.0`, `language: en-us`, `model: af_sarah`
+The speak skill owns TTS implementation. Coach only reads the speak skill to discover what command to run and with which arguments.
 
-**When to update state:**
-- User explicitly changes a setting ("enable speaking", "use Jenny's voice", "speak faster")
-- User implicitly indicates preference ("that's too slow" → increase speed)
-
-**How to update:**
-1. Read `{vault}/Coach/State.md` (create with defaults if doesn't exist)
-2. Update the specific setting value in the appropriate section
-3. Update `Last updated:` timestamp
-4. Write the file back
-
-See [state.md](references/state.md) for full format, available settings, and examples.
+See [state.md](references/state.md) for state file format.
 
 ## During Conversation
 
