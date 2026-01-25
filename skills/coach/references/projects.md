@@ -14,6 +14,7 @@ target: 2026-02-15
 progress: 20
 tags: [project/active]
 lastUpdated: 2026-01-11
+location: /path/to/project/directory  # optional: directory on disk to access docs, source and bd tasks
 ---
 
 # Agent Coach
