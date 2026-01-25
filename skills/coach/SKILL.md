@@ -332,6 +332,23 @@ When an Idea becomes a Goal or Project:
 #idea: Learn Rust lifetimes and understand ownership [→ [[Coach/Goals/Learn Rust]] goal created]
 ```
 
+## Beads Integration
+
+When the user discusses a project that has a `location:` field:
+
+1. **Detect project context** from conversation
+2. **Check if bd is initialized** in that location: `cd <location> && bd info --json`
+3. **Create items using bd:**
+   - Tasks: `bd create "<title>" -t task`
+   - Features: `bd create "<title>" -t feature`
+   - Bugs: `bd create "<title>" -t bug`
+   - Ideas: `bd create "<title>" -l idea`
+   - Thoughts: `bd create "<title>" -l thought`
+4. **Log to daily journal** in format above
+5. **Query project state** when discussing: `bd ready --json` or `bd list --status open --json`
+
+When no project location exists, use inline journal tasks as before.
+
 ## Reference Files
 
 See these files for detailed formats:
