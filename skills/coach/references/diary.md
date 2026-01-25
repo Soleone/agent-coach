@@ -24,6 +24,8 @@ Write entries as if the user WILL lose their memory AND you will need this conte
 
 Daily journal page: `{vault}/{journals}/YYYY-MM-DD.md`
 
+**For past events:** When users mention events from the past (e.g., "yesterday I met with X", "last Monday I decided Y"), write the entry to the **correct historical date's journal page**, not today's page. See SKILL.md "Date detection for past events" section for date calculation instructions.
+
 Dedicated section: `# Coach` (h1 header at the bottom of the page)
 
 ## When to Capture
