@@ -9,11 +9,11 @@ Located in `{vault}/Coach/Goals/*.md`
 ```markdown
 ---
 status: in-progress  # not-started, in-progress, blocked, completed, paused
-created: 2026-01-05
+created-at: 2026-01-05
 target: 2026-02-01
 progress: 35  # 0-100
 tags: [goal/active]
-lastUpdated: 2026-01-11
+updated-at: 2026-01-11
 ---
 
 # Learn Rust Fundamentals
@@ -36,7 +36,7 @@ Working through lifetimes and generics.
 
 ## Updates
 
-- Update `progress`, `status`, `target`, `lastUpdated` in frontmatter
+- Update `progress`, `status`, `target`, `updated-at` in frontmatter
 - Add/remove blockers in **Blockers:** section
 - Add/remove items in ## Next Actions
 - Mark milestones with `[x]`

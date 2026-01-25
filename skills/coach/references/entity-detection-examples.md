@@ -22,11 +22,11 @@ This file demonstrates how to detect and create entities from user conversations
 ```markdown
 ---
 status: not-started
-created: 2026-01-17
+created-at: 2026-01-17
 target: 2026-03-01
 progress: 0
 tags: [goal/active]
-lastUpdated: 2026-01-17
+updated-at: 2026-01-17
 ---
 
 # Learn Rust
@@ -48,11 +48,11 @@ Just started. Excited to learn systems programming.
 ```markdown
 ---
 status: not-started
-created: 2026-01-17
+created-at: 2026-01-17
 target: 2026-03-15
 progress: 0
 tags: [project/active]
-lastUpdated: 2026-01-17
+updated-at: 2026-01-17
 ---
 
 # Rust CLI Tool
@@ -100,11 +100,11 @@ Planning phase. Need to learn Rust basics first.
 ```markdown
 ---
 status: not-started
-created: 2026-01-17
+created-at: 2026-01-17
 target: 2026-02-01
 progress: 0
 tags: [goal/active, wellness]
-lastUpdated: 2026-01-17
+updated-at: 2026-01-17
 ---
 
 # Daily Meditation Practice
@@ -171,11 +171,11 @@ Append to `{journals}/YYYY-MM-DD.md`:
 ```markdown
 ---
 status: in-progress
-created: 2026-01-17
+created-at: 2026-01-17
 target: 2026-03-01
 progress: 25
 tags: [goal/active]
-lastUpdated: 2026-01-18
+updated-at: 2026-01-18
 ---
 
 # Learn Rust
@@ -217,11 +217,11 @@ Completed Chapter 4. Had breakthrough understanding ownership concepts.
 ```markdown
 ---
 status: blocked
-created: 2026-01-17
+created-at: 2026-01-17
 target: 2026-03-15
 progress: 15
 tags: [project/active]
-lastUpdated: 2026-01-19
+updated-at: 2026-01-19
 ---
 
 # Rust CLI Tool
@@ -242,11 +242,11 @@ lastUpdated: 2026-01-19
 ```markdown
 ---
 status: not-started
-created: 2026-01-19
+created-at: 2026-01-19
 target: 2026-04-01
 progress: 0
 tags: [goal/active]
-lastUpdated: 2026-01-19
+updated-at: 2026-01-19
 ---
 
 # Contribute to Open Source

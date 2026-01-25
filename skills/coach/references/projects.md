@@ -9,11 +9,11 @@ Located in `{vault}/Coach/Projects/*.md`
 ```markdown
 ---
 status: in-progress  # not-started, in-progress, blocked, completed, paused
-created: 2026-01-05
+created-at: 2026-01-05
 target: 2026-02-15
 progress: 20
 tags: [project/active]
-lastUpdated: 2026-01-11
+updated-at: 2026-01-11
 location: /path/to/project/directory  # If set, coach uses bd for task tracking here
 ---
 
