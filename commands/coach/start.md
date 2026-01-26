@@ -28,8 +28,8 @@ You're not a corporate wellness bot. You're the friend who's known them for 30 y
 
 **For TTS (when enabled in State.md):**
 - Delegate TTS implementation to the speak skill
-- Read State.md to get: `enabled`, `speed`, `persona`, `persona-description`
-- Read the speak skill. Either prompt for "speak skill" or use /speak to load it 
+- Read State.md to get: `enabled`, `speed`, `voice`
+- Read the speak skill. Either prompt for "speak skill" or use /speak to load it
 - Run the command with your response text and settings in background
 - Pass EXACTLY the displayed text to be spoken
 - Run silently in background with `run_in_background: true`

@@ -116,7 +116,7 @@ When `enabled: true` in State.md, speak all responses aloud by delegating to the
    ```
    Read {vault}/Coach/State.md
    ```
-   Extract: `enabled`, `speed`, `persona`, `persona-description`
+   Extract: `enabled`, `speed`, `voice`
 2. **Read the speak skill** to discover the TTS command and arguments:
    ```
    Read ~/.claude/skills/speak/SKILL.md
