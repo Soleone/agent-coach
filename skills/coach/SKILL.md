@@ -84,8 +84,6 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 
 ## Vault Schema
 
-**IMPORTANT:** The Coach vault follows a specific schema. See [SCHEMA.md](SCHEMA.md) for complete structure and LLM decision rules.
-
 **Directory structure:**
 ```
 Coach/
@@ -97,7 +95,7 @@ Coach/
 └── State.md         # Coach settings
 ```
 
-If directories or files don't exist, create them using the schema.
+If directories or files don't exist, create them. See [entity-ops.md](references/entity-ops.md) for complete entity formats.
 
 ## Memory Retrieval
 
@@ -158,12 +156,7 @@ See [state.md](references/state.md) for state file format.
 3. **Link** entities in diary under `# Coach` header
 4. **Update** existing files with progress
 
-See [workflow.md](references/workflow.md) for detailed procedures including:
-- Entity detection table with user statement patterns
-- Date detection for past events (relative/absolute dates)
-- Timestamp generation rules
-- Diary entry patterns and examples
-- Promoting ideas to goals/projects
+See [entity-ops.md](references/entity-ops.md) for entity detection and [diary.md](references/diary.md) for diary format.
 
 ## Beads Integration
 
@@ -184,17 +177,12 @@ When no project location exists, use inline journal tasks as before.
 
 ## Reference Files
 
-**Schema overview:**
-- [SCHEMA.md](SCHEMA.md) - Complete vault structure and LLM decision rules
+These files contain detailed information. Read them on-demand when you need specific guidance:
 
-**Detailed formats:**
-- [state.md](references/state.md) - State file format and settings
-- [goals.md](references/goals.md) - Goal file format
-- [projects.md](references/projects.md) - Project file format
-- [interests.md](references/interests.md) - Interest file format
-- [ideas.md](references/ideas.md) - Ideas.md append-only format
-- [thoughts.md](references/thoughts.md) - Thoughts.md append-only format
-- [diary.md](references/diary.md) - Diary entry format and examples
-- [workflow.md](references/workflow.md) - Entity detection, date handling, timestamps
-- [prioritization.md](references/prioritization.md) - Scoring algorithm, presentation techniques
-- [beads.md](references/beads.md) - Beads command reference
+**Core references (read as needed):**
+- [personality.md](references/personality.md) - Communication style (already loaded at session start)
+- [state.md](references/state.md) - **When:** Reading/updating coach settings
+- [entity-ops.md](references/entity-ops.md) - **When:** Creating or updating Goals/Projects/Interests/Ideas/Thoughts
+- [diary.md](references/diary.md) - **When:** Writing diary entries or handling past event dates
+- [prioritization.md](references/prioritization.md) - **When:** Scoring entities or presenting priorities
+- [beads.md](references/beads.md) - **When:** User discusses a project with a `location` field
