@@ -21,105 +21,66 @@
 
 ## Entity Formats
 
-### Goals
+**Unified structure for all entity types:**
 
-**Nature:** Fleeting/aspirational - "learn X", "become Y", "try to improve in Z"
-
-**File structure:**
 ```markdown
 ---
-type: goal
-status: active  # active, paused, done, archived
+type: goal|project|interest
+status: active|paused|done|archived
 created-at: YYYY-MM-DD
 updated-at: YYYY-MM-DD
+location: # optional for projects
 ---
 
-# [Goal Title]
+# [Title]
 
-## Milestones
-- [ ] First milestone (target date)
-- [ ] Second milestone (target date)
+## Status
+Current state narrative. What's happening now.
 
-## Current Status
-Brief description of current state.
+## Tasks
+- [ ] Task to do
+- [x] Completed task
 
-**Blockers:**
-- List any obstacles
+**CRITICAL - Projects with beads:** If project has `location` field AND `.beads` directory exists in that location, tasks live in beads ONLY. Omit this section and use beads commands instead.
 
-## Next Actions
-- [ ] Specific next step
-- [ ] Another action
-```
-
-### Projects
-
-**Nature:** Concrete things to build - "build X app", "create Y system", "ship Z feature"
-
-**File structure:**
-```markdown
----
-type: project
-status: active  # active, paused, done, archived
-location: # optional directory path
-created-at: YYYY-MM-DD
-updated-at: YYYY-MM-DD
----
-
-# [Project Title]
-
-## Milestones
-- [ ] First milestone (target date)
-- [ ] Second milestone (target date)
-
-## Current Status
-Brief description of current state.
-
-**Blockers:**
-- List any obstacles
-
-## Next Actions
-- [ ] Specific next step
-- [ ] Another action
-```
-
-### Interests
-
-**Nature:** Domains of curiosity and ongoing knowledge accumulation
-
-**Characteristics:**
-- Open-ended: No specific deliverable or end state
-- Knowledge accumulation: Learning, exploring, researching
-- May spawn projects: Interests can lead to concrete projects
-- No tasks required: Unlike projects, interests don't need actionable tasks
-
-**File structure:**
-```markdown
----
-type: interest
-status: active  # active, paused, archived
-created-at: YYYY-MM-DD
-updated-at: YYYY-MM-DD
----
-
-# [Interest Title]
-
-Brief description of the domain of interest.
+## Blockers
+- List obstacles (when applicable)
 
 ## Notes
-
-- Key learning or insight
-- Resource discovered
-- Observation or thought
+Freeform observations, learnings, thoughts.
 
 ## Resources
-
-- Links to useful content
-- Books, videos, websites
+Links, materials, references (when applicable).
 
 ## Related
+Links to other entities (when applicable).
 
-- Links to related entities (Goals, Projects, other Interests)
+## Log
+- [[YYYY-MM-DD]] HH:MM: What changed (newest first)
 ```
+
+**Section rules:**
+- `## Status` - Required, always first section after title
+- `## Tasks` - Optional, skip for beads-managed projects
+- `## Log` - Recommended, always last section when present
+- Other sections - Optional, include when relevant
+- Order - Always maintain the same order when sections are present
+
+**Entity-specific notes:**
+
+**Goals:** Fleeting/aspirational - "learn X", "become Y", "try to improve in Z"
+- Can have `done` status when achieved
+- Tasks track progress toward the goal
+
+**Projects:** Concrete things to build - "build X app", "create Y system", "ship Z feature"
+- Can have `location` field pointing to project directory
+- If `location` + `.beads` exists → use beads for all task tracking
+- Can have `done` status when shipped/completed
+
+**Interests:** Domains of curiosity and ongoing knowledge accumulation
+- No `done` status (open-ended by nature)
+- Usually don't need `## Tasks` section (knowledge accumulation, not deliverables)
+- Focus on `## Notes` and `## Resources`
 
 ### Ideas
 

@@ -160,20 +160,25 @@ See [entity-ops.md](references/entity-ops.md) for entity detection and [diary.md
 
 ## Beads Integration
 
-When the user discusses a project that has a `location:` field:
+**CRITICAL RULE:** When a project has `location` field AND `.beads` directory exists in that location:
+- **All tasks live in beads ONLY**
+- Do NOT use `## Tasks` section in the markdown file
+- Do NOT create inline journal tasks for this project
+- Use beads commands exclusively for task tracking
+
+**Workflow:**
 
 1. **Detect project context** from conversation
-2. **Check if bd is initialized** in that location: `cd <location> && bd info --json`
-3. **Create items using bd:**
-   - Tasks: `bd create "<title>" -t task`
-   - Features: `bd create "<title>" -t feature`
-   - Bugs: `bd create "<title>" -t bug`
-   - Ideas: `bd create "<title>" -l idea`
-   - Thoughts: `bd create "<title>" -l thought`
-4. **Log to daily journal** in format above
-5. **Query project state** when discussing: `bd ready --json` or `bd list --status open --json`
+2. **Check if beads-managed:** `cd <location> && [ -d .beads ] && echo "BEADS" || echo "MARKDOWN"`
+3. **If BEADS:**
+   - Create items: `bd create "<title>" -t task|feature|bug` or `-l idea|thought`
+   - Query state: `bd ready --json` or `bd list --status open --json`
+   - Log to diary: Reference beads item ID
+4. **If MARKDOWN:**
+   - Use `## Tasks` section in entity file
+   - Or append inline tasks to journal with `#task` tag
 
-When no project location exists, use inline journal tasks as before.
+See [beads.md](references/beads.md) for beads command reference.
 
 ## Reference Files
 
