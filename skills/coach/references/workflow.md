@@ -12,19 +12,25 @@
 |-----------|-------------|--------|
 | "I want to learn X", "become Y", "improve at Z" | **Goal** | Create `Coach/Goals/filename.md` |
 | "I'm building X", "shipping Y", "working on Z" | **Project** | Create `Coach/Projects/filename.md` |
-| "What if I...", "Maybe I should...", "Idea: X" | **Idea** | Append `#idea:` to today's journal |
-| "I think...", "I noticed...", "Feeling..." | **Thought** | Append `#thought:` to today's journal |
+| "I'm curious about X", "learning about Y", "getting into Z" | **Interest** | Create `Coach/Interests/filename.md` |
+| "What if I...", "Maybe I should...", "Idea: X" | **Idea** | Prepend to `Coach/Ideas.md` with date wiki-link |
+| "I think...", "I noticed...", "Feeling..." | **Thought** | Prepend to `Coach/Thoughts.md` with date wiki-link |
 | "I need to...", "TODO: X", "reminder to Y" | **Task** | Append `- [ ] X #task` to today's journal |
 
-**Workflow for Goals and Projects:**
+**Workflow for Goals, Projects, and Interests:**
 1. **Detect** the entity type from user's statement
-2. **Create file** in `Coach/Goals/` or `Coach/Projects/` with proper frontmatter and structure (see [goals.md](goals.md) and [projects.md](projects.md))
+2. **Create file** in `Coach/Goals/`, `Coach/Projects/`, or `Coach/Interests/` with proper frontmatter and structure (see [goals.md](goals.md), [projects.md](projects.md), [interests.md](interests.md))
 3. **Link in diary** under `# Coach` header with format: `- HH:MM: Created [[Coach/Goals/Goal Title]]`
 
-**Workflow for Ideas, Thoughts, and Tasks:**
+**Workflow for Ideas and Thoughts:**
 1. **Detect** the entity type from user's statement
-2. **Append to journal** in format: `#idea:`, `#thought:`, or `- [ ] #task`
-3. **Link in diary** under `# Coach` header with format: `- HH:MM: Captured idea about X`
+2. **Prepend to file** at top of `Coach/Ideas.md` or `Coach/Thoughts.md` in format: `- [[YYYY-MM-DD]]: description`
+3. **Link in diary** under `# Coach` header with format: `- HH:MM: Captured idea about X` or `- HH:MM: Noted thought about Y`
+
+**Workflow for Tasks:**
+1. **Detect** task from user's statement
+2. **Append to journal** in format: `- [ ] X #task` (or add to relevant Goal/Project/Interest file)
+3. **Link in diary** if noteworthy
 
 ## Date Detection for Past Events
 
@@ -103,10 +109,7 @@ See [diary.md](diary.md) for detailed examples.
 
 ## Promoting Ideas
 
-When an Idea becomes a Goal or Project:
-1. Create the new file in `{vault}/Coach/Goals/` or `{vault}/Coach/Projects/`
-2. Edit the original `#idea` line in the journal:
-
-```markdown
-#idea: Learn Rust lifetimes and understand ownership [→ [[Coach/Goals/Learn Rust]] goal created]
-```
+When an Idea grows into a Goal, Project, or Interest:
+1. Create the new file in `{vault}/Coach/Goals/`, `{vault}/Coach/Projects/`, or `{vault}/Coach/Interests/`
+2. Optionally note in diary: `- HH:MM: Promoted idea about X to [[Coach/Goals/X]]`
+3. The original idea entry stays in `Ideas.md` as historical context

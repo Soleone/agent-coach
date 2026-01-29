@@ -21,11 +21,9 @@ This file demonstrates how to detect and create entities from user conversations
 1. Create `Coach/Goals/Learn Rust.md`:
 ```markdown
 ---
-status: not-started
+type: goal
+status: active
 created-at: 2026-01-17
-target: 2026-03-01
-progress: 0
-tags: [goal/active]
 updated-at: 2026-01-17
 ---
 
@@ -47,11 +45,9 @@ Just started. Excited to learn systems programming.
 2. Create `Coach/Projects/Rust CLI Tool.md`:
 ```markdown
 ---
-status: not-started
+type: project
+status: active
 created-at: 2026-01-17
-target: 2026-03-15
-progress: 0
-tags: [project/active]
 updated-at: 2026-01-17
 ---
 
@@ -99,11 +95,9 @@ Planning phase. Need to learn Rust basics first.
 1. Create `Coach/Goals/Daily Meditation Practice.md`:
 ```markdown
 ---
-status: not-started
+type: goal
+status: active
 created-at: 2026-01-17
-target: 2026-02-01
-progress: 0
-tags: [goal/active, wellness]
 updated-at: 2026-01-17
 ---
 
@@ -123,11 +117,18 @@ Planning to start. Thinking 10 minutes daily.
 - [ ] Decide on morning or evening slot
 ```
 
-2. Append to `{journals}/YYYY-MM-DD.md`:
+2. Prepend to `Coach/Ideas.md`:
 ```markdown
-#idea: Build habit tracker app - could help with meditation tracking and other habits
-#thought: I'm more productive in the mornings - should schedule important work then
+- [[YYYY-MM-DD]]: Build habit tracker app - could help with meditation tracking
+```
 
+3. Prepend to `Coach/Thoughts.md`:
+```markdown
+- [[YYYY-MM-DD]]: More productive in mornings - should schedule important work then
+```
+
+4. Append to `{journals}/YYYY-MM-DD.md`:
+```markdown
 # Coach
 
 - HH:MM: Created [[Coach/Goals/Daily Meditation Practice]] goal - starting with 10min daily
@@ -170,11 +171,9 @@ Append to `{journals}/YYYY-MM-DD.md`:
 1. Edit `Coach/Goals/Learn Rust.md`:
 ```markdown
 ---
-status: in-progress
+type: goal
+status: active
 created-at: 2026-01-17
-target: 2026-03-01
-progress: 25
-tags: [goal/active]
 updated-at: 2026-01-18
 ---
 
@@ -216,11 +215,9 @@ Completed Chapter 4. Had breakthrough understanding ownership concepts.
 1. Edit `Coach/Projects/Rust CLI Tool.md`:
 ```markdown
 ---
-status: blocked
+type: project
+status: active
 created-at: 2026-01-17
-target: 2026-03-15
-progress: 15
-tags: [project/active]
 updated-at: 2026-01-19
 ---
 
@@ -241,11 +238,9 @@ updated-at: 2026-01-19
 2. Create `Coach/Goals/Contribute to Open Source.md`:
 ```markdown
 ---
-status: not-started
+type: goal
+status: active
 created-at: 2026-01-19
-target: 2026-04-01
-progress: 0
-tags: [goal/active]
 updated-at: 2026-01-19
 ---
 
@@ -265,15 +260,54 @@ Motivated to start contributing but need to build skills first.
 - [ ] Practice code review on existing PRs
 ```
 
-3. Append to `{journals}/YYYY-MM-DD.md`:
+3. Prepend to `Coach/Ideas.md`:
 ```markdown
-#idea: Try simpler Rust example before tackling CLI tool
+- [[YYYY-MM-DD]]: Try simpler Rust example before tackling CLI tool
+```
 
+4. Append to `{journals}/YYYY-MM-DD.md`:
+```markdown
 # Coach
 
-- HH:MM: Updated [[Coach/Projects/Rust CLI Tool]] project - marked as blocked, too complex for current level
+- HH:MM: Updated [[Coach/Projects/Rust CLI Tool]] project - too complex for current level
 - HH:MM: Captured idea to try simpler example first - good instinct to reduce scope
 - HH:MM: Created [[Coach/Goals/Contribute to Open Source]] goal - aligns well with learning Rust
+```
+
+## Example 6: Interest Detection
+
+**User says:**
+> "I've been getting really into mechanical keyboards lately. Learning about different switch types and layouts."
+
+**Coach detects:**
+- Interest: "Mechanical Keyboards"
+
+**Coach actions:**
+
+1. Create `Coach/Interests/Mechanical Keyboards.md`:
+```markdown
+---
+type: interest
+status: active
+created-at: 2026-01-20
+updated-at: 2026-01-20
+---
+
+# Mechanical Keyboards
+
+Exploring mechanical keyboard switches, layouts, and builds.
+
+## Notes
+
+- Learning about different switch types
+- Interested in custom builds
+```
+
+2. Append to `{journals}/YYYY-MM-DD.md` under `# Coach`:
+```markdown
+# Coach
+
+- HH:MM: Created [[Coach/Interests/Mechanical Keyboards]] interest - exploring switches and layouts
 ```
 
 ## Detection Patterns Summary
@@ -282,6 +316,7 @@ Motivated to start contributing but need to build skills first.
 |---------|-------------|---------|
 | "I want to...", "I'd like to...", "Goal: X" | Goal | "I want to learn piano" |
 | "I'm building...", "Working on...", "Project: X" | Project | "I'm building a web app" |
+| "I'm curious about...", "learning about...", "getting into..." | Interest | "I'm getting into 3D printing" |
 | "What if...", "Maybe I should...", "Idea: X" | Idea | "What if I tried meditation?" |
 | "I think...", "I noticed...", "Feeling..." | Thought | "I noticed I'm tired lately" |
 | "I need to...", "TODO: X", "Reminder to..." | Task | "I need to call the dentist" |

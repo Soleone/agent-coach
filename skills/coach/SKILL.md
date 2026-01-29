@@ -72,13 +72,32 @@ All diary entries must be appended under the `# Coach` header. If the header doe
   10. **Engage conversationally** - ask questions, offer insights, help prioritize
 
 **During conversation (CRITICAL - Entity-First Approach):**
-1. **Detect entities** - Listen for Goals, Projects, Ideas, Thoughts, Tasks in user statements
+1. **Detect entities** - Listen for Goals, Projects, Interests, Ideas, Thoughts, Tasks in user statements
 2. **Create structured data FIRST:**
-   - Create Goal/Project files in `Coach/Goals/` or `Coach/Projects/`
-   - Append Ideas/Thoughts/Tasks to today's journal with proper tags
+   - Create Goal/Project/Interest files in `Coach/Goals/`, `Coach/Projects/`, or `Coach/Interests/`
+   - Append Ideas to `Coach/Ideas.md` (date wiki-link format: `- [[YYYY-MM-DD]]: description`)
+   - Append Thoughts to `Coach/Thoughts.md` (date wiki-link format: `- [[YYYY-MM-DD]]: description`)
+   - Tasks can go in relevant entity files or today's journal
 3. **Link in diary** - Reference the created entities in diary entries under `# Coach`
 4. **Update memory** - Update existing entity files with progress, status changes
 5. **Capture diary** - Write concise diary entry that serves both user memory and coaching context
+
+## Vault Schema
+
+**IMPORTANT:** The Coach vault follows a specific schema. See [SCHEMA.md](SCHEMA.md) for complete structure and LLM decision rules.
+
+**Directory structure:**
+```
+Coach/
+├── Goals/           # Aspirations with trackable outcomes
+├── Projects/        # Bounded work with deliverables
+├── Interests/       # Domains of curiosity, knowledge accumulation
+├── Ideas.md         # Actionable seeds (append-only)
+├── Thoughts.md      # Observations/insights (append-only)
+└── State.md         # Coach settings
+```
+
+If directories or files don't exist, create them using the schema.
 
 ## Memory Retrieval
 
@@ -87,6 +106,9 @@ Read from these locations in the Obsidian vault:
 - `{vault}/Coach/State.md` - Coach settings and preferences
 - `{vault}/Coach/Goals/*.md` - All goal files
 - `{vault}/Coach/Projects/*.md` - All project files
+- `{vault}/Coach/Interests/*.md` - All interest files
+- `{vault}/Coach/Ideas.md` - Actionable seeds
+- `{vault}/Coach/Thoughts.md` - Observations and insights
 
 **Journal reading order:**
 1. **Today's journal** (`{vault}/{journals}/YYYY-MM-DD.md` for current date) - read first, most important
@@ -94,8 +116,6 @@ Read from these locations in the Obsidian vault:
 3. **Next 3 journal entries** - check for appointments/planning (e.g., `{vault}/{journals}/2026-01-19.md`, etc.)
 
 Extract from journal entries:
-- `#idea:` - Ideas that could become Goals/Projects
-- `#thought:` - Thoughts worth remembering
 - `- [ ]` items with `#task` tag - Inline tasks
 - Diary entries under `# Coach` header - Notable events, decisions, progress worth remembering
 
@@ -164,12 +184,16 @@ When no project location exists, use inline journal tasks as before.
 
 ## Reference Files
 
-See these files for detailed formats:
+**Schema overview:**
+- [SCHEMA.md](SCHEMA.md) - Complete vault structure and LLM decision rules
+
+**Detailed formats:**
 - [state.md](references/state.md) - State file format and settings
 - [goals.md](references/goals.md) - Goal file format
 - [projects.md](references/projects.md) - Project file format
-- [ideas.md](references/ideas.md) - #idea tag format
-- [thoughts.md](references/thoughts.md) - #thought tag format
+- [interests.md](references/interests.md) - Interest file format
+- [ideas.md](references/ideas.md) - Ideas.md append-only format
+- [thoughts.md](references/thoughts.md) - Thoughts.md append-only format
 - [diary.md](references/diary.md) - Diary entry format and examples
 - [workflow.md](references/workflow.md) - Entity detection, date handling, timestamps
 - [prioritization.md](references/prioritization.md) - Scoring algorithm, presentation techniques
