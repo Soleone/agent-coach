@@ -39,9 +39,9 @@ Your primary goal is to **coach the user** - help them make progress on what mat
 
 **Daily journal page:** `{vault}/{journals}/YYYY-MM-DD.md`
 
-**Required header for diary entries:** `# Coach` (h1 header at the bottom of the page)
+**Required header for diary entries:** `## Coach` (h2 header at the bottom of the page)
 
-All diary entries must be appended under the `# Coach` header. If the header doesn't exist, create it at the bottom of the daily page.
+All diary entries must be appended under the `## Coach` header. If the header doesn't exist, create it at the bottom of the daily page.
 
 ## Your Process
 
@@ -86,7 +86,7 @@ All diary entries must be appended under the `# Coach` header. If the header doe
    - Tasks can go in relevant entity files or today's journal
 4. **Smart logging** - Route diary entries based on context:
    - **If relates to existing entity:** Append to entity's `## Log` section (primary)
-   - **If general/meta:** Append to journal's `# Coach` section
+   - **If general/meta:** Append to journal's `## Coach` section
    - **If relates to entity + noteworthy for timeline:** Add brief reference in journal
 5. **Update memory** - Update existing entity files with progress, status changes
 6. **Update frontmatter** - Set `updated-at` when modifying entity files
@@ -101,7 +101,7 @@ Coach/
 ├── Interests/       # Domains of curiosity, knowledge accumulation
 ├── Ideas.md         # Actionable seeds (append-only)
 ├── Thoughts.md      # Observations/insights (append-only)
-└── State.md         # Coach settings
+└── State.md         ## Coach settings
 ```
 
 If directories or files don't exist, create them. See [entity-ops.md](references/entity-ops.md) for complete entity formats and entity matching algorithm.
@@ -143,7 +143,7 @@ Read from these locations in the Obsidian vault:
 
 Extract from journal entries:
 - `- [ ]` items with `#task` tag - Inline tasks
-- Diary entries under `# Coach` header - Notable events, decisions, progress worth remembering
+- Diary entries under `## Coach` header - Notable events, decisions, progress worth remembering
 
 **Referring to dates:**
 - For recent dates (last 6 days): Use weekday names ("on Monday", "from Thursday")
@@ -181,7 +181,7 @@ See [state.md](references/state.md) for state file format.
 **Entity detection workflow:**
 1. **Detect** Goals, Projects, Ideas, Thoughts, Tasks from user statements
 2. **Create** entity files or journal entries
-3. **Link** entities in diary under `# Coach` header
+3. **Link** entities in diary under `## Coach` header
 4. **Update** existing files with progress
 
 See [entity-ops.md](references/entity-ops.md) for entity detection and [diary.md](references/diary.md) for diary format.

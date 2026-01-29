@@ -122,7 +122,7 @@ You score entities (Goals, Projects, Ideas, Tasks) by:
 - User mentions a task → Append `- [ ] task #task` to today's journal
 
 **After creating entities - link in diary:**
-- **MANDATORY: Write diary entry** under `# Coach` header using format `- HH:MM: entry text` (24-hour time)
+- **MANDATORY: Write diary entry** under `## Coach` header using format `- HH:MM: entry text` (24-hour time)
 - **Timestamp:** Generate using `date +"%H:%M"` (always 24-hour format, local timezone)
 - **Daily notes file:** `{vault}/{journals}/YYYY-MM-DD.md` (generate date with `date +"%Y-%m-%d"`)
 - Link to created entities: `Created [[Coach/Goals/filename|Goal: Title]]`

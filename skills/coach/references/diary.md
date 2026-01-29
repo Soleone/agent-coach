@@ -30,7 +30,7 @@ Write entries as if the user WILL lose their memory AND you will need this conte
 - Format: `- [[YYYY-MM-DD]] HH:MM: entry text` (newest first)
 - Example: User says "I finished chapter 4 of the Rust book" → append to `Coach/Goals/Learn Rust.md`
 
-**General/meta entries** (append to journal's `# Coach` section):
+**General/meta entries** (append to journal's `## Coach` section):
 - Daily journal page: `{vault}/{journals}/YYYY-MM-DD.md`
 - Entries not tied to specific entities
 - Cross-cutting thoughts, decisions, or observations
@@ -73,12 +73,12 @@ When users mention events from the past, write those diary entries to the **corr
 
 - User: "Yesterday I met with the team and decided to pivot"
   1. Detect "Yesterday" → run `date -d "yesterday" +"%Y-%m-%d"` → "2026-01-23"
-  2. Write to `{vault}/{journals}/2026-01-23.md` under `# Coach`
+  2. Write to `{vault}/{journals}/2026-01-23.md` under `## Coach`
   3. Entry: `- 14:30: Met with team and decided to pivot project`
 
 - User: "Last Monday I started learning Rust"
   1. Detect "Last Monday" → run `date -d "last Monday" +"%Y-%m-%d"` → "2026-01-20"
-  2. Write to `{vault}/{journals}/2026-01-20.md` under `# Coach`
+  2. Write to `{vault}/{journals}/2026-01-20.md` under `## Coach`
   3. Entry: `- 09:00: Started learning Rust`
 
 - User: "On January 10th I had a breakthrough"
@@ -120,7 +120,7 @@ When users mention events from the past, write those diary entries to the **corr
 
 **Example 3: General reflection (journal only)**
 - User: "I've been thinking about work-life balance lately"
-- Action: Append to journal's `# Coach`: `- 14:30: Reflecting on work-life balance - need to set better boundaries`
+- Action: Append to journal's `## Coach`: `- 14:30: Reflecting on work-life balance - need to set better boundaries`
 
 **Example 4: Multiple entities (route to each)**
 - User: "Realized my Rust learning goal will help with the CLI project"
@@ -130,7 +130,7 @@ When users mention events from the past, write those diary entries to the **corr
 
 ## Format
 
-**Structure:** Bullet points with timestamps under the `# Coach` header
+**Structure:** Bullet points with timestamps under the `## Coach` header
 
 **Format:** `- HH:MM: entry text`
 
@@ -157,7 +157,7 @@ When users mention events from the past, write those diary entries to the **corr
 ### Good Examples
 
 ```markdown
-# Coach
+## Coach
 
 - 09:30: Decided to pivot Build Personal Website project to use Astro instead of Next.js after discovering better Obsidian integration. This unblocks the publishing workflow.
 - 09:45: Breakthrough on [[Coach/Goals/Learn Rust]] - finally understood lifetime annotations by working through Chapter 10 examples. Key insight: lifetimes are about references, not values.
@@ -171,7 +171,7 @@ When users mention events from the past, write those diary entries to the **corr
 ### Poor Examples
 
 ```markdown
-# Coach
+## Coach
 
 - Had a good coaching session today
 - Discussed various topics
@@ -183,10 +183,10 @@ When users mention events from the past, write those diary entries to the **corr
 
 ## Creating the Header
 
-If the `# Coach` header doesn't exist in today's journal page, append it at the bottom:
+If the `## Coach` header doesn't exist in today's journal page, append it at the bottom:
 
 ```markdown
-# Coach
+## Coach
 
 - 09:30: [First diary entry]
 ```

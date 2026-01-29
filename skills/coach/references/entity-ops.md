@@ -84,13 +84,13 @@ Did you mean one of these, or should I create "Meditation.md"?
 3. **Ambiguity handling:**
    - **Multiple matches:** Ask which entity they mean, or use most recently discussed
    - **No match:** This is likely a new entity (create) or general entry (journal)
-   - **General topics:** Diary entry goes to journal's `# Coach` section
+   - **General topics:** Diary entry goes to journal's `## Coach` section
 
 **Decision tree:**
 - Known entity + routine update → Entity `## Log` only
 - Known entity + significant milestone → Entity `## Log` + Journal reference
 - New entity mention → Check for existing entities FIRST, then create if no match
-- General reflection/thought → Journal `# Coach` section
+- General reflection/thought → Journal `## Coach` section
 
 ## Entity Type Classification
 
@@ -118,8 +118,6 @@ updated-at: YYYY-MM-DD
 location: # optional for projects
 ---
 
-# [Title]
-
 ## Status
 Current state narrative. What's happening now.
 
@@ -146,7 +144,8 @@ Links to other entities (when applicable).
 ```
 
 **Section rules:**
-- `## Status` - Required, always first section after title
+- No h1 header needed (title is in frontmatter)
+- `## Status` - Required, first section after frontmatter
 - `## Tasks` - Optional, skip for beads-managed projects
 - `## Log` - Recommended, always last section when present
 - Other sections - Optional, include when relevant
@@ -176,8 +175,6 @@ Links to other entities (when applicable).
 
 **Format:** One line per idea, date-descending (newest at top)
 ```markdown
-# Ideas
-
 - [[YYYY-MM-DD]]: Brief description of actionable seed
 - [[YYYY-MM-DD]]: Another idea
 ```
@@ -192,8 +189,6 @@ Links to other entities (when applicable).
 
 **Format:** One line per thought, date-descending (newest at top)
 ```markdown
-# Thoughts
-
 - [[YYYY-MM-DD]]: Observation or reflection
 - [[YYYY-MM-DD]]: Another thought
 ```
