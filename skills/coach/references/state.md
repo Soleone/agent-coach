@@ -1,6 +1,8 @@
 # State Format
 
-Coach state is stored in `{vault}/Coach/State.md` to persist settings and preferences across sessions.
+Coach settings are stored in `{vault}/Coach/State.md` to persist configuration and preferences across sessions.
+
+**Note:** State.md is for Coach configuration (vault paths, preferences), NOT for personal life tracking. Goals, Projects, and Interests are tracked in their own files.
 
 ## Format: Hybrid Frontmatter + Markdown
 

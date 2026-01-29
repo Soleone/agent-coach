@@ -8,11 +8,9 @@ Located in `{vault}/Coach/Goals/*.md`
 
 ```markdown
 ---
-status: in-progress  # not-started, in-progress, blocked, completed, paused
+type: goal
+status: active  # active, paused, done, archived
 created-at: 2026-01-05
-target: 2026-02-01
-progress: 35  # 0-100
-tags: [goal/active]
 updated-at: 2026-01-11
 ---
 
