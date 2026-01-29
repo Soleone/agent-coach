@@ -78,9 +78,12 @@ All diary entries must be appended under the `# Coach` header. If the header doe
    - Append Ideas to `Coach/Ideas.md` (date wiki-link format: `- [[YYYY-MM-DD]]: description`)
    - Append Thoughts to `Coach/Thoughts.md` (date wiki-link format: `- [[YYYY-MM-DD]]: description`)
    - Tasks can go in relevant entity files or today's journal
-3. **Link in diary** - Reference the created entities in diary entries under `# Coach`
+3. **Smart logging** - Route diary entries based on context:
+   - **If relates to existing entity:** Append to entity's `## Log` section (primary)
+   - **If general/meta:** Append to journal's `# Coach` section
+   - **If relates to entity + noteworthy for timeline:** Add brief reference in journal
 4. **Update memory** - Update existing entity files with progress, status changes
-5. **Capture diary** - Write concise diary entry that serves both user memory and coaching context
+5. **Update frontmatter** - Set `updated-at` when modifying entity files
 
 ## Vault Schema
 

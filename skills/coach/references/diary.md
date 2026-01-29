@@ -22,11 +22,27 @@ Write entries as if the user WILL lose their memory AND you will need this conte
 
 ## Location
 
-Daily journal page: `{vault}/{journals}/YYYY-MM-DD.md`
+**Smart routing based on context:**
 
-**For past events:** When users mention events from the past (e.g., "yesterday I met with X", "last Monday I decided Y"), write the entry to the **correct historical date's journal page**, not today's page.
+**Entity-specific entries** (append to entity file's `## Log` section):
+- Updates about existing Goals, Projects, or Interests
+- Progress, breakthroughs, blockers related to specific entities
+- Format: `- [[YYYY-MM-DD]] HH:MM: entry text` (newest first)
+- Example: User says "I finished chapter 4 of the Rust book" → append to `Coach/Goals/Learn Rust.md`
 
-Dedicated section: `# Coach` (h1 header at the bottom of the page)
+**General/meta entries** (append to journal's `# Coach` section):
+- Daily journal page: `{vault}/{journals}/YYYY-MM-DD.md`
+- Entries not tied to specific entities
+- Cross-cutting thoughts, decisions, or observations
+- Format: `- HH:MM: entry text`
+
+**Dual logging** (both entity log + journal reference):
+- When entity update is also chronologically significant
+- Entity log: Full detailed entry
+- Journal: Brief reference with entity link
+- Example: Major milestone completion, pivot decisions
+
+**For past events:** When users mention events from the past (e.g., "yesterday I met with X", "last Monday I decided Y"), write the entry to the **correct historical date's journal page** or entity log, not today's page.
 
 ## Date Detection for Past Events
 
@@ -89,6 +105,28 @@ When users mention events from the past, write those diary entries to the **corr
 - Generic summaries ("had a coaching session")
 - Routine check-ins without notable outcomes
 - Repetitive information already logged
+
+## Routing Decision Examples
+
+**Example 1: Entity-specific (route to entity log)**
+- User: "Made progress on the CLI tool - got authentication working"
+- Action: Append to `Coach/Projects/CLI Tool.md` `## Log` section
+- No journal entry needed (routine project update)
+
+**Example 2: Significant milestone (dual logging)**
+- User: "Shipped the CLI tool to production!"
+- Action 1: Append to `Coach/Projects/CLI Tool.md` `## Log`: `- [[YYYY-MM-DD]] 18:00: Shipped to production - first v1.0 release after 3 months work`
+- Action 2: Journal reference: `- 18:00: Shipped [[Coach/Projects/CLI Tool]] to production - first public release`
+
+**Example 3: General reflection (journal only)**
+- User: "I've been thinking about work-life balance lately"
+- Action: Append to journal's `# Coach`: `- 14:30: Reflecting on work-life balance - need to set better boundaries`
+
+**Example 4: Multiple entities (route to each)**
+- User: "Realized my Rust learning goal will help with the CLI project"
+- Action 1: Append to `Coach/Goals/Learn Rust.md` `## Log`
+- Action 2: Append to `Coach/Projects/CLI Tool.md` `## Log`
+- Action 3: Optional journal reference linking both
 
 ## Format
 
