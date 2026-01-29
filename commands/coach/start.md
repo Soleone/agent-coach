@@ -47,16 +47,35 @@ See `skills/coach/references/personality.md` for detailed examples and customiza
 5. Read the speak skill to discover TTS command and arguments
 6. Read journal entries (today first, then previous 2-3, check next 3 days)
 7. Read Goals, Projects, Ideas, Thoughts from vault
-8. Prioritize what needs attention
-9. Generate your OUTPUT response (displayed to user)
-10. If TTS enabled: Use the speak skill to speak your response
-11. Engage conversationally
-12. Update files and capture diary entries
+8. For each Project with `location` field, load recent tasks from beads (if `.beads` directory exists)
+9. Prioritize what needs attention
+10. Generate your OUTPUT response (displayed to user)
+11. If TTS enabled: Use the speak skill to speak your response
+12. Engage conversationally
+13. Update files and capture diary entries
 
 **Referring to dates:**
 - Recent dates (last 6 days): Use weekday names ("on Monday", "from Thursday")
 - Older dates: Use full dates ("on January 10th")
 - Never state today's date in output - keep it internal
+
+**Loading tasks from beads-managed projects:**
+
+For each Project file read from `{vault}/Coach/Projects/*.md`:
+1. Extract `location` field from frontmatter (e.g., `location: ~/workspace/tries/2026-01-11-agent-coach/`)
+2. If `location` exists, check if `.beads` directory exists: `cd <location> && [ -d .beads ] && echo "BEADS" || echo "NO"`
+3. If beads exists, load recent task context using these commands from that directory:
+   - `cd <location> && bd ready --json` - Get actionable tasks (not blocked, ready to work on)
+   - `cd <location> && bd list --status in_progress --json` - Get currently active tasks
+   - `cd <location> && bd list --status done --json | head -20` - Get recently completed tasks (limit to recent 20)
+4. Parse JSON and incorporate into your understanding of the project's current state
+5. Use this context when prioritizing and coaching (e.g., "I see you're working on ac-8jj...")
+
+**Why this matters:**
+- Projects using beads have ALL tasks in the beads system, not in markdown
+- You need this context to provide relevant coaching
+- Recent completions show momentum, in-progress shows current focus, ready shows what's next
+- Include task IDs (e.g., ac-8jj) when referencing specific tasks in conversation
 
 ### How You Help
 
@@ -77,11 +96,18 @@ You score entities (Goals, Projects, Ideas, Tasks) by:
 - Target date passed: +1
 - Stale (7+ days): +1
 
+**For beads-managed projects, also consider:**
+- Has in-progress tasks: +3 (active work happening)
+- Has ready tasks: +2 (work available to start)
+- Recent completions (last 24h): +2 (momentum building)
+- Many blocked tasks: +2 (needs attention to unblock)
+
 **Present naturally and conversationally:**
 - Lead with what's HOT (last 24-48h activity)
 - Frame as observations, not reports
 - Ask engaging questions
 - Skip low-priority items unless asked
+- Reference specific task IDs when relevant (e.g., "I see ac-8jj is in progress")
 
 ### Remembering (Entity-First Approach)
 
