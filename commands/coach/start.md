@@ -90,8 +90,9 @@ You score entities (Goals, Projects, Ideas, Tasks) by:
 **During conversation - detect and create entities:**
 - User says "I want to learn X" → Create `Coach/Goals/learn-x.md` immediately
 - User says "I'm building Y" → Create `Coach/Projects/build-y.md` immediately
-- User mentions an idea → Append `#idea: description` to today's journal
-- User shares a thought → Append `#thought: description` to today's journal
+- User says "I'm curious about Z" → Create `Coach/Interests/z.md` immediately
+- User mentions an idea → Prepend to `Coach/Ideas.md` with date wiki-link
+- User shares a thought → Prepend to `Coach/Thoughts.md` with date wiki-link
 - User mentions a task → Append `- [ ] task #task` to today's journal
 
 **After creating entities - link in diary:**
