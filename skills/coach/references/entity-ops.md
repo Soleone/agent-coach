@@ -6,13 +6,75 @@
 
 **The goal is NOT just full-text journaling - it's capturing structured, queryable, linkable data.**
 
+## Entity Matching (Prevent Duplicates)
+
+**CRITICAL:** Before creating a new entity, always check for existing entities with case-insensitive, normalized matching.
+
+### Matching Algorithm
+
+When user mentions a potential entity (e.g., "playing arc raiders", "learning typescript"):
+
+1. **Determine entity type** (Goal, Project, or Interest) from context
+2. **Read existing files** in the appropriate directory:
+   ```bash
+   ls -1 {vault}/Coach/Goals/ 2>/dev/null || true
+   ls -1 {vault}/Coach/Projects/ 2>/dev/null || true
+   ls -1 {vault}/Coach/Interests/ 2>/dev/null || true
+   ```
+3. **Normalize for comparison:**
+   - User mention: `"playing arc raiders"` → normalize to `"arcraiders"`
+   - Existing files: `"ARC Raiders.md"` → normalize to `"arcraiders"`
+   - Normalization: lowercase, remove spaces/hyphens/underscores/punctuation, strip `.md`
+
+4. **Compare normalized strings:**
+   - Exact match → Use existing file
+   - Multiple matches → Ask user which they mean (show list)
+   - No match → Safe to create new entity
+
+### Normalization Examples
+
+| User Says | Normalized | Existing File | Normalized | Match? |
+|-----------|------------|---------------|------------|--------|
+| "arc raiders" | `arcraiders` | `ARC Raiders.md` | `arcraiders` | ✓ YES |
+| "type script" | `typescript` | `TypeScript.md` | `typescript` | ✓ YES |
+| "rust-cli-tool" | `rsclitool` | `Rust CLI Tool.md` | `rustclitool` | ✗ NO (different) |
+| "meditation" | `meditation` | `Daily Meditation.md` | `dailymeditation` | ✗ NO (partial) |
+
+### Handling Ambiguity
+
+**Multiple matches found:**
+```markdown
+I found multiple existing entities that might match:
+1. ARC Raiders.md (Interest)
+2. Arc Raiders Progress.md (Project)
+
+Which one did you mean, or should I create a new entity?
+```
+
+**Partial matches (optional warning):**
+```markdown
+I didn't find an exact match, but these existing entities are similar:
+- Daily Meditation.md
+
+Did you mean one of these, or should I create "Meditation.md"?
+```
+
+### Implementation Workflow
+
+**Before creating a new Goal/Project/Interest:**
+1. List existing files in target directory
+2. Normalize user's mention and all filenames
+3. Check for exact normalized match
+4. If match found: Use that file, update its log
+5. If no match: Create new file with proper casing (preserve user's casing or ask)
+
 ## Entity Context Detection (Smart Routing)
 
 **When user mentions existing entities, route diary entries to entity logs:**
 
 1. **Explicit references:**
    - Direct mentions: "my Rust project", "the meditation goal", "learning TypeScript"
-   - Match against existing entity titles and content
+   - Match against existing entity titles using normalized comparison (see Entity Matching above)
 
 2. **Implicit references:**
    - Pronouns with context: "I'm stuck on it" (after discussing a project)
@@ -27,7 +89,7 @@
 **Decision tree:**
 - Known entity + routine update → Entity `## Log` only
 - Known entity + significant milestone → Entity `## Log` + Journal reference
-- New entity mention → Create entity file + Entity `## Log`
+- New entity mention → Check for existing entities FIRST, then create if no match
 - General reflection/thought → Journal `# Coach` section
 
 ## Entity Type Classification
@@ -143,10 +205,19 @@ Links to other entities (when applicable).
 ## Entity Lifecycle
 
 ### Create
+
+**CRITICAL:** Always check for existing entities before creating new ones to prevent duplicates.
+
 1. **Detect** entity type from user's statement
-2. **For Goals/Projects/Interests:** Create file with proper frontmatter and structure
-3. **For Ideas/Thoughts:** Prepend to respective file with `[[YYYY-MM-DD]]: description`
-4. **Link in diary** under `# Coach` header with format: `- HH:MM: Created [[Coach/EntityType/Title]]`
+2. **Check for existing entities:** Use Entity Matching algorithm (see above)
+   - List files in target directory (`Coach/Goals/`, `Coach/Projects/`, or `Coach/Interests/`)
+   - Normalize user mention and existing filenames
+   - Compare for matches
+3. **If match found:** Update existing entity instead (see Update section)
+4. **If no match:** Create new entity
+   - **For Goals/Projects/Interests:** Create file with proper frontmatter and structure
+   - **For Ideas/Thoughts:** Prepend to respective file with `[[YYYY-MM-DD]]: description`
+5. **Route diary entry:** Use smart logging to entity log or journal (see Smart Routing)
 
 ### Update
 1. **Edit existing file:** Update frontmatter `updated-at`, modify content
@@ -165,6 +236,36 @@ When Ideas grow into Goals/Projects/Interests:
 1. Create new file in appropriate directory
 2. Note in diary: `- HH:MM: Promoted idea about X to [[Coach/Goals/X]]`
 3. Original idea stays in Ideas.md as historical context
+
+## Compact Examples
+
+### Example 0: Entity Matching (Prevent Duplicates)
+
+**Scenario:** User casually mentions an interest, but uses different casing
+
+**Existing entities:**
+- `Coach/Interests/ARC Raiders.md`
+- `Coach/Interests/TypeScript.md`
+
+**User:** "I was playing arc raiders today, really fun game"
+
+**Entity matching process:**
+1. Detect potential Interest: "arc raiders"
+2. List files: `ls -1 ~/vault/Coach/Interests/`
+3. Normalize mention: `"arc raiders"` → `"arcraiders"`
+4. Normalize existing: `"ARC Raiders.md"` → `"arcraiders"`
+5. Match found! Use existing file
+
+**Actions:**
+1. Read `Coach/Interests/ARC Raiders.md` (matched entity)
+2. Update frontmatter: `updated-at: YYYY-MM-DD`
+3. Append to `## Log`: `- [[YYYY-MM-DD]] 15:30: Played today - really fun game`
+4. No journal entry needed (routine update)
+
+**What would have happened without matching:**
+- ❌ Created duplicate: `Coach/Interests/arc-raiders.md`
+- ❌ Two separate files for same entity
+- ❌ Context fragmentation
 
 ## Compact Examples
 

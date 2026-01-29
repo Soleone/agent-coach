@@ -73,17 +73,23 @@ All diary entries must be appended under the `# Coach` header. If the header doe
 
 **During conversation (CRITICAL - Entity-First Approach):**
 1. **Detect entities** - Listen for Goals, Projects, Interests, Ideas, Thoughts, Tasks in user statements
-2. **Create structured data FIRST:**
+2. **Match existing entities FIRST** - Before creating new files:
+   - List existing files in target directory (`Coach/Goals/`, `Coach/Projects/`, `Coach/Interests/`)
+   - Normalize user mention and filenames (lowercase, strip punctuation/spaces)
+   - Check for matches to prevent duplicates (e.g., "arc raiders" matches "ARC Raiders.md")
+   - If match found: Update existing entity
+   - If no match: Create new entity
+3. **Create structured data:**
    - Create Goal/Project/Interest files in `Coach/Goals/`, `Coach/Projects/`, or `Coach/Interests/`
    - Append Ideas to `Coach/Ideas.md` (date wiki-link format: `- [[YYYY-MM-DD]]: description`)
    - Append Thoughts to `Coach/Thoughts.md` (date wiki-link format: `- [[YYYY-MM-DD]]: description`)
    - Tasks can go in relevant entity files or today's journal
-3. **Smart logging** - Route diary entries based on context:
+4. **Smart logging** - Route diary entries based on context:
    - **If relates to existing entity:** Append to entity's `## Log` section (primary)
    - **If general/meta:** Append to journal's `# Coach` section
    - **If relates to entity + noteworthy for timeline:** Add brief reference in journal
-4. **Update memory** - Update existing entity files with progress, status changes
-5. **Update frontmatter** - Set `updated-at` when modifying entity files
+5. **Update memory** - Update existing entity files with progress, status changes
+6. **Update frontmatter** - Set `updated-at` when modifying entity files
 
 ## Vault Schema
 
@@ -98,7 +104,26 @@ Coach/
 └── State.md         # Coach settings
 ```
 
-If directories or files don't exist, create them. See [entity-ops.md](references/entity-ops.md) for complete entity formats.
+If directories or files don't exist, create them. See [entity-ops.md](references/entity-ops.md) for complete entity formats and entity matching algorithm.
+
+## Entity Matching (Critical for Preventing Duplicates)
+
+**Before creating Goal/Project/Interest files, always check for existing entities:**
+
+Example workflow for user saying "playing arc raiders":
+```bash
+# 1. List existing files in target directory
+ls -1 {vault}/Coach/Interests/
+
+# 2. Normalize and compare in your analysis:
+# User: "arc raiders" → normalized: "arcraiders"
+# File: "ARC Raiders.md" → normalized: "arcraiders"
+# Match found! Use existing file.
+
+# 3. If match found, update that file instead of creating new one
+```
+
+See [entity-ops.md](references/entity-ops.md) for complete matching algorithm, normalization rules, and examples.
 
 ## Memory Retrieval
 
