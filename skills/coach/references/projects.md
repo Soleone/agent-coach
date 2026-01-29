@@ -10,6 +10,7 @@ Located in `{vault}/Coach/Projects/*.md`
 ---
 type: project
 status: active  # active, paused, done, archived
+location: # optional directory path   that could hold more data like readme or tasks
 created-at: 2026-01-05
 updated-at: 2026-01-11
 ---
