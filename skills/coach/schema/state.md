@@ -23,7 +23,7 @@ last-updated: 2026-01-25
 
 ## Preferences
 
-- projects-root: ~/projects
+- project-roots: ~/projects
 ```
 
 ## Sections
@@ -79,7 +79,18 @@ Future settings may include:
 - Default journal location overrides
 - Custom personality settings
 
-## Updates
+## Lifecycle
+
+### Load on Session Start
+
+At session start, read `{vault}/Coach/State.md`:
+1. Parse YAML frontmatter to get metadata
+2. Extract settings from markdown sections using bullet list format
+3. If Speak Settings `enabled: true`, read the speak skill to discover the TTS command
+4. Pass the settings to the speak skill's TTS command
+5. If `enabled: false` or missing, don't speak
+
+### Sync on Update
 
 **When to update:**
 - User explicitly changes a setting ("enable speaking", "speak faster", "use am_santa voice")
@@ -105,17 +116,8 @@ last-updated: 2026-01-25
 
 ## Preferences
 
-- projects-root: ~/projects
+- project-roots: ~/projects
 ```
-
-## Reading State
-
-At session start, read `{vault}/Coach/State.md`:
-1. Parse YAML frontmatter to get metadata
-2. Extract settings from markdown sections using bullet list format
-3. If Speak Settings `enabled: true`, read the speak skill to discover the TTS command
-4. Pass the settings to the speak skill's TTS command
-5. If `enabled: false` or missing, don't speak
 
 ## Parsing Guidelines
 
@@ -148,7 +150,7 @@ At session start, read `{vault}/Coach/State.md`:
 **Action:** Set `voice: am_santa`, update frontmatter `last-updated`
 
 **User says:** "My projects are in ~/workspace/projects"
-**Action:** Set `projects-root: ~/workspace/projects`, update frontmatter `last-updated`
+**Action:** Set `project-roots: ~/workspace/projects`, update frontmatter `last-updated`
 
 ## Future Extensions
 
