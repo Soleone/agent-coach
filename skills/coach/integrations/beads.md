@@ -1,10 +1,18 @@
 # Beads Integration
 
-**CRITICAL RULE:** When a project has `location` field AND `.beads` directory exists in that location:
-- **All tasks live in beads ONLY**
-- Do NOT use `## Tasks` section in the markdown file
-- Do NOT create inline journal tasks for this project
-- Use beads commands exclusively for task tracking
+**CRITICAL RULE - Beads-First Workflow:**
+
+When user mentions project tasks or status:
+1. **FIRST**: Read the project file and check for `location` field
+2. **THEN**: If location exists, check if `.beads` directory exists: `cd <location> && [ -d .beads ]`
+3. **IF .beads EXISTS**: Run `bd list` to get actual task status
+   - **All tasks live in beads ONLY**
+   - Do NOT use `## Tasks` section in the markdown file
+   - Do NOT create inline journal tasks for this project
+   - Use beads commands exclusively for task tracking
+4. **IF .beads DOES NOT EXIST**: Only then use markdown `## Tasks` section
+
+**Never assume markdown tasks - always check beads first.**
 
 ## Detection
 

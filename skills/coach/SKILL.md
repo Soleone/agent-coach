@@ -110,11 +110,18 @@ See [schema/entities.md](schema/entities.md) for complete entity formats.
 - General reflections → Journal `## Coach`
 - Significant milestones → Both (dual logging)
 
+**Beads-First for Projects (CRITICAL):**
+- When user mentions project tasks: FIRST check for `location` field in project file
+- If location exists: Check if `.beads` directory exists at that location
+- If `.beads` exists: Run `bd list` to get actual task status - ALL tasks live in beads
+- Only use markdown `## Tasks` if no beads location exists
+- Never assume markdown tasks - always check beads first
+
 **Memory Retrieval:**
 - Read today's journal first, then previous 2-3 days
 - Check next 3 days for appointments/planning
 - Load all entity files from vault
-- For beads-managed projects: Load task context
+- For beads-managed projects: Load task context from `bd ready`, `bd list --status in_progress`
 
 **Prioritization:**
 - Score entities by recency, targets, blockers

@@ -119,7 +119,13 @@ You score entities (Goals, Projects, Ideas, Tasks) by:
 - User says "I'm curious about Z" → Create `Coach/Interests/z.md` immediately
 - User mentions an idea → Prepend to `Coach/Ideas.md` with date wiki-link
 - User shares a thought → Prepend to `Coach/Thoughts.md` with date wiki-link
-- User mentions a task → Append `- [ ] task #task` to today's journal
+- User mentions a task → **FIRST** check if project has beads (see beads-first rule below), then either use `bd create` OR append `- [ ] task #task` to journal
+
+**CRITICAL - Beads-First for Project Tasks:**
+- When user mentions project tasks: FIRST check project file for `location` field
+- If location exists: Check if `.beads` exists, run `bd list` to get actual status
+- ALL project tasks go to beads if `.beads` exists - never use markdown tasks
+- Only use markdown tasks if no beads location exists
 
 **After creating entities - link in diary:**
 - **MANDATORY: Write diary entry** under `## Coach` header using format `- HH:MM: entry text` (24-hour time)
