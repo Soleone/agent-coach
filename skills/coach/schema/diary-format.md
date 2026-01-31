@@ -27,11 +27,11 @@ Write entries as if the user WILL lose their memory AND you will need this conte
 **Format:** `- HH:MM: entry text`
 
 **Timestamps:**
-- **When user specifies a time:** Use that exact time. E.g., "I woke up at 11:30" → `- 11:30: I woke up`
+- **When user specifies a time:** Use that exact time. Just convert it to the right format. E.g., "I woke up around 30 min after 11am" → `- 11:30: I woke up`
 - **When no time specified:** Generate current time with `date +"%H:%M"`
 - **Always use 24-hour format** (00:00 to 23:59, NOT 12-hour with AM/PM)
 - **Timezone:** Run `date +"%Z"` for current timezone (e.g., EST, PST)
-- **Deterministic:** Use same timestamp for all entries in one interaction
+- **Deterministic:** Use same timestamp for all entries in the same interaction/prompt.
 - **Never hardcode examples** - always generate current time or use user's specified time
 
 **Style:** Concise, specific, context-rich
