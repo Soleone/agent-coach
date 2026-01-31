@@ -211,6 +211,24 @@ Links to other entities (when applicable).
 3. **If match found:** Update existing entity instead (see Update section)
 4. **If no match:** Create new entity
    - **For Goals/Projects/Interests:** Create file with proper frontmatter and structure
+   - **For Projects specifically:** Auto-discover and populate location field
+     - **When to attempt discovery (only if location field is unset):**
+       - At initial project entity creation
+       - When user mentions code creation in updates (e.g., "started coding the auth module")
+       - When organically inferred that code exists (e.g., actively working on project setup in session)
+     - **Discovery process:**
+       - Read `{vault}/Coach/State.md` to get `project-roots` value (comma-separated list)
+       - If set, extract key terms from project name (e.g., "agent coach project" → ["agent", "coach", "project"])
+       - Scan each root directory (two levels deep) for matches:
+         - Level 1: `{root}/*` - list all directories
+         - Level 2: `{root}/*/*` - list all subdirectories one level deep
+       - Match using flexible patterns:
+         - Direct variations: `agent-coach`, `agent_coach`, `agentcoach`, `coach`, `agent-coach-project`
+         - Pattern matching: directories containing key terms (case-insensitive)
+       - **If single match:** Set `location: ~/path/to/directory` in frontmatter (prefer `~` for home paths)
+       - **If multiple matches:** Ask user which one, or use best guess based on similarity
+       - **If not found:** Leave `location` empty (will retry on next relevant update)
+       - This enables immediate beads integration if `.beads` exists in that location
    - **For Ideas/Thoughts:** Prepend to respective file with `[[YYYY-MM-DD]]: description`
 5. **Route diary entry:** Use smart logging to entity log or journal (see Smart Routing)
 

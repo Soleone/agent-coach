@@ -23,7 +23,7 @@ last-updated: 2026-01-25
 
 ## Preferences
 
-(Future settings can go here)
+- projects-root: ~/projects
 ```
 
 ## Sections
@@ -50,8 +50,31 @@ Settings for TTS integration. Values are passed to the speak skill's TTS command
 
 ### Preferences
 
-Reserved for future coach-wide settings such as:
-- Projects root directory
+Coach-wide settings for customizing behavior.
+
+| Setting | Type | Description |
+|---------|------|-------------|
+| `project-roots` | comma-separated paths | Directories to scan when discovering projects (e.g., `~/workspace, ~/projects`) |
+
+**Project Roots:**
+Used for auto-discovering project directories when creating a new Project entity. Scans two levels deep:
+- **Level 1:** Direct children of each root (e.g., `~/projects/my-app`)
+- **Level 2:** One level into subfolders (e.g., `~/projects/js/my-app`, `~/projects/python/my-cli`)
+
+**Discovery workflow:**
+1. User mentions new project: "I'm working on agent coach project"
+2. Extract key terms: "agent", "coach", "project"
+3. Scan each root directory for matching directories:
+   - Direct match attempts: `agent-coach`, `agent_coach`, `agentcoach`, `coach`
+   - Pattern matching: directories containing key terms (case-insensitive)
+   - Check both level 1 (`{root}/*`) and level 2 (`{root}/*/*`)
+4. If single match found: Set `location: ~/path/to/directory` in frontmatter (prefer `~` for home paths)
+5. If multiple matches: Ask user which one, or use best guess
+6. If not found: Leave `location` empty (user can set manually later)
+
+**Note:** The `location` field always stores absolute paths for performance. The project-roots setting is only used during initial discovery when location is unset.
+
+Future settings may include:
 - Time/date format preferences
 - Default journal location overrides
 - Custom personality settings
@@ -82,7 +105,7 @@ last-updated: 2026-01-25
 
 ## Preferences
 
-(Reserved for future settings)
+- projects-root: ~/projects
 ```
 
 ## Reading State
@@ -123,6 +146,9 @@ At session start, read `{vault}/Coach/State.md`:
 
 **User says:** "Use the am_santa voice"
 **Action:** Set `voice: am_santa`, update frontmatter `last-updated`
+
+**User says:** "My projects are in ~/workspace/projects"
+**Action:** Set `projects-root: ~/workspace/projects`, update frontmatter `last-updated`
 
 ## Future Extensions
 
