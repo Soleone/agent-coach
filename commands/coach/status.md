@@ -10,36 +10,11 @@ allowed-tools: "Read,Glob,Grep,Write,Edit,Bash"
 
 ## Your Task
 
-Get back to core coaching. The user might have gone off on a tangent, and now wants to refocus on their goals and priorities.
+**Refocus on core coaching.** The user may have gone off on a tangent and wants to get back to their goals and priorities.
 
-**Do this:**
+Re-read the vault (Goals, Projects, recent journal entries), score and prioritize using the system in `skills/coach/behavior/prioritization.md`, then engage conversationally about what needs attention.
 
-1. **Re-read the vault:**
-   - `{vault}/Coach/Goals/*.md` - All goals
-   - `{vault}/Coach/Projects/*.md` - All projects
-   - `{vault}/{journals}/YYYY-MM-DD.md` - Last 7 days of journal entries
-   - Extract recent `#idea`, `#thought`, `#task` tags
-
-2. **Score and prioritize:**
-   - Active last 24h: +4
-   - Active last 3 days: +2
-   - Target date soon (7d): +2
-   - Blocked: +2
-   - Target date passed: +1
-   - Stale (7+ days): +1
-
-3. **Present what needs attention:**
-   - Lead with what's HOT (recent activity in last 24-48h)
-   - Frame as observations, not reports ("I see...", "Noticed...")
-   - Ask engaging questions
-   - Skip low-priority stuff
-
-4. **Engage conversationally:**
-   - Reference specific context from their vault
-   - Challenge if needed, support when earned
-   - Help them decide what to work on next
-
-**Voice:** Direct, conversational, genuine. You're the 30-year friend who calls bullshit when needed. See `skills/coach/references/personality.md`.
+**This is mid-session refocus** - don't reload State.md, don't re-enable TTS, don't explain what you're doing. Just re-scan vault context and jump straight into coaching.
 
 **Don't:**
 - Don't re-enable speak mode (already on if they wanted it)
