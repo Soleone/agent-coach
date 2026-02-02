@@ -24,10 +24,10 @@ Write entries as if the user WILL lose their memory AND you will need this conte
 
 **Structure:** Bullet points with timestamps under the `## Coach` header
 
-**Format:** `- HH:MM: entry text`
+**Format:** `- HH:MM entry text`
 
 **Timestamps:**
-- **When user specifies a time:** Use that exact time. Just convert it to the right format. E.g., "I woke up around 30 min after 11am" → `- 11:30: I woke up`
+- **When user specifies a time:** Use that exact time. Just convert it to the right format. E.g., "I woke up around 30 min after 11am" → `- 11:30 I woke up`
 - **When no time specified:** Generate current time with `date +"%H:%M"`
 - **Always use 24-hour format** (00:00 to 23:59, NOT 12-hour with AM/PM)
 - **Timezone:** Run `date +"%Z"` for current timezone (e.g., EST, PST)
@@ -55,7 +55,7 @@ If the `## Coach` header doesn't exist in the journal page, append it at the bot
 ```markdown
 ## Coach
 
-- 09:30: [First diary entry]
+- 09:30 [First diary entry]
 ```
 
 If it already exists, append new entries below existing ones using timestamp format: `- HH:MM: entry text`
@@ -65,13 +65,13 @@ If it already exists, append new entries below existing ones using timestamp for
 ```markdown
 ## Coach
 
-- 09:30: Decided to pivot Build Personal Website project to use Astro instead of Next.js after discovering better Obsidian integration. This unblocks the publishing workflow.
-- 09:45: Breakthrough on [[Coach/Goals/Learn Rust]] - finally understood lifetime annotations by working through Chapter 10 examples. Key insight: lifetimes are about references, not values.
-- 11:30: Woke up today - slept in after late night coding session
-- 14:15: Created new goal [[Coach/Goals/Master TypeScript Generics]] after struggling with type inference in current project. Target: 2 weeks.
-- 16:20: Realized that chasing perfection on side projects has been blocking me from shipping. New approach: "good enough" iterations with 2-week cycles. This shifts my entire project philosophy.
-- 21:00: Had conversation about work-life balance. Recognized pattern: I overcommit when anxious about progress. Going to try time-boxing commitments for next month.
-- 22:34: Created [[Coach/Goals/Jump Roping]] goal to try to get more fit
+- 09:30 Decided to pivot Build Personal Website project to use Astro instead of Next.js after discovering better Obsidian integration. This unblocks the publishing workflow.
+- 09:45 Breakthrough on [[Coach/Goals/Learn Rust]] - finally understood lifetime annotations by working through Chapter 10 examples. Key insight: lifetimes are about references, not values.
+- 11:30 Woke up today - slept in after late night coding session
+- 14:15 Created new goal [[Coach/Goals/Master TypeScript Generics]] after struggling with type inference in current project. Target: 2 weeks.
+- 16:20 Realized that chasing perfection on side projects has been blocking me from shipping. New approach: "good enough" iterations with 2-week cycles. This shifts my entire project philosophy.
+- 21:00 Had conversation about work-life balance. Recognized pattern: I overcommit when anxious about progress. Going to try time-boxing commitments for next month.
+- 22:34 Created [[Coach/Goals/Jump Roping]] goal to try to get more fit
 ```
 
 ## Poor Examples
