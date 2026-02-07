@@ -22,7 +22,7 @@ Write entries as if the user WILL lose their memory AND you will need this conte
 
 ## Format
 
-**Structure:** Bullet points with timestamps under the `## Coach` header
+**Structure:** Bullet points with timestamps under the `# Coach` header
 
 **Format:** `- HH:MM entry text`
 
@@ -48,12 +48,12 @@ Write entries as if the user WILL lose their memory AND you will need this conte
 
 **Daily journal page:** `{vault}/{journals}/YYYY-MM-DD.md`
 
-**Required header for diary entries:** `## Coach` (h2 header at the bottom of the page)
+**Required header for diary entries:** `# Coach` (h1 header at the bottom of the page)
 
-If the `## Coach` header doesn't exist in the journal page, append it at the bottom:
+If the `# Coach` header doesn't exist in the journal page, append it at the bottom:
 
 ```markdown
-## Coach
+# Coach
 
 - 09:30 [First diary entry]
 ```
@@ -63,7 +63,7 @@ If it already exists, append new entries below existing ones using timestamp for
 ## Good Examples
 
 ```markdown
-## Coach
+# Coach
 
 - 09:30 Decided to pivot Build Personal Website project to use Astro instead of Next.js after discovering better Obsidian integration. This unblocks the publishing workflow.
 - 09:45 Breakthrough on [[Coach/Goals/Learn Rust]] - finally understood lifetime annotations by working through Chapter 10 examples. Key insight: lifetimes are about references, not values.
@@ -77,7 +77,7 @@ If it already exists, append new entries below existing ones using timestamp for
 ## Poor Examples
 
 ```markdown
-## Coach
+# Coach
 
 - Had a good coaching session today
 - Discussed various topics

@@ -41,7 +41,7 @@ Proactive AI coaching that analyzes your goals, projects, ideas, and thoughts fr
 │   └── State.md           # Coach configuration
 └── {journals}/
     └── YYYY-MM-DD.md      # Daily journal pages
-        └── ## Coach       # Required header for diary entries
+        └── # Coach       # Required header for diary entries
 ```
 
 ## Entity Types

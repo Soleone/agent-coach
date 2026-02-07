@@ -70,7 +70,7 @@ Skip sessions that are already logged.
 
 **Step 5: Create diary entries**
 
-For each session, append to `{vault}/{journals}/YYYY-MM-DD.md` under `## Coach` header:
+For each session, append to `{vault}/{journals}/YYYY-MM-DD.md` under `# Coach` header:
 
 **Format:**
 ```markdown
@@ -79,7 +79,7 @@ For each session, append to `{vault}/{journals}/YYYY-MM-DD.md` under `## Coach` 
 
 **Example entries:**
 ```markdown
-## Coach
+# Coach
 
 - 14:32: Coach skill entity-first approach with timezone fixes (session:e46a08f9, branch:main, messages:13)
 - 19:24: Beads setup and symlink configuration (session:c34033e0, branch:main, messages:21)
@@ -89,7 +89,7 @@ For each session, append to `{vault}/{journals}/YYYY-MM-DD.md` under `## Coach` 
 
 - **No sessions-index.json:** Inform user that no sessions found for this project
 - **Empty sessions list:** No sessions to sync
-- **Missing journal page:** Create the journal page with `## Coach` header
+- **Missing journal page:** Create the journal page with `# Coach` header
 - **Timezone errors:** Fall back to UTC timestamps if conversion fails
 
 ## User Interaction

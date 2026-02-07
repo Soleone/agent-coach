@@ -80,7 +80,7 @@ When users reference existing entities (explicitly or implicitly):
 | Routine entity update | Entity `## Log` only |
 | Significant milestone | Entity `## Log` + Journal reference |
 | New entity mention | Check existing entities → create if no match |
-| General reflection | Journal `## Coach` section |
+| General reflection | Journal `# Coach` section |
 | Multiple entities involved | Route to each entity log + optional journal reference |
 
 **Procedure:** [procedures/diary-routing.md](procedures/diary-routing.md)

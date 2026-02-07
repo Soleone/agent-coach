@@ -58,7 +58,7 @@ Coach/
 ```
 {journals}/
 └── YYYY-MM-DD.md    # Daily journal page
-    └── ## Coach     # Required h2 header for diary entries
+    └── # Coach     # Required h1 header for diary entries
 ```
 
 If directories or files don't exist, create them.
@@ -107,7 +107,7 @@ See [schema/entities.md](schema/entities.md) for complete entity formats.
 **Smart Logging:**
 - Route diary entries based on context
 - Entity-specific updates → Entity `## Log`
-- General reflections → Journal `## Coach`
+- General reflections → Journal `# Coach`
 - Significant milestones → Both (dual logging)
 
 **Memory Retrieval:**

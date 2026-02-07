@@ -48,7 +48,7 @@ See [integrations/tts.md](../integrations/tts.md) for details on invoking TTS.
 
 Extract from journal entries:
 - `- [ ]` items with `#task` tag - Inline tasks
-- Diary entries under `## Coach` header - Notable events, decisions, progress worth remembering
+- Diary entries under `# Coach` header - Notable events, decisions, progress worth remembering
 
 ## 6. Read All Entities
 

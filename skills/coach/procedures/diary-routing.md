@@ -14,7 +14,7 @@
 
 ### General/Meta Entries
 
-**Append to journal's `## Coach` section:**
+**Append to journal's `# Coach` section:**
 - Daily journal page: `{vault}/{journals}/YYYY-MM-DD.md`
 - Entries not tied to specific entities
 - Cross-cutting thoughts, decisions, or observations
@@ -62,13 +62,13 @@
 3. **Ambiguity handling:**
    - **Multiple matches:** Ask which entity they mean, or use most recently discussed
    - **No match:** This is likely a new entity (create) or general entry (journal)
-   - **General topics:** Diary entry goes to journal's `## Coach` section
+   - **General topics:** Diary entry goes to journal's `# Coach` section
 
 **Decision tree:**
 - Known entity + routine update → Entity `## Log` only
 - Known entity + significant milestone → Entity `## Log` + Journal reference
 - New entity mention → Check for existing entities FIRST, then create if no match
-- General reflection/thought → Journal `## Coach` section
+- General reflection/thought → Journal `# Coach` section
 
 ## Date Detection for Past Events
 
@@ -99,12 +99,12 @@ When users mention events from the past, write those diary entries to the **corr
 
 - User: "Yesterday I met with the team and decided to pivot"
   1. Detect "Yesterday" → run `date -d "yesterday" +"%Y-%m-%d"` → "2026-01-23"
-  2. Write to `{vault}/{journals}/2026-01-23.md` under `## Coach`
+  2. Write to `{vault}/{journals}/2026-01-23.md` under `# Coach`
   3. Entry: `- 14:30: Met with team and decided to pivot project`
 
 - User: "Last Monday I started learning Rust"
   1. Detect "Last Monday" → run `date -d "last Monday" +"%Y-%m-%d"` → "2026-01-20"
-  2. Write to `{vault}/{journals}/2026-01-20.md` under `## Coach`
+  2. Write to `{vault}/{journals}/2026-01-20.md` under `# Coach`
   3. Entry: `- 09:00: Started learning Rust`
 
 - User: "On January 10th I had a breakthrough"
@@ -131,7 +131,7 @@ When users mention events from the past, write those diary entries to the **corr
 ### Example 3: General reflection (journal only)
 
 - User: "I've been thinking about work-life balance lately"
-- Action: Append to journal's `## Coach`: `- 14:30: Reflecting on work-life balance - need to set better boundaries`
+- Action: Append to journal's `# Coach`: `- 14:30: Reflecting on work-life balance - need to set better boundaries`
 
 ### Example 4: Multiple entities (route to each)
 
