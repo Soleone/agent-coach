@@ -1,6 +1,6 @@
 # Entity Formats
 
-**Unified structure for all entity types:**
+**Unified structure for all entity types (Goals, Projects, Interests):**
 
 ```markdown
 ---
@@ -11,36 +11,44 @@ updated-at: YYYY-MM-DD
 location: # optional for projects
 ---
 
-## Status
+# Status
 Current state narrative. What's happening now.
 
-## Tasks
-- [ ] Task to do
-- [x] Completed task
+# Tasks
+- [ ] (optional) Task to do
+- [x] (optional) Completed task
+
+**Projects (non-beads):** Default the Tasks section to the TaskNotes view:
+
+```markdown
+# Tasks
+![[tasks-default.base#Project]]
+```
 
 **CRITICAL - Projects with beads:** If project has `location` field AND `.beads` directory exists in that location, tasks live in beads ONLY. Omit this section and use beads commands instead.
 
-## Blockers
+# Blockers
 - List obstacles (when applicable)
 
-## Notes
+# Notes
 Freeform observations, learnings, thoughts.
 
-## Resources
+# Resources
 Links, materials, references (when applicable).
 
-## Related
+# Related
 Links to other entities (when applicable).
 
-## Log
+# Log
 - [[YYYY-MM-DD]] HH:MM: What changed (newest first)
 ```
 
 **Section rules:**
-- No h1 header needed (title is in frontmatter)
-- `## Status` - Required, first section after frontmatter
-- `## Tasks` - Optional, skip for beads-managed projects
-- `## Log` - Recommended, always last section when present
+- No separate title header needed (title is the filename / frontmatter)
+- Use `#` section headers inside entity files
+- `# Status` - Required, first section after frontmatter
+- `# Tasks` - Optional, skip for beads-managed projects
+- `# Log` - Recommended, always last section when present
 - Other sections - Optional, include when relevant
 - Order - Always maintain the same order when sections are present
 
@@ -53,12 +61,13 @@ Links to other entities (when applicable).
 **Projects:** Concrete things to build - "build X app", "create Y system", "ship Z feature"
 - Can have `location` field pointing to project directory
 - If `location` + `.beads` exists → use beads for all task tracking
+- If not beads-managed → use TaskNotes via `![[tasks-default.base#Project]]` in `# Tasks`
 - Can have `done` status when shipped/completed
 
 **Interests:** Domains of curiosity and ongoing knowledge accumulation
 - No `done` status (open-ended by nature)
-- Usually don't need `## Tasks` section (knowledge accumulation, not deliverables)
-- Focus on `## Notes` and `## Resources`
+- Usually don't need a `# Tasks` section (knowledge accumulation, not deliverables)
+- Focus on `# Notes` and `# Resources`
 
 ## Ideas
 

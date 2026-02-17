@@ -58,7 +58,9 @@ If the `# Coach` header doesn't exist in the journal page, append it at the bott
 - 09:30 [First diary entry]
 ```
 
-If it already exists, append new entries below existing ones using timestamp format: `- HH:MM: entry text`
+If it already exists, append new entries below existing ones using timestamp format: `- HH:MM: entry text`.
+
+**Ordering rule (critical):** Entries are chronological with **oldest first** (top = earliest, bottom = latest). Never prepend new lines above older ones.
 
 ## Good Examples
 

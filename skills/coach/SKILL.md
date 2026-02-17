@@ -80,6 +80,7 @@ See [schema/entities.md](schema/entities.md) for complete entity formats.
 - [procedures/session-start.md](procedures/session-start.md) - Session initialization steps
 - [procedures/entity-lifecycle.md](procedures/entity-lifecycle.md) - Matching, create/update/promote workflows
 - [procedures/diary-routing.md](procedures/diary-routing.md) - Smart routing, date detection
+- [procedures/activity-scanning.md](procedures/activity-scanning.md) - Standardized `$CODE` git activity scanning and journaling
 
 ### Integrations
 - [integrations/tts.md](integrations/tts.md) - Text-to-speech delegation via speak skill
@@ -92,7 +93,7 @@ See [schema/entities.md](schema/entities.md) for complete entity formats.
 
 1. **Session Start:** Load state, read vault entities, analyze priorities ([session-start.md](procedures/session-start.md))
 2. **Detect Intent:** Use triggers to classify user statements ([triggers.md](triggers.md))
-3. **Execute Procedures:** Route to entity lifecycle or diary routing procedures
+3. **Execute Procedures:** Route to entity lifecycle, diary routing, or activity scanning procedures
 4. **Update Memory:** Create/update entities, write diary entries
 5. **Engage:** Respond using personality guidelines, prioritize naturally
 
@@ -106,7 +107,7 @@ See [schema/entities.md](schema/entities.md) for complete entity formats.
 
 **Smart Logging:**
 - Route diary entries based on context
-- Entity-specific updates → Entity `## Log`
+- Entity-specific updates → Entity `# Log`
 - General reflections → Journal `# Coach`
 - Significant milestones → Both (dual logging)
 

@@ -15,15 +15,16 @@ The state file uses YAML frontmatter for metadata, with markdown sections for se
 last-updated: 2026-01-25
 ---
 
-## Speak Settings
+# Speak Settings
 
 - enabled: true
 - speed: 1.0
 - voice: am_santa
 
-## Preferences
+# Preferences
 
 - project-roots: ~/projects
+- activity-scan-roots: $CODE
 ```
 
 ## Sections
@@ -55,6 +56,7 @@ Coach-wide settings for customizing behavior.
 | Setting | Type | Description |
 |---------|------|-------------|
 | `project-roots` | comma-separated paths | Directories to scan when discovering projects (e.g., `~/workspace, ~/projects`) |
+| `activity-scan-roots` | comma-separated env vars/paths | Roots scanned for repo activity (supports `$CODE`, `$TRIES`, `~/workspace/js`) |
 
 **Project Roots:**
 Used for auto-discovering project directories when creating a new Project entity. Scans two levels deep:
@@ -73,6 +75,15 @@ Used for auto-discovering project directories when creating a new Project entity
 6. If not found: Leave `location` empty (user can set manually later)
 
 **Note:** The `location` field always stores absolute paths for performance. The project-roots setting is only used during initial discovery when location is unset.
+
+**Activity Scan Roots:**
+Used by `skills/coach/scripts/activity-scan.mjs` to discover repositories for commit-to-journal logging.
+
+- Supports both env vars and explicit paths
+- Examples: `$CODE`, `$TRIES`, `~/workspace/js`, `/mnt/data/repos`
+- Env vars and `~` are expanded at runtime
+- Missing roots are skipped and reported in scanner output
+- CLI `--roots` overrides State defaults for one run
 
 Future settings may include:
 - Time/date format preferences
@@ -108,15 +119,16 @@ At session start, read `{vault}/Coach/State.md`:
 last-updated: 2026-01-25
 ---
 
-## Speak Settings
+# Speak Settings
 
 - enabled: false
 - speed: 1.0
 - voice: ryan
 
-## Preferences
+# Preferences
 
 - project-roots: ~/projects
+- activity-scan-roots: $CODE
 ```
 
 ## Parsing Guidelines
@@ -152,18 +164,21 @@ last-updated: 2026-01-25
 **User says:** "My projects are in ~/workspace/projects"
 **Action:** Set `project-roots: ~/workspace/projects`, update frontmatter `last-updated`
 
+**User says:** "Scan code activity from $CODE and $TRIES by default"
+**Action:** Set `activity-scan-roots: $CODE, $TRIES`, update frontmatter `last-updated`
+
 ## Future Extensions
 
 When adding new settings categories:
 
-1. **Create new section:** Add `## Section Name` header
+1. **Create new section:** Add `# Section Name` header
 2. **Use bullet list format:** `- key: value`
 3. **Document in this file:** Add section description above
 4. **Update SKILL.md:** Reference the new settings where relevant
 
 Example:
 ```markdown
-## Projects
+# Projects
 
 - root: ~/projects
 - default-location: ~/projects/personal

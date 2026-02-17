@@ -31,6 +31,7 @@ When users mention settings or preferences:
 | "speak slower", "slow down" | Decrease speed | State.md: `speed: [current - 0.2]` |
 | "use X voice", "change voice to X" | Change voice | State.md: `voice: X` |
 | "my projects are in X", "project directory is X" | Set project roots | State.md: `project-roots: X` |
+| "scan roots are X", "use $CODE and $TRIES for activity scan" | Set activity scan roots | State.md: `activity-scan-roots: X` |
 
 **Procedure:** [schema/state.md](schema/state.md) (sync on update section)
 
@@ -42,10 +43,21 @@ When users discuss projects, check if beads integration applies:
 |----------|--------|
 | User mentions project with `location` field | Check if `.beads` directory exists in location |
 | `.beads` exists | Use beads commands for all task operations |
-| `.beads` doesn't exist | Use markdown `## Tasks` section |
+| `.beads` doesn't exist | Use markdown `# Tasks` section |
 | Creating new project | Attempt location auto-discovery from `project-roots` |
 
 **Procedure:** [integrations/beads.md](integrations/beads.md)
+
+## Code Activity Scan Detection
+
+When users ask to inspect coding activity from repositories:
+
+| User Says | Action |
+|-----------|--------|
+| "scan $CODE", "what changed in my repos", "summarize recent commits", "log git activity" | Run standardized code activity scan and journal workflow |
+| "auto-journal commits", "track coding activity daily" | Use commit-level entries with commit timestamps and dedupe markers |
+
+**Procedure:** [procedures/activity-scanning.md](procedures/activity-scanning.md)
 
 ## Past Event Detection
 
@@ -77,8 +89,8 @@ When users reference existing entities (explicitly or implicitly):
 
 | Entry Type | Routing Destination |
 |------------|---------------------|
-| Routine entity update | Entity `## Log` only |
-| Significant milestone | Entity `## Log` + Journal reference |
+| Routine entity update | Entity `# Log` only |
+| Significant milestone | Entity `# Log` + Journal reference |
 | New entity mention | Check existing entities → create if no match |
 | General reflection | Journal `# Coach` section |
 | Multiple entities involved | Route to each entity log + optional journal reference |

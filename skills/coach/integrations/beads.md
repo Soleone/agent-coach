@@ -7,10 +7,10 @@ When user mentions project tasks or status:
 2. **THEN**: If location exists, check if `.beads` directory exists: `cd <location> && [ -d .beads ]`
 3. **IF .beads EXISTS**: Run `bd list` to get actual task status
    - **All tasks live in beads ONLY**
-   - Do NOT use `## Tasks` section in the markdown file
+   - Do NOT use `# Tasks` section in the markdown file
    - Do NOT create inline journal tasks for this project
    - Use beads commands exclusively for task tracking
-4. **IF .beads DOES NOT EXIST**: Only then use markdown `## Tasks` section
+4. **IF .beads DOES NOT EXIST**: Only then use markdown `# Tasks` section
 
 **Never assume markdown tasks - always check beads first.**
 
@@ -22,7 +22,7 @@ Check if a project is beads-managed:
 cd <location> && [ -d .beads ] && echo "BEADS" || echo "MARKDOWN"
 ```
 
-If output is "BEADS", use beads commands. Otherwise, use markdown `## Tasks` section.
+If output is "BEADS", use beads commands. Otherwise, use markdown `# Tasks` section.
 
 ## Loading Tasks (Session Start)
 
@@ -77,7 +77,7 @@ bd close <id> --reason "<text>"
    - Query state: `bd ready --json` or `bd list --status open --json`
    - Log to diary: Reference beads item ID (e.g., "Started work on ac-8jj")
 4. **If MARKDOWN:**
-   - Use `## Tasks` section in entity file
+   - Use `# Tasks` section in entity file
    - Or append inline tasks to journal with `#task` tag
 
 ## Prioritization Adjustments

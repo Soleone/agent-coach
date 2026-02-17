@@ -6,7 +6,7 @@
 
 ### Entity-Specific Entries
 
-**Append to entity file's `## Log` section:**
+**Append to entity file's `# Log` section:**
 - Updates about existing Goals, Projects, or Interests
 - Progress, breakthroughs, blockers related to specific entities
 - Format: `- [[YYYY-MM-DD]] HH:MM: entry text` (newest first)
@@ -19,6 +19,7 @@
 - Entries not tied to specific entities
 - Cross-cutting thoughts, decisions, or observations
 - Format: `- HH:MM: entry text`
+- Ordering: oldest first (append to end, never prepend)
 
 ### Dual Logging
 
@@ -65,8 +66,8 @@
    - **General topics:** Diary entry goes to journal's `# Coach` section
 
 **Decision tree:**
-- Known entity + routine update → Entity `## Log` only
-- Known entity + significant milestone → Entity `## Log` + Journal reference
+- Known entity + routine update → Entity `# Log` only
+- Known entity + significant milestone → Entity `# Log` + Journal reference
 - New entity mention → Check for existing entities FIRST, then create if no match
 - General reflection/thought → Journal `# Coach` section
 
@@ -119,13 +120,13 @@ When users mention events from the past, write those diary entries to the **corr
 ### Example 1: Entity-specific (route to entity log)
 
 - User: "Made progress on the CLI tool - got authentication working"
-- Action: Append to `Coach/Projects/CLI Tool.md` `## Log` section
+- Action: Append to `Coach/Projects/CLI Tool.md` `# Log` section
 - No journal entry needed (routine project update)
 
 ### Example 2: Significant milestone (dual logging)
 
 - User: "Shipped the CLI tool to production!"
-- Action 1: Append to `Coach/Projects/CLI Tool.md` `## Log`: `- [[YYYY-MM-DD]] 18:00: Shipped to production - first v1.0 release after 3 months work`
+- Action 1: Append to `Coach/Projects/CLI Tool.md` `# Log`: `- [[YYYY-MM-DD]] 18:00: Shipped to production - first v1.0 release after 3 months work`
 - Action 2: Journal reference: `- 18:00: Shipped [[Coach/Projects/CLI Tool]] to production - first public release`
 
 ### Example 3: General reflection (journal only)
@@ -136,6 +137,6 @@ When users mention events from the past, write those diary entries to the **corr
 ### Example 4: Multiple entities (route to each)
 
 - User: "Realized my Rust learning goal will help with the CLI project"
-- Action 1: Append to `Coach/Goals/Learn Rust.md` `## Log`
-- Action 2: Append to `Coach/Projects/CLI Tool.md` `## Log`
+- Action 1: Append to `Coach/Goals/Learn Rust.md` `# Log`
+- Action 2: Append to `Coach/Projects/CLI Tool.md` `# Log`
 - Action 3: Optional journal reference linking both
