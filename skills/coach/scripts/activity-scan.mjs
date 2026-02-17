@@ -185,7 +185,7 @@ function parseGitDate(authoredAt) {
 function ensureJournalTemplate(filePath, date) {
   if (fs.existsSync(filePath)) return;
   const weekday = new Date(`${date}T12:00:00`).toLocaleDateString("en-US", { weekday: "long" });
-  const content = `---\nWeekday:\n  - "${weekday}"\n---\n# Tasks\n![[tasks-default.base#Today]]\n\n# Accomplishments\n![[tasks-default.base#Done Today]]\n\n# Coach\n## Log\n`;
+  const content = `---\nWeekday:\n  - "${weekday}"\n---\n# Tasks\n![[tasks-default.base#Today]]\n\n# Accomplishments\n![[tasks-default.base#Done Today]]\n\n# Coach\n`;
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, content, "utf8");
 }
@@ -295,7 +295,7 @@ function main() {
     const entries = [...introEntries, ...commitEntries];
     const report = runLogManager({
       file: journalPath,
-      section: "# Coach > ## Log",
+      section: "# Coach",
       entries,
       apply: args.apply,
     });

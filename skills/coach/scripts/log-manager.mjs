@@ -4,7 +4,7 @@ import fs from "node:fs";
 function parseArgs(argv) {
   const args = {
     file: "",
-    section: "# Coach > ## Log",
+    section: "# Coach",
     entries: [],
     entriesFile: "",
     apply: false,
@@ -36,7 +36,7 @@ Usage:
   node skills/coach/scripts/log-manager.mjs --file <path> [options]
 
 Options:
-  --section <selector>    Header chain to target (default: "# Coach > ## Log")
+  --section <selector>    Header chain to target (default: "# Coach")
                          Entries in this section are merged and sorted oldest-first
   --entry <line>          Entry line to add (repeatable), with or without leading '- '
   --entries-file <path>   JSON file containing array of entry lines

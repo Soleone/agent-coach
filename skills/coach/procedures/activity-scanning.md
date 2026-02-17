@@ -67,7 +67,7 @@ node skills/coach/scripts/activity-scan.mjs --apply
 ```
 
 The scanner must write via `skills/coach/scripts/log-manager.mjs` semantics:
-- section selector default: `# Coach > ## Log`
+- section selector default: `# Coach`
 - merge without overwriting existing entries
 - sort resulting list oldest-first
 
@@ -123,7 +123,7 @@ Use commit date to choose file:
 - `2026-02-14 01:48:44 -0500` → `{journals}/2026-02-14.md`
 
 If journal file does not exist, create it with standard template and `# Coach` section.
-If `# Coach` exists with `## Log`, append under that section at the end of the list (oldest-first chronology).
+Append directly under `# Coach` at the end of the list (oldest-first chronology).
 Never replace existing log lines while inserting new commit entries.
 
 ### Step 5: Add scan rollup entry for traceability
