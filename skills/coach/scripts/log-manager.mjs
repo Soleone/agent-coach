@@ -146,14 +146,15 @@ function findSectionRange(text, selectorParts) {
 
 function sortKeyForEntry(line) {
   const body = line.replace(/^-\s*/, "").trim();
+  const priority = body.includes("(project-intro:") ? "0" : "1";
 
   const entity = body.match(/^\[\[(\d{4}-\d{2}-\d{2})\]\]\s+(\d{2}:\d{2})/);
-  if (entity) return `${entity[1]}T${entity[2]}|${body}`;
+  if (entity) return `${entity[1]}T${entity[2]}|${priority}|${body}`;
 
   const daily = body.match(/^(\d{2}:\d{2})/);
-  if (daily) return `0000-00-00T${daily[1]}|${body}`;
+  if (daily) return `0000-00-00T${daily[1]}|${priority}|${body}`;
 
-  return `9999-99-99T99:99|${body}`;
+  return `9999-99-99T99:99|${priority}|${body}`;
 }
 
 function isBullet(line) {

@@ -166,6 +166,7 @@ function readCommits(repo, since, includeMerges) {
       const parsed = parseGitDate(authoredAt);
       return {
         repo: repo.name,
+        repoPath: repo.path,
         hash,
         date: parsed.date,
         time: parsed.time,
@@ -187,6 +188,35 @@ function ensureJournalTemplate(filePath, date) {
   const content = `---\nWeekday:\n  - "${weekday}"\n---\n# Tasks\n![[tasks-default.base#Today]]\n\n# Accomplishments\n![[tasks-default.base#Done Today]]\n\n# Coach\n## Log\n`;
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, content, "utf8");
+}
+
+function readProjectDescription(repoPath, fallbackSummary) {
+  const packageJsonPath = path.join(repoPath, "package.json");
+  if (fs.existsSync(packageJsonPath)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+      if (typeof parsed.description === "string" && parsed.description.trim().length > 0) {
+        return parsed.description.trim();
+      }
+    } catch {
+      // ignore malformed package.json
+    }
+  }
+
+  return fallbackSummary || "Active development project tracked via git activity scanner.";
+}
+
+function hasProjectIntroMarker(journalsDir, repoName) {
+  if (!fs.existsSync(journalsDir)) return false;
+  const marker = `(project-intro:${repoName})`;
+
+  for (const entry of fs.readdirSync(journalsDir, { withFileTypes: true })) {
+    if (!entry.isFile() || !entry.name.endsWith(".md")) continue;
+    const content = fs.readFileSync(path.join(journalsDir, entry.name), "utf8");
+    if (content.includes(marker)) return true;
+  }
+
+  return false;
 }
 
 function runLogManager({ file, section, entries, apply }) {
@@ -235,14 +265,34 @@ function main() {
     commitsByDate.get(commit.date).push(commit);
   }
 
+  const introEntriesByDate = new Map();
+  const firstCommitByRepo = new Map();
+  for (const commit of selectedCommits) {
+    if (!firstCommitByRepo.has(commit.repo)) {
+      firstCommitByRepo.set(commit.repo, commit);
+    }
+  }
+
+  for (const [repoName, firstCommit] of firstCommitByRepo.entries()) {
+    if (hasProjectIntroMarker(journalsDir, repoName)) continue;
+
+    const description = readProjectDescription(firstCommit.repoPath, firstCommit.summary);
+    const intro = `- ${firstCommit.time}: [${repoName}] Project overview: ${description} (project-intro:${repoName})`;
+
+    if (!introEntriesByDate.has(firstCommit.date)) introEntriesByDate.set(firstCommit.date, []);
+    introEntriesByDate.get(firstCommit.date).push(intro);
+  }
+
   const filesToUpdate = [];
-  let commitsLogged = 0;
+  let loggedEntries = 0;
 
   for (const [date, commits] of [...commitsByDate.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
     const journalPath = path.join(journalsDir, `${date}.md`);
     if (args.apply) ensureJournalTemplate(journalPath, date);
 
-    const entries = commits.map((c) => `- ${c.time}: [${c.repo}] ${c.summary} (git:${c.hash})`);
+    const introEntries = introEntriesByDate.get(date) ?? [];
+    const commitEntries = commits.map((c) => `- ${c.time}: [${c.repo}] ${c.summary} (git:${c.hash})`);
+    const entries = [...introEntries, ...commitEntries];
     const report = runLogManager({
       file: journalPath,
       section: "# Coach > ## Log",
@@ -250,7 +300,7 @@ function main() {
       apply: args.apply,
     });
 
-    commitsLogged += report.addedEntries;
+    loggedEntries += report.addedEntries;
     if (report.changed) {
       filesToUpdate.push({ path: journalPath, added: report.addedEntries });
     }
@@ -263,7 +313,7 @@ function main() {
   const todayPath = path.join(journalsDir, `${today}.md`);
   if (args.apply) ensureJournalTemplate(todayPath, today);
 
-  const rollup = `- ${nowTime}: Activity scan run (${source} roots) scanned ${repos.length} repos across ${roots.length} roots, ${activeRepos.size} repos had activity, logged ${commitsLogged} commit entries for since=\"${args.since}\".`;
+  const rollup = `- ${nowTime}: Activity scan run (${source} roots) scanned ${repos.length} repos across ${roots.length} roots, ${activeRepos.size} repos had activity, logged ${loggedEntries} entries (project intros + commits) for since=\"${args.since}\".`;
   const rollupReport = runLogManager({
     file: todayPath,
     section: "# Coach",
@@ -285,7 +335,7 @@ function main() {
     reposWithActivity: activeRepos.size,
     commitsConsidered: allCommits.length,
     commitsSelected: selectedCommits.length,
-    commitsLogged,
+    entriesLogged: loggedEntries,
     filesToUpdate,
   };
 

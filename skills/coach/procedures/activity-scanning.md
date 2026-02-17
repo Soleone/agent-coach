@@ -18,6 +18,17 @@ Use this when user asks for:
 
 ## Output Contract
 
+### 0) New-project intro entry (required)
+
+When a repo is seen for the first time in activity logs, add one intro line before its commit lines.
+
+- Target file: journal page of that repo's first scanned commit date
+- Entry format:
+  - `- HH:MM: [repo] Project overview: <what it is about> (project-intro:<repo>)`
+- Timestamp:
+  - Default to same timestamp as first commit for that repo
+  - If needed, can be 1 minute earlier, but same time is acceptable
+
 ### 1) Commit-level diary entries (required)
 
 Write one entry per commit using the commit's local timestamp.
@@ -32,6 +43,7 @@ Write one entry per commit using the commit's local timestamp.
 - Use commit timestamp, not current time
 - Keep summary concise and human-readable
 - Include `git:<hash>` marker for dedupe
+- Include `project-intro:<repo>` marker for one-time project intro dedupe
 - Skip merge commits unless user explicitly asks to include them
 - Journal ordering is **oldest first**; new entries are appended in chronological order
 - Preserve existing entries; never overwrite or reorder prior lines unless explicitly requested
