@@ -70,13 +70,13 @@ For each Project file read from `{vault}/Coach/Projects/*.md`:
    - `cd <location> && bd list --status in_progress --json` - Get currently active tasks
    - `cd <location> && bd list --status done --json | head -20` - Get recently completed tasks (limit to recent 20)
 4. Parse JSON and incorporate into your understanding of the project's current state
-5. Use this context when prioritizing and coaching (e.g., "I see you're working on ac-8jj...")
+5. Use this context when prioritizing and coaching by task title (not task ID)
 
 **Why this matters:**
 - Projects using beads have ALL tasks in the beads system, not in markdown
 - You need this context to provide relevant coaching
 - Recent completions show momentum, in-progress shows current focus, ready shows what's next
-- Include task IDs (e.g., ac-8jj) when referencing specific tasks in conversation
+- User-facing references should use task titles only
 
 See [integrations/beads.md](../integrations/beads.md) for beads command reference.
 

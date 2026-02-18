@@ -37,7 +37,7 @@ cd <location> && bd list --status done --json | head -20  # Recent completions
 Parse JSON and use this context when:
 - Prioritizing work
 - Coaching on next steps
-- Referencing specific tasks by ID
+- Referencing specific tasks by title
 
 See [procedures/session-start.md](../procedures/session-start.md) for details on loading beads tasks.
 
@@ -75,7 +75,7 @@ bd close <id> --reason "<text>"
 3. **If BEADS:**
    - Create items: `bd create "<title>" -t task|feature|bug` or `-l idea|thought`
    - Query state: `bd ready --json` or `bd list --status open --json`
-   - Log to diary: Reference beads item ID (e.g., "Started work on ac-8jj")
+   - Log to diary: Use task titles only (no task IDs)
 4. **If MARKDOWN:**
    - Use `# Tasks` section in entity file
    - Or append inline tasks to journal with `#task` tag
@@ -91,16 +91,18 @@ For beads-managed projects, adjust priority scores:
 
 See [behavior/prioritization.md](../behavior/prioritization.md) for base prioritization algorithm.
 
-## Diary Logging
+## Task References (Everywhere)
 
-When referencing beads tasks in diary entries, include task IDs:
+When talking about beads tasks in conversation or diary entries, use task titles only.
+
+**Rule:** Never expose task IDs in user-facing text.
+- Conversation: title only
+- Diary entries: title only
+- Status summaries: title only
+
+Task IDs are internal implementation details and may still be used for CLI commands when required.
 
 **Good examples:**
-- `- 14:30: Started work on ac-8jj (implement auth module)`
-- `- 16:45: Completed ac-7d0 - all tests passing`
-- `- 09:15: Created new task ac-9kl for refactoring`
-
-**Why include IDs:**
-- Enables cross-referencing between diary and beads
-- User can look up the task later
-- Creates audit trail
+- `- 14:30: Started work on "When speaking directory paths should only speak the last part of the path."`
+- `- 16:45: Completed "Add quirks customization feature to coach"`
+- `- 09:15: Created new task "Weekly review mode"`
