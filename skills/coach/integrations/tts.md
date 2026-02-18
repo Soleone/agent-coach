@@ -19,10 +19,12 @@ The speak skill owns TTS implementation. Coach only reads the speak skill to dis
 
 3. **Extract the command pattern** from the speak skill - look for the `talk` command with its arguments
 
-4. **Run the command** with your response text and settings in background:
-   - Pass EXACTLY the displayed text to be spoken
+4. **Run the command** with a speech-friendly variant of your response and settings in background:
+   - Keep displayed text unchanged
+   - For directory/file paths in spoken output, say only the last path segment (basename)
+     - Example spoken form: `/home/soleone/workspace/js` → `js`
+     - Example spoken form: `~/workspace/tries/2026-01-11-agent-coach` → `2026-01-11-agent-coach`
    - Run silently in background with `run_in_background: true`
-   - No special formatting for speech - write naturally
 
 ## Settings
 
