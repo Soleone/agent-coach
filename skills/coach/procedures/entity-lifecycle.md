@@ -110,10 +110,10 @@ See [schema/entities.md](../schema/entities.md) for entity file formats.
 ## Update
 
 1. **Edit existing file:** Update frontmatter `updated-at`, modify content
-2. **Append to entity's `# Log` section:** Add entry with format `- [[YYYY-MM-DD]] HH:MM: entry text` (newest first)
+2. **Write to entity's `# Log` via `skills/coach/scripts/log-manager.mjs`:** Add entry with format `- [[YYYY-MM-DD]] HH:MM: entry text` (chronological, oldest first)
 3. **For Goals/Projects:** Update status, progress, milestones, blockers, next actions as needed
 4. **For Interests:** Add notes, resources, related links as needed
-5. **Optional journal reference** if chronologically significant: `- HH:MM: Updated [[Coach/EntityType/Title]] - [brief summary]`
+5. **Optional journal reference** if chronologically significant: write to journal `# Coach` via log-manager with `- HH:MM: Updated [[Coach/EntityType/Title]] - [brief summary]`
 
 **Smart routing examples:**
 - "Made progress on Rust project" → Entity log only (routine update)
@@ -149,7 +149,7 @@ When Ideas grow into Goals/Projects/Interests:
 **Actions:**
 1. Read `Coach/Interests/ARC Raiders.md` (matched entity)
 2. Update frontmatter: `updated-at: YYYY-MM-DD`
-3. Append to `# Log`: `- [[YYYY-MM-DD]] 15:30: Played today - really fun game`
+3. Write to `# Log` via log-manager: `- [[YYYY-MM-DD]] 15:30: Played today - really fun game`
 4. No journal entry needed (routine update)
 
 **What would have happened without matching:**
@@ -195,7 +195,7 @@ When Ideas grow into Goals/Projects/Interests:
 1. Edit `Coach/Goals/Learn Rust.md`:
    - Update frontmatter: `updated-at: YYYY-MM-DD`
    - Mark milestone complete in `# Tasks` if applicable
-   - Append to `# Log`: `- [[YYYY-MM-DD]] 14:30: Completed Chapter 4 - breakthrough on ownership concept, finally clicked after working through examples`
+   - Write to `# Log` via log-manager: `- [[YYYY-MM-DD]] 14:30: Completed Chapter 4 - breakthrough on ownership concept, finally clicked after working through examples`
 2. Journal reference (optional, since this is significant): `- 14:30: Breakthrough on [[Coach/Goals/Learn Rust]] - ownership finally clicked`
 
 **Note:** Routine progress updates only go to entity log. Breakthroughs/milestones can optionally get journal references.
@@ -212,6 +212,6 @@ When Ideas grow into Goals/Projects/Interests:
 1. Edit `Coach/Projects/Rust CLI Tool.md`:
    - Update frontmatter: `updated-at: YYYY-MM-DD`
    - Add to `# Blockers` section: "Too complex for current skill level"
-   - Append to `# Log`: `- [[YYYY-MM-DD]] 16:20: Hit blocker - project too complex for current level, will try simpler example first to build fundamentals`
+   - Write to `# Log` via log-manager: `- [[YYYY-MM-DD]] 16:20: Hit blocker - project too complex for current level, will try simpler example first to build fundamentals`
 2. Prepend to `Coach/Ideas.md`: `- [[YYYY-MM-DD]]: Try simpler Rust example before CLI tool`
 3. Journal: No entry needed (entity log captures context, not chronologically significant)

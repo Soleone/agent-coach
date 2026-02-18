@@ -59,18 +59,19 @@ When users ask to inspect coding activity from repositories:
 
 **Procedure:** [procedures/activity-scanning.md](procedures/activity-scanning.md)
 
-## Past Event Detection
+## Temporal Event Detection
 
-When users mention events from the past, route to historical journal pages:
+When users mention timed events (past, present, or future), route each event to the correct journal page and write separate timeline entries via `skills/coach/scripts/log-manager.mjs`.
 
 | User Says | Calculate Date | Target File |
 |-----------|----------------|-------------|
 | "yesterday" | `date -d "yesterday" +"%Y-%m-%d"` | `{journals}/[DATE].md` |
-| "last Monday", "last Tuesday", etc. | `date -d "last [DAY]" +"%Y-%m-%d"` | `{journals}/[DATE].md` |
-| "N days ago" | `date -d "N days ago" +"%Y-%m-%d"` | `{journals}/[DATE].md` |
+| "last Monday", "N days ago" | `date -d "last [DAY]"` / `date -d "N days ago"` | `{journals}/[DATE].md` |
+| "today", "just now", no date mention | `date +"%Y-%m-%d"` | `{journals}/[DATE].md` |
+| "tomorrow", "next Monday", "in 3 days" | `date -d "tomorrow"` / `date -d "next [DAY]"` / `date -d "in N days"` | `{journals}/[DATE].md` |
 | "on January 10th", absolute dates | Parse and format to YYYY-MM-DD | `{journals}/[DATE].md` |
 
-**Procedure:** [procedures/diary-routing.md](procedures/diary-routing.md) (date detection section)
+**Procedure:** [procedures/diary-routing.md](procedures/diary-routing.md) (temporal event routing section)
 
 ## Entity Context Detection
 

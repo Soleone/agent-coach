@@ -40,7 +40,7 @@ Links, materials, references (when applicable).
 Links to other entities (when applicable).
 
 # Log
-- [[YYYY-MM-DD]] HH:MM: What changed (newest first)
+- [[YYYY-MM-DD]] HH:MM: What changed (chronological, oldest first; maintain via log-manager)
 ```
 
 **Section rules:**
@@ -48,7 +48,7 @@ Links to other entities (when applicable).
 - Use `#` section headers inside entity files
 - `# Status` - Required, first section after frontmatter
 - `# Tasks` - Optional, skip for beads-managed projects
-- `# Log` - Recommended, always last section when present
+- `# Log` - Recommended, always last section when present; write via `skills/coach/scripts/log-manager.mjs`
 - Other sections - Optional, include when relevant
 - Order - Always maintain the same order when sections are present
 

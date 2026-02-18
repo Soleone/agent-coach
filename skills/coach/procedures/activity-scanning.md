@@ -46,7 +46,7 @@ Write one entry per commit using the commit's local timestamp.
 - Include `project-intro:<repo>` marker for one-time project intro dedupe
 - Skip merge commits unless user explicitly asks to include them
 - Journal ordering is **oldest first**; new entries are appended in chronological order
-- Preserve existing entries; never overwrite or reorder prior lines unless explicitly requested
+- Preserve existing entries/content; ordering is maintained chronologically (oldest first) via log-manager
 
 ### 2) Scan rollup entry (required)
 
@@ -123,8 +123,8 @@ Use commit date to choose file:
 - `2026-02-14 01:48:44 -0500` → `{journals}/2026-02-14.md`
 
 If journal file does not exist, create it with standard template and `# Coach` section.
-Append directly under `# Coach` at the end of the list (oldest-first chronology).
-Never replace existing log lines while inserting new commit entries.
+Write entries via log-manager into `# Coach` so merge + chronology are deterministic.
+Never replace existing log content while inserting new commit entries.
 
 ### Step 5: Add scan rollup entry for traceability
 

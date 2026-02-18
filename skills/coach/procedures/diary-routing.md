@@ -6,20 +6,20 @@
 
 ### Entity-Specific Entries
 
-**Append to entity file's `# Log` section:**
+**Write to entity file's `# Log` section via `skills/coach/scripts/log-manager.mjs`:**
 - Updates about existing Goals, Projects, or Interests
 - Progress, breakthroughs, blockers related to specific entities
-- Format: `- [[YYYY-MM-DD]] HH:MM: entry text` (newest first)
-- Example: User says "I finished chapter 4 of the Rust book" → append to `Coach/Goals/Learn Rust.md`
+- Format: `- [[YYYY-MM-DD]] HH:MM: entry text` (chronological, oldest first)
+- Example: User says "I finished chapter 4 of the Rust book" → write to `Coach/Goals/Learn Rust.md` `# Log` via log-manager
 
 ### General/Meta Entries
 
-**Append to journal's `# Coach` section:**
+**Write to journal's `# Coach` section via `skills/coach/scripts/log-manager.mjs`:**
 - Daily journal page: `{vault}/{journals}/YYYY-MM-DD.md`
 - Entries not tied to specific entities
 - Cross-cutting thoughts, decisions, or observations
 - Format: `- HH:MM: entry text`
-- Ordering: oldest first (append to end, never prepend)
+- Ordering: chronological (oldest first), enforced by log-manager
 
 ### Dual Logging
 
@@ -28,6 +28,37 @@
 - Entity log: Full detailed entry
 - Journal: Brief reference with entity link
 - Example: Major milestone completion, pivot decisions
+
+## Log Writing Mechanism (Deterministic)
+
+For all timestamped timeline/log sections, use `skills/coach/scripts/log-manager.mjs` instead of manual append/prepend.
+
+**Applies to:**
+- Journal timeline: `# Coach`
+- Entity timelines: `# Log`
+
+**Does not apply to append-only knowledge files:**
+- `Coach/Ideas.md`
+- `Coach/Thoughts.md`
+
+**Command patterns:**
+```bash
+# Journal timeline
+node skills/coach/scripts/log-manager.mjs \
+  --file {vault}/{journals}/YYYY-MM-DD.md \
+  --section "# Coach" \
+  --entry "HH:MM: entry text" \
+  --apply
+
+# Entity timeline
+node skills/coach/scripts/log-manager.mjs \
+  --file {vault}/Coach/Projects/Project.md \
+  --section "# Log" \
+  --entry "[[YYYY-MM-DD]] HH:MM: entry text" \
+  --apply
+```
+
+This guarantees merge safety, dedupe behavior, and oldest-first ordering.
 
 ## When to Capture
 
@@ -71,72 +102,93 @@
 - New entity mention → Check for existing entities FIRST, then create if no match
 - General reflection/thought → Journal `# Coach` section
 
-## Date Detection for Past Events
+## Temporal Event Routing (Past, Present, Future)
 
-When users mention events from the past, write those diary entries to the **correct historical journal page**, NOT today's page.
+When users mention events anchored to time, route each event to the correct journal date and write it as a **separate timeline entry**.
 
-**Common date references to detect:**
-- **Relative:** "yesterday", "last Monday", "last week", "3 days ago", "2 weeks ago"
-- **Absolute:** "on January 10th", "January 10", "2026-01-10", "Jan 10"
-- **Contextual:** "this morning" (if it's now evening), "earlier today"
+**Critical rule:** Never collapse multiple timed events into one narrative coach line.
 
-### How to Calculate the Date
+- ✅ `- 10:00: Dentist appointment`
+- ✅ `- 18:00: Dinner at restaurant X`
+- ❌ `- 00:40: User mentioned dentist at 10 and dinner at 6`
 
-1. **Relative dates using `date` command:**
-   - Yesterday: `date -d "yesterday" +"%Y-%m-%d"` (Linux) or `date -v-1d +"%Y-%m-%d"` (macOS)
-   - Last Monday: `date -d "last Monday" +"%Y-%m-%d"` (Linux) or calculate day offset
-   - N days ago: `date -d "3 days ago" +"%Y-%m-%d"` (Linux) or `date -v-3d +"%Y-%m-%d"`
-   - Last week: `date -d "last week" +"%Y-%m-%d"` or `date -v-7d +"%Y-%m-%d"`
+### Date + Time Resolution
 
-2. **Absolute dates:** Parse the date and format to YYYY-MM-DD
-   - "January 10th" → determine year (current year, or previous if date would be in future) → "2026-01-10"
-   - Use current year unless the resulting date would be in the future (then use previous year)
+For each mentioned event, resolve:
+1. **Target date** (which journal page)
+2. **Event time** (`HH:MM`, 24-hour)
+3. **Event description** (concise action/outcome)
 
-3. **Default:** If no past date mentioned, use today: `date +"%Y-%m-%d"`
+Then write one line: `- HH:MM: event text`
 
-**Target journal file:** `{vault}/{journals}/[CALCULATED-DATE].md`
+### How to Calculate Target Date
+
+1. **Past-relative references:**
+   - Yesterday: `date -d "yesterday" +"%Y-%m-%d"`
+   - Last Monday: `date -d "last Monday" +"%Y-%m-%d"`
+   - N days ago: `date -d "3 days ago" +"%Y-%m-%d"`
+   - Last week: `date -d "last week" +"%Y-%m-%d"`
+
+2. **Future-relative references:**
+   - Tomorrow: `date -d "tomorrow" +"%Y-%m-%d"`
+   - Next Monday: `date -d "next Monday" +"%Y-%m-%d"`
+   - In N days: `date -d "in 3 days" +"%Y-%m-%d"`
+
+3. **Absolute dates:** Parse and format to `YYYY-MM-DD`
+   - "January 10th" → infer year (current year unless that would be future for a past-tense statement)
+
+4. **No explicit date:** default to today: `date +"%Y-%m-%d"`
+
+**Target file pattern:** `{vault}/{journals}/[CALCULATED-DATE].md`
+
+### Event Time Handling
+
+- If user gives explicit time ("10am", "2:30 pm"), convert to `HH:MM`
+- If user gives a rough time ("around 11", "after lunch"), normalize to best available concrete time
+- If no time is given, use current time for that entry
 
 ### Example Workflows
 
-- User: "Yesterday I met with the team and decided to pivot"
-  1. Detect "Yesterday" → run `date -d "yesterday" +"%Y-%m-%d"` → "2026-01-23"
-  2. Write to `{vault}/{journals}/2026-01-23.md` under `# Coach`
-  3. Entry: `- 14:30: Met with team and decided to pivot project`
+- User: "Yesterday at 2pm I met with X"
+  1. Date → yesterday journal page
+  2. Time → `14:00`
+  3. Write: `- 14:00: Met with X`
 
-- User: "Last Monday I started learning Rust"
-  1. Detect "Last Monday" → run `date -d "last Monday" +"%Y-%m-%d"` → "2026-01-20"
-  2. Write to `{vault}/{journals}/2026-01-20.md` under `# Coach`
-  3. Entry: `- 09:00: Started learning Rust`
+- User: "Dentist tomorrow at 10am and dinner at 6pm"
+  1. Date → tomorrow journal page
+  2. Create two entries:
+     - `- 10:00: Dentist appointment`
+     - `- 18:00: Dinner`
 
-- User: "On January 10th I had a breakthrough"
-  1. Parse "January 10th" → check if 2026-01-10 is in future → if yes, use 2025-01-10
-  2. Write to `{vault}/{journals}/2025-01-10.md` or `{vault}/{journals}/2026-01-10.md`
-  3. Entry: `- 15:00: Had a breakthrough`
+- User: "I just finished a call with John"
+  1. Date → today
+  2. Time → current `date +"%H:%M"` (unless explicit time given)
+  3. Write: `- HH:MM: Finished call with John`
 
-**CRITICAL:** Always calculate and use the correct historical date for the journal file path.
+**CRITICAL:** Timeline entries can include past and future timestamps on the same day; keep whole-day chronology (oldest first).
 
 ## Routing Examples
 
 ### Example 1: Entity-specific (route to entity log)
 
 - User: "Made progress on the CLI tool - got authentication working"
-- Action: Append to `Coach/Projects/CLI Tool.md` `# Log` section
+- Action: Write to `Coach/Projects/CLI Tool.md` `# Log` via log-manager
 - No journal entry needed (routine project update)
 
 ### Example 2: Significant milestone (dual logging)
 
 - User: "Shipped the CLI tool to production!"
-- Action 1: Append to `Coach/Projects/CLI Tool.md` `# Log`: `- [[YYYY-MM-DD]] 18:00: Shipped to production - first v1.0 release after 3 months work`
-- Action 2: Journal reference: `- 18:00: Shipped [[Coach/Projects/CLI Tool]] to production - first public release`
+- Action 1: Write to `Coach/Projects/CLI Tool.md` `# Log` via log-manager: `- [[YYYY-MM-DD]] 18:00: Shipped to production - first v1.0 release after 3 months work`
+- Action 2: Journal reference via log-manager: `- 18:00: Shipped [[Coach/Projects/CLI Tool]] to production - first public release`
 
 ### Example 3: General reflection (journal only)
 
 - User: "I've been thinking about work-life balance lately"
-- Action: Append to journal's `# Coach`: `- 14:30: Reflecting on work-life balance - need to set better boundaries`
+- Action: Write to journal `# Coach` via log-manager: `- 14:30: Reflecting on work-life balance - need to set better boundaries`
 
 ### Example 4: Multiple entities (route to each)
 
 - User: "Realized my Rust learning goal will help with the CLI project"
-- Action 1: Append to `Coach/Goals/Learn Rust.md` `# Log`
-- Action 2: Append to `Coach/Projects/CLI Tool.md` `# Log`
+- Action 1: Write to `Coach/Goals/Learn Rust.md` `# Log` via log-manager
+- Action 2: Write to `Coach/Projects/CLI Tool.md` `# Log` via log-manager
 - Action 3: Optional journal reference linking both

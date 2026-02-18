@@ -110,6 +110,7 @@ See [schema/entities.md](schema/entities.md) for complete entity formats.
 - Entity-specific updates → Entity `# Log`
 - General reflections → Journal `# Coach`
 - Significant milestones → Both (dual logging)
+- For timestamped timeline/log sections, use `skills/coach/scripts/log-manager.mjs` (deterministic ordering + merge safety)
 
 **Memory Retrieval:**
 - Read today's journal first, then previous 2-3 days
