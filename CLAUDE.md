@@ -17,6 +17,13 @@ bd sync               # Sync with git
 - Use `/skill-creator` when modifying skills - it has specialized knowledge for Claude skills
 - This project builds a coach skill that uses Obsidian vaults for memory
 
+## Commit Type Conventions
+
+- `feat`: behavior/spec changes in `skills/` (including `.md` files)
+- `refactor`: structure changes without behavior change
+- `chore`: beads/sync/maintenance work
+- `docs`: repo-facing docs only (mainly `README.md`)
+
 ## Documentation Architecture
 
 **Critical: Single Source of Truth**
